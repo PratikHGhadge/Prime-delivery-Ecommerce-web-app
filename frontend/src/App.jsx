@@ -1,12 +1,18 @@
-import { useState } from "react";
-import ProductList from "./features/productList/ProductList";
+import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <ProductList />
-    </>
+    <div className="APP">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
