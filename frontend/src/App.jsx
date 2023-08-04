@@ -1,3 +1,5 @@
+import CartPage from "./pages/CartPage";
+import CheckOutPage from "./pages/CheckOutPage";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -10,6 +12,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckOutPage />} />
         </Routes>
       </BrowserRouter>
     </div>

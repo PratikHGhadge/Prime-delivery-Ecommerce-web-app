@@ -101,6 +101,46 @@ const products = [
     price: "$35",
     color: "Black",
   },
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$35",
+    color: "Black",
+  },
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$35",
+    color: "Black",
+  },
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$35",
+    color: "Black",
+  },
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$35",
+    color: "Black",
+  },
   // More products...
 ];
 
@@ -292,6 +332,7 @@ export default function ProductList() {
               </div>
             </div>
 
+            {/* Product and filter page start here */}
             <section aria-labelledby="products-heading" className="pb-24 pt-6">
               <h2 id="products-heading" className="sr-only">
                 Products
@@ -299,7 +340,7 @@ export default function ProductList() {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Filters */}
-                <form className="hidden lg:block">
+                <form className="lg:col-span-1 hidden lg:block">
                   <h3 className="sr-only">Categories</h3>
 
                   {filters.map((section) => (
@@ -330,6 +371,7 @@ export default function ProductList() {
                               </span>
                             </Disclosure.Button>
                           </h3>
+
                           <Disclosure.Panel className="pt-6">
                             <div className="space-y-4">
                               {section.options.map((option, optionIdx) => (
@@ -363,7 +405,7 @@ export default function ProductList() {
 
                 {/* Product grid */}
                 <div className="lg:col-span-3">
-                  <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                  <div className="mx-auto max-w-2xl px-4 py-4  sm:px-6  lg:max-w-7xl lg:px-8">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">
                       Customers also purchased
                     </h2>
@@ -404,8 +446,9 @@ export default function ProductList() {
                 </div>
               </div>
             </section>
-            {/* product and filter page ends here */}
-            <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+
+            {/* product and filter page ends here  pagination starts */}
+            <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 pb-4 sm:px-6">
               <div className="flex flex-1 justify-between sm:hidden">
                 <a
                   href="#"
@@ -435,7 +478,7 @@ export default function ProductList() {
                   >
                     <a
                       href="#"
-                      className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                      className="relative inline-flex items-center rounded-l-md px-2 py-2 hover:text-white  ring-1 ring-inset ring-gray-300 hover:bg-custom-darkblue4 focus:z-20 focus:outline-offset-0"
                     >
                       <span className="sr-only">Previous</span>
                       <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -444,7 +487,7 @@ export default function ProductList() {
                     <a
                       href="#"
                       aria-current="page"
-                      className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="relative z-10 inline-flex items-center bg-custom-darkblue4 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                     >
                       1
                     </a>
