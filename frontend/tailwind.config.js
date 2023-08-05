@@ -11,6 +11,9 @@ export default {
         "custom-darkblue3": "#347288",
         "custom-darkblue4": "#66b6d2",
       },
+      gridTemplateRows: {
+        "[auto,auto,1fr]": "auto auto 1fr",
+      },
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],
