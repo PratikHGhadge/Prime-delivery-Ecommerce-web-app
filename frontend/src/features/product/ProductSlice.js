@@ -1,41 +1,46 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount } from "./counterAPI";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchAllProducts, fetchProductsByFilter } from "./ProductListAPI";
 
 const initialState = {
   value: 0,
+  products: [],
   status: "idle",
 };
 
-export const incrementAsync = createAsyncThunk(
-  "counter/fetchCount",
-  async (amount) => {
-    const response = await fetchCount(amount);
-    // The values we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
-
-export const couterSlice = createSlice({
-  name: "counter",
+export const productSlice = createSlice({
+  name: "products",
   initialState,
   reducers: {
-    // counter slice action
-    increment: (state) => {
-      state.value += 1;
+    // sorting slice action
+    sortProducts: (state, action) => {
+      const sortOption = action.payload;
+      if (sortOption === "lowToHigh") {
+        state.products.sort((a, b) => a.price - b.price);
+      } else if (sortOption === "highToLow") {
+        state.products.sort((a, b) => b.price - a.price);
+      } else if (sortOption === "sortByRatings") {
+        state.products.sort((a, b) => b.rating - a.rating);
+      }
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(incrementAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(incrementAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.value += action.payload;
-      });
+    builder.addCase(fetchAllProducts.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
+      state.status = "idle";
+      state.products = action.payload;
+    });
+    builder.addCase(fetchProductsByFilter.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchProductsByFilter.fulfilled, (state, action) => {
+      state.status = "idle";
+      state.products = action.payload;
+    });
   },
 });
 
-export const { increment } = couterSlice.actions;
-export const selectCount = (state) => state.counter.value;
-export default couterSlice.reducer;
+// Export the sortProducts action
+export const { sortProducts } = productSlice.actions;
+export default productSlice;

@@ -39,11 +39,13 @@ function Navbar({ children }) {
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className=" invisible  md:visible  relative top-2 mt-16 h-auto pb-1 w-[190px] "
-                        src="./assets/logo2.png"
-                        alt="prime delivery"
-                      />
+                      <Link to={"/home"}>
+                        <img
+                          className=" invisible  md:visible  relative top-2 mt-16 h-auto pb-1 w-[190px] "
+                          src="./assets/logo2.png"
+                          alt="prime delivery"
+                        />
+                      </Link>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">

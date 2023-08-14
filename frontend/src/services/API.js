@@ -1,7 +1,3 @@
 import axios from "axios";
-const API = axios.create({ baseURL: process.env.REACT_APP_BASEURL });
-
-//Interceptor
-// API.interceptors.request.use((req)=>{})
-
+const API = axios.create({ baseURL: import.meta.env.VITE_BASE_URL });
 export default API;
