@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { filters } from "./filtersData";
+import { filters, sortOptions } from "./filtersData";
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -10,19 +10,12 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { fetchProductsByFilter } from "../ProductListAPI";
+import { fetchProductsByFilterAndPage } from "../ProductListAPI";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "./Pagination";
 import Mobilefilter from "./Mobilefilter";
 import { sortProducts } from "../ProductSlice";
-
-const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false, value: "sortByRatings" },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false, value: "lowToHigh" },
-  { name: "Price: High to Low", href: "#", current: false, value: "highToLow" },
-];
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -31,12 +24,19 @@ function classNames(...classes) {
 export default function ProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
+  const { products, totalItem } = useSelector((state) => state.products);
   const [filter, setFilter] = useState({});
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(fetchProductsByFilter(filter));
-  }, [dispatch]);
+    dispatch(
+      fetchProductsByFilterAndPage({
+        filter,
+        page,
+        limit: ITEMS_PER_PAGE,
+      })
+    );
+  }, [dispatch, page]);
 
   const handelFilter = (e, option, section) => {
     const newFilter = { ...filter };
@@ -56,13 +56,24 @@ export default function ProductList() {
       setFilter(newFilter);
     }
     // Dispatch the fetchProductsByFilter action with the updated filter
-    dispatch(fetchProductsByFilter({ filter: newFilter }));
+    dispatch(fetchProductsByFilterAndPage({ filter: newFilter }));
     // Update the component's state with the new filter
     setFilter(newFilter);
   };
 
   const handleSort = (sortOption) => {
     dispatch(sortProducts(sortOption));
+  };
+
+  const handlePage = (newPage) => {
+    dispatch(
+      fetchProductsByFilterAndPage({
+        filter,
+        page: newPage,
+        limit: ITEMS_PER_PAGE,
+      })
+    );
+    setPage(newPage);
   };
 
   return (
@@ -286,7 +297,12 @@ export default function ProductList() {
             </section>
           </main>
           {/* Pagination */}
-          <Pagination />
+          <Pagination
+            page={page}
+            setPage={setPage}
+            totalItem={totalItem}
+            handlePage={handlePage}
+          />
         </div>
       </div>
     </div>

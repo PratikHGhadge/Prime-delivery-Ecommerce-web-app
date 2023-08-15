@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProducts, fetchProductsByFilter } from "./ProductListAPI";
+import {
+  fetchAllProducts,
+  fetchProductsByFilterAndPage,
+} from "./ProductListAPI";
 
 const initialState = {
   value: 0,
   products: [],
   status: "idle",
+  totalItem: 100,
 };
 
 export const productSlice = createSlice({
@@ -29,18 +33,20 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
       state.status = "idle";
-      state.products = action.payload;
+      state.products = action.payload.data;
+      state.totalItem = action.payload.totalCount;
     });
-    builder.addCase(fetchProductsByFilter.pending, (state) => {
+    builder.addCase(fetchProductsByFilterAndPage.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(fetchProductsByFilter.fulfilled, (state, action) => {
+    builder.addCase(fetchProductsByFilterAndPage.fulfilled, (state, action) => {
       state.status = "idle";
-      state.products = action.payload;
+      state.products = action.payload.data;
+      state.totalItem = action.payload.totalCount;
     });
   },
 });
 
 // Export the sortProducts action
-export const { sortProducts } = productSlice.actions;
+export const { sortProducts, updateTotalProducts } = productSlice.actions;
 export default productSlice;
