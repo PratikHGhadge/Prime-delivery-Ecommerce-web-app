@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import {
   fetchAllProducts,
   fetchProductsByFilterAndPage,
+  fetchAllCategories,
+  fetchAllBrands,
 } from "./ProductListAPI";
 
 const initialState = {
@@ -9,6 +12,9 @@ const initialState = {
   products: [],
   status: "idle",
   totalItem: 100,
+  categories: [],
+  brands: [],
+  filters: [],
 };
 
 export const productSlice = createSlice({
@@ -44,9 +50,32 @@ export const productSlice = createSlice({
       state.products = action.payload.data;
       state.totalItem = action.payload.totalCount;
     });
+
+    builder.addCase(fetchAllCategories.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
+      state.status = "idle";
+      const exists = state.filters.some((obj) => obj.id === action.payload.id);
+      if (!exists) {
+        state.filters.push(action.payload);
+      }
+    });
+
+    builder.addCase(fetchAllBrands.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchAllBrands.fulfilled, (state, action) => {
+      state.status = "idle";
+      const exists = state.filters.some((obj) => obj.id === action.payload.id);
+      if (!exists) {
+        state.filters.push(action.payload);
+      }
+    });
   },
 });
 
 // Export the sortProducts action
 export const { sortProducts, updateTotalProducts } = productSlice.actions;
+
 export default productSlice;

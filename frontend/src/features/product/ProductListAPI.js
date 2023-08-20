@@ -35,18 +35,18 @@ const fetchProductsByFilterAndPage = createAsyncThunk(
   }
 );
 
-// const fetchAllCategories = createAsyncThunk(
-//   "categories/fetchAllCategories",
-//   async () => {
-//     const response = await API.get("/categories");
-//     return response;
-//   }
-// );
+const fetchAllCategories = createAsyncThunk(
+  "categories/fetchAllCategories",
+  async () => {
+    const response = await API.get("/categories");
+    return response?.data[0];
+  }
+);
 
-// const fetchAllBrands = createAsyncThunk("brands/fetchAllBrands", async () => {
-//   const response = await API.get("/categories");
-//   return response;
-// });
+const fetchAllBrands = createAsyncThunk("brands/fetchAllBrands", async () => {
+  const response = await API.get("/brands");
+  return response?.data[0];
+});
 
 export {
   fetchAllProducts,
