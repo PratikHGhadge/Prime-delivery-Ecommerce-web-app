@@ -48,9 +48,18 @@ const fetchAllBrands = createAsyncThunk("brands/fetchAllBrands", async () => {
   return response?.data[0];
 });
 
+const fetchProductById = createAsyncThunk(
+  "products/fetchProductById",
+  async (id) => {
+    const response = await API.get(`/products/${id}`);
+    return response.data;
+  }
+);
+
 export {
   fetchAllProducts,
   fetchProductsByFilterAndPage,
   fetchAllCategories,
   fetchAllBrands,
+  fetchProductById,
 };

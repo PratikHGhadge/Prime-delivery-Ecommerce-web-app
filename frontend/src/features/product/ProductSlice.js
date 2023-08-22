@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import {
   fetchAllProducts,
   fetchProductsByFilterAndPage,
   fetchAllCategories,
   fetchAllBrands,
+  fetchProductById,
 } from "./ProductListAPI";
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   categories: [],
   brands: [],
   filters: [],
+  selectedProduct: null,
 };
 
 export const productSlice = createSlice({
@@ -71,6 +72,13 @@ export const productSlice = createSlice({
       if (!exists) {
         state.filters.push(action.payload);
       }
+    });
+    builder.addCase(fetchProductById.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchProductById.fulfilled, (state, action) => {
+      state.status = "idle";
+      state.selectedProduct = action.payload;
     });
   },
 });
