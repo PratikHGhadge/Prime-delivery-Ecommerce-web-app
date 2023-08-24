@@ -1,3 +1,4 @@
+import Protected from "./features/auth/components/Protected";
 import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import Home from "./pages/Home";
@@ -10,12 +11,40 @@ function App() {
     <div className="APP">
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={
+              <Protected>
+                <Home />
+              </Protected>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckOutPage />} />
-          <Route path="/product-detail/:id" element={<ProductDetailPage />} />
+          <Route
+            path="/cart"
+            element={
+              <Protected>
+                <CartPage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <Protected>
+                <CheckOutPage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/product-detail/:id"
+            element={
+              <Protected>
+                <ProductDetailPage />
+              </Protected>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
