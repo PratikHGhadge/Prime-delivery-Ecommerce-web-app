@@ -3,6 +3,9 @@ import { Formik, Form, Field } from "formik";
 import { motion } from "framer-motion";
 import * as Yup from "yup";
 import CustomErrorMsg from "./CustomErrorMsg";
+import { useDispatch } from "react-redux";
+import { checkUser } from "../authAPI";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = { email: "", password: "" };
 
@@ -16,18 +19,16 @@ const validateYupSchema = Yup.object({
     .required("Password is Required!"),
 });
 
-const onSubmit = (values) => {
-  console.log(values);
-};
-
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = async (values) => {
     console.log(values);
     try {
       await dispatch(
         checkUser({ email: values.email, password: values.password })
       );
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }

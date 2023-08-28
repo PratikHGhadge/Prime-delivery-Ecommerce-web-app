@@ -12,8 +12,6 @@ const initialState = {
   products: [],
   status: "idle",
   totalItem: 100,
-  categories: [],
-  brands: [],
   filters: [],
   selectedProduct: null,
 };

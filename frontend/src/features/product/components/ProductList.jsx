@@ -85,6 +85,7 @@ export default function ProductList() {
     dispatch(fetchAllCategories());
     dispatch(fetchAllBrands());
   }, []);
+
   return (
     <div className="bg-white pt-0">
       <div className="bg-white shadow-xl">

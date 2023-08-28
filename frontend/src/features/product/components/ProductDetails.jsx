@@ -5,6 +5,7 @@ import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../ProductListAPI";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../../cart/cartAPI";
 
 const highlights = [
   "Hand cut and sewn locally",
@@ -15,7 +16,6 @@ const highlights = [
 const details = [
   'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 ];
-
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
   { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
@@ -32,25 +32,32 @@ const sizes = [
   { name: "3XL", inStock: true },
 ];
 const reviews = { href: "#", average: 4, totalCount: 117 };
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  const product = useSelector((state) => state.products.selectedProduct);
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const { id } = useParams();
   useEffect(() => {
+    console.log(id);
     dispatch(fetchProductById(id));
-  }, []);
-  const product = useSelector((state) => state.products.selectedProduct);
+  }, [id]);
   if (!product) {
     return <h1>loading</h1>;
   }
+  const handelAddToCart = (e) => {
+    e.preventDefault();
+    const userId = auth.id;
+    dispatch(addToCart({ product, quantity: 1, user: userId }));
+    console.log("function runed successfully");
+  };
+
   return (
     <div>
-      {console.log(product)}
       <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -295,7 +302,7 @@ function ProductDetails() {
                 </div>
 
                 <button
-                  type="submit"
+                  onClick={handelAddToCart}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-custom-blue px-8 py-3 text-base font-medium text-white hover:bg-custom-darkblue2 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:ring-offset-2"
                 >
                   Add to Cart
@@ -331,7 +338,6 @@ function ProductDetails() {
                   </ul>
                 </div>
               </div>
-
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
 

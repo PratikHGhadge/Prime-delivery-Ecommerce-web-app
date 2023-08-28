@@ -1,41 +1,34 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount } from "./counterAPI";
+import { createSlice } from "@reduxjs/toolkit";
+import { addToCart } from "./cartAPI";
 
 const initialState = {
-  value: 0,
+  cartItems: [],
   status: "idle",
 };
 
-export const incrementAsync = createAsyncThunk(
-  "counter/fetchCount",
-  async (amount) => {
-    const response = await fetchCount(amount);
-    // The values we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
-
-export const couterSlice = createSlice({
-  name: "counter",
+export const cartSlice = createSlice({
+  name: "cart",
   initialState,
   reducers: {
-    // counter slice action
-    increment: (state) => {
-      state.value += 1;
-    },
+    // user slice action
   },
   extraReducers: (builder) => {
     builder
-      .addCase(incrementAsync.pending, (state) => {
+      .addCase(addToCart.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(incrementAsync.fulfilled, (state, action) => {
+      .addCase(addToCart.fulfilled, (state, action) => {
         state.status = "idle";
-        state.value += action.payload;
+        state.cartItems.push(action.payload);
       });
+    //     .addCase(checkUser.pending, (state) => {
+    //       state.status = "loading";
+    //     })
+    //     .addCase(checkUser.fulfilled, (state, action) => {
+    //       state.status = "idle";
+    //       state.isLoggedIn = action.payload;
+    //     });
   },
 });
 
-export const { increment } = couterSlice.actions;
-export const selectCount = (state) => state.counter.value;
-export default couterSlice.reducer;
+export default cartSlice;

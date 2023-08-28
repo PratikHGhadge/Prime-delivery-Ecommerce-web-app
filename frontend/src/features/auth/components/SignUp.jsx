@@ -5,7 +5,7 @@ import CustomErrorMsg from "./CustomErrorMsg";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { createUser } from "../authAPI";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = { email: "", password: "", ConfirmPassword: "" };
 
@@ -26,6 +26,7 @@ const validateYupSchema = Yup.object({
 });
 
 function SignUp() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = async (values) => {
     if (values.password !== values.ConfirmPassword) {
@@ -36,6 +37,7 @@ function SignUp() {
       await dispatch(
         createUser({ email: values.email, password: values.password })
       );
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
@@ -151,14 +153,12 @@ function SignUp() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link to={"/home"}>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-custom-blue hover:bg-custom-darkblue1"
-                    >
-                      Sign in
-                    </button>
-                  </Link>
+                  <button
+                    type="submit"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-custom-blue hover:bg-custom-darkblue1"
+                  >
+                    Sign in
+                  </button>
                 </motion.div>
               </Form>
             </Formik>
