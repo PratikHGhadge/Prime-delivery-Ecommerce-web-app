@@ -6,6 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SignUpPage from "./pages/SignUpPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+
 function App() {
   return (
     <div className="APP">
@@ -50,5 +52,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;

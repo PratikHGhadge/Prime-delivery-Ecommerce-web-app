@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { checkUser, createUser } from "./authAPI";
-
 const initialState = {
   isLoggedIn: null,
   status: "idle",
 };
-
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -30,5 +28,4 @@ export const authSlice = createSlice({
       });
   },
 });
-
 export default authSlice;

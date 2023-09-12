@@ -42,17 +42,20 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const { id } = useParams();
+
   useEffect(() => {
     console.log(id);
     dispatch(fetchProductById(id));
   }, [id]);
+
   if (!product) {
     return <h1>loading</h1>;
   }
+
   const handelAddToCart = (e) => {
     e.preventDefault();
-    const userId = auth.id;
-    dispatch(addToCart({ product, quantity: 1, user: userId }));
+    const userId = auth?.id;
+    dispatch(addToCart({ product, quantity: 1, userId }));
     console.log("function runed successfully");
   };
 

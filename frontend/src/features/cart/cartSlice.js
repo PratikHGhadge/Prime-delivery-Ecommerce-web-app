@@ -21,13 +21,13 @@ export const cartSlice = createSlice({
         state.status = "idle";
         state.cartItems.push(action.payload);
       });
-    //     .addCase(checkUser.pending, (state) => {
-    //       state.status = "loading";
-    //     })
-    //     .addCase(checkUser.fulfilled, (state, action) => {
-    //       state.status = "idle";
-    //       state.isLoggedIn = action.payload;
-    //     });
+    // .addCase(checkUser.pending, (state) => {
+    //   state.status = "loading";
+    // })
+    // .addCase(checkUser.fulfilled, (state, action) => {
+    //   state.status = "idle";
+    //   state.isLoggedIn = action.payload;
+    // });
   },
 });
 

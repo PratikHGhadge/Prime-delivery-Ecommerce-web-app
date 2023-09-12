@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const products = [
   {
     id: 1,
-    name: "Artwork Tee",
+    title: "Artwork Tee",
     href: "#",
     price: "$32.00",
     color: "Mint",
@@ -17,7 +17,7 @@ const products = [
   },
   {
     id: 2,
-    name: "Basic Tee",
+    title: "Basic Tee",
     href: "#",
     price: "$32.00",
     color: "Charcoal",
@@ -34,7 +34,7 @@ const products = [
 function Cart() {
   return (
     <>
-      <div className="bg-white">
+      <div classtitle="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
           <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xl">
             Shopping Cart
@@ -54,8 +54,8 @@ function Cart() {
                   <li key={product.id} className="flex py-6">
                     <div className="flex-shrink-0">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={product.thumbnail}
+                        alt={product.title}
                         className="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32"
                       />
                     </div>
@@ -65,10 +65,10 @@ function Cart() {
                         <div className="flex justify-between">
                           <h4 className="text-sm">
                             <a
-                              href={product.href}
+                              href={`/product-detail/:${product.id}`}
                               className="font-medium text-gray-700 hover:text-gray-800"
                             >
-                              {product.name}
+                              {product.title}
                             </a>
                           </h4>
                           <p className="ml-4 text-sm font-medium text-gray-900">
@@ -76,10 +76,10 @@ function Cart() {
                           </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
-                          {product.color}
+                          {/* {product.color} */}
                         </p>
                         <p className="mt-1 text-sm text-gray-500">
-                          {product.size}
+                          {/* {product.size} */}
                         </p>
                       </div>
 
