@@ -19,6 +19,10 @@ server.use("/", require("./Routes/testRout"));
 
 // Products routes
 server.use("/products", require("./Routes/productsRoutes"));
+// Category routes
+server.use("/categories", require("./Routes/Categories"));
+// Brand routes
+server.use("/brands", require("./Routes/brands"));
 
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {

@@ -24,9 +24,11 @@ const fetchProduct = async (req, res) => {
   try {
     // fetch product record
     let conditions = {};
+    console.log(req.query.category);
     if (req.query.category) {
       conditions.category = { $in: req.query.category };
     }
+    console.log(req.query.brand);
     if (req.query.brand) {
       conditions.brand = { $in: req.query.brand };
     }
@@ -35,16 +37,19 @@ const fetchProduct = async (req, res) => {
     const limit = parseInt(req.query._limit) || 10;
     const skip = (page - 1) * limit;
 
-    const products = await Products.find(conditions).skip(skip).limit(limit).exec();
+    const products = await Product.find(conditions)
+      .skip(skip)
+      .limit(limit)
+      .exec();
 
-    const totalProducts = await Product.countDocuments(conditions)
+    const totalProducts = await Product.countDocuments(conditions);
 
     return res.status(200).send({
-        products,
-        totalProducts,
-        currentPage : page,
-        totalPages : Math.ceil(totalProducts/limit),
-      });
+      products,
+      totalProducts,
+      currentPage: page,
+      totalPages: Math.ceil(totalProducts / limit),
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -55,4 +60,29 @@ const fetchProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct, fetchProduct };
+const fetchProductById = async (req, res) => {
+  try {
+    // fetch product record
+    const { id } = req.params;
+    console.log(id);
+    const product = await Product.findById(id);
+
+    return res.status(200).send({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "error in while fetching product by id",
+      error,
+    });
+  }
+};
+
+module.exports = {
+  createProduct,
+  fetchProduct,
+  fetchProductById,
+};
