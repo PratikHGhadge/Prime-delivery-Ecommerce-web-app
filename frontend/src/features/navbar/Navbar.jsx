@@ -7,6 +7,7 @@ import {
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 const user = {
   name: "Tom Cook",
@@ -29,6 +30,7 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
+  const noOfItem = useSelector((state) => state.cart.cartItems.length);
   return (
     <>
       <div className="min-h-full">
@@ -76,7 +78,7 @@ function Navbar({ children }) {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View cart</span>
                         <span className="relative -bottom-3 left-[9px] inline-flex items-center rounded-md bg-red-50 px-1 py-0 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 hover:bg-pink-200">
-                          10
+                          {noOfItem}
                         </span>
                         <ShoppingCartIcon
                           className="h-6 w-6"

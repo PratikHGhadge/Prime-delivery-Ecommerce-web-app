@@ -40,7 +40,7 @@ function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector((state) => state.products.selectedProduct);
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { id } = useParams();
 
   useEffect(() => {
@@ -54,8 +54,8 @@ function ProductDetails() {
 
   const handelAddToCart = (e) => {
     e.preventDefault();
-    const userId = auth?.id;
-    dispatch(addToCart({ product, quantity: 1, userId }));
+    const userId = isLoggedIn?.id;
+    dispatch(addToCart({ product, quantity: 1, userId: userId }));
     console.log("function runed successfully");
   };
 
@@ -102,7 +102,6 @@ function ProductDetails() {
               </li>
             </ol>
           </nav>
-
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
@@ -136,7 +135,6 @@ function ProductDetails() {
               />
             </div>
           </div>
-
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -144,7 +142,6 @@ function ProductDetails() {
                 {product.title}
               </h1>
             </div>
-
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
@@ -312,24 +309,20 @@ function ProductDetails() {
                 </button>
               </form>
             </div>
-
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
               {/* Description and details */}
               <div>
                 <h3 className="sr-only">Description</h3>
-
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
                     {product.description && product.description}
                   </p>
                 </div>
               </div>
-
               <div className="mt-10">
                 <h3 className="text-sm font-medium text-gray-900">
                   Highlights
                 </h3>
-
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {highlights &&
@@ -343,7 +336,6 @@ function ProductDetails() {
               </div>
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{details && details}</p>
                 </div>

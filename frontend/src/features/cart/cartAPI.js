@@ -7,8 +7,26 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (item) => {
   return response.data;
 });
 
-// export const checkUser = createAsyncThunk("users/checkUser", async (user) => {
-//   console.log(user);
-//   const response = await API.get(`/users?email=${user.email}`, user);
-//   return response.data;
-// });
+export const fetchItemsByUserId = createAsyncThunk(
+  "cart/fetchItemsByUserId",
+  async (userId) => {
+    const response = await API.get(`/cart?userId=${userId}`);
+    return response.data;
+  }
+);
+
+export const updateCart = createAsyncThunk(
+  "cart/updateCart",
+  async (product) => {
+    const response = await API.patch(`/cart/${product.id}`, product);
+    return response.data;
+  }
+);
+
+export const deleteItem = createAsyncThunk(
+  "cart/deleteItem",
+  async (ItemId) => {
+    const response = await API.delete(`/cart/${ItemId}`);
+    return { response, ItemId };
+  }
+);

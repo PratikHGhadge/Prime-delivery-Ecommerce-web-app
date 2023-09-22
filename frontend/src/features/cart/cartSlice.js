@@ -1,17 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart } from "./cartAPI";
+import {
+  addToCart,
+  fetchItemsByUserId,
+  updateCart,
+  deleteItem,
+} from "./cartAPI";
 
 const initialState = {
   cartItems: [],
   status: "idle",
+  cartLoaded: false,
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {
-    // user slice action
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(addToCart.pending, (state) => {
@@ -20,14 +24,39 @@ export const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.status = "idle";
         state.cartItems.push(action.payload);
+      })
+      .addCase(fetchItemsByUserId.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchItemsByUserId.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.cartItems = action.payload;
+        state.cartLoaded = true;
+      })
+      .addCase(fetchItemsByUserId.rejected, (state, action) => {
+        state.status = "idle";
+        state.cartLoaded = true;
+      })
+      .addCase(updateCart.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        const cartItemsId = action.payload.id;
+        state.cartItems[state.cartItems.findIndex((e) => e.id == cartItemsId)] =
+          action.payload;
+      })
+      .addCase(deleteItem.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log(action.payload);
+        const index = state.cartItems.findIndex(
+          (item) => item.id === action.payload.ItemId
+        );
+        console.log("index is ......... = " + index);
+        state.cartItems.splice(index, 1);
       });
-    // .addCase(checkUser.pending, (state) => {
-    //   state.status = "loading";
-    // })
-    // .addCase(checkUser.fulfilled, (state, action) => {
-    //   state.status = "idle";
-    //   state.isLoggedIn = action.payload;
-    // });
   },
 });
 

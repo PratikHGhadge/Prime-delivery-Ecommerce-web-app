@@ -134,15 +134,15 @@ function Login() {
               </Form>
             </Formik>
 
-            <p className="mt-6 text-center text-sm text-gray-600">
-              Or{" "}
-              <a
-                href="#"
-                className="font-medium text-custom-blue hover:text-custom-darkblue1"
-              >
-                Not have an account SignUp
-              </a>
-            </p>
+            <a
+              href="#"
+              className="font-medium text-custom-blue hover:text-custom-darkblue1"
+            >
+              <p className="mt-6 text-center text-sm text-gray-600">
+                Or Not have an account SignUp
+              </p>
+            </a>
+
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">

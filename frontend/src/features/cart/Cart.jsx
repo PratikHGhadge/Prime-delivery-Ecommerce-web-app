@@ -1,40 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    title: "Artwork Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Mint",
-    size: "Medium",
-    inStock: true,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/checkout-page-03-product-04.jpg",
-    imageAlt: "Front side of mint cotton t-shirt with wavey lines pattern.",
-  },
-  {
-    id: 2,
-    title: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Charcoal",
-    inStock: false,
-    leadTime: "7-8 years",
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg",
-    imageAlt: "Front side of charcoal cotton t-shirt.",
-  },
-  // More products...
-];
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart, deleteItem } from "./cartAPI";
 
 function Cart() {
+  const products = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
+  const handleQuantityChange = (e, product) => {
+    dispatch(updateCart({ id: product.id, quantity: +e.target.value }));
+  };
+  const handelDeleteItem = (productId) => {
+    dispatch(deleteItem(productId));
+  };
+  useEffect(() => {}, [products]);
+
   return (
     <>
-      <div classtitle="bg-white">
+      <div className="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
           <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xl">
             Shopping Cart
@@ -51,11 +34,11 @@ function Cart() {
                 className="border-t border-b border-gray-200 divide-y divide-gray-200"
               >
                 {products.map((product) => (
-                  <li key={product.id} className="flex py-6">
+                  <li key={product.product.id} className="flex py-6">
                     <div className="flex-shrink-0">
                       <img
-                        src={product.thumbnail}
-                        alt={product.title}
+                        src={product.product.thumbnail}
+                        alt={product.product.title}
                         className="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32"
                       />
                     </div>
@@ -65,14 +48,30 @@ function Cart() {
                         <div className="flex justify-between">
                           <h4 className="text-sm">
                             <a
-                              href={`/product-detail/:${product.id}`}
+                              href={`/product-detail/:${product.product.id}`}
                               className="font-medium text-gray-700 hover:text-gray-800"
                             >
-                              {product.title}
+                              {product.product.title}
                             </a>
+                            <div className="flex justify-center items-center mb-4 mt-4">
+                              <span className="mr-2">Quantity:</span>
+                              <select
+                                className="block w-16 px-2 py-1 mt-1 text-sm leading-tight bg-white border border-gray-400 rounded appearance-none focus:outline-none focus:bg-white"
+                                value={product.product.quantity}
+                                onChange={(e) => {
+                                  handleQuantityChange(e, product);
+                                }}
+                              >
+                                {[...Array(10).keys()].map((num) => (
+                                  <option key={num} value={num + 1}>
+                                    {num + 1}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                           </h4>
                           <p className="ml-4 text-sm font-medium text-gray-900">
-                            {product.price}
+                            {product.product.price}
                           </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
@@ -85,7 +84,7 @@ function Cart() {
 
                       <div className="mt-4 flex-1 flex items-end justify-between">
                         <p className="flex items-center text-sm text-gray-700 space-x-2">
-                          {product.inStock ? (
+                          {product.product.inStock ? (
                             <CheckIcon
                               className="flex-shrink-0 h-5 w-5 text-green-500"
                               aria-hidden="true"
@@ -98,15 +97,18 @@ function Cart() {
                           )}
 
                           <span>
-                            {product.inStock
+                            {product.product.inStock
                               ? "In stock"
-                              : `Will ship in ${product.leadTime}`}
+                              : `Will ship in ${product.product.leadTime}`}
                           </span>
                         </p>
                         <div className="ml-4">
                           <button
                             type="button"
                             className="text-sm font-medium text-custom-blue hover:text-blue-500"
+                            onClick={(e) => {
+                              handelDeleteItem(product.id);
+                            }}
                           >
                             <span>Remove</span>
                           </button>

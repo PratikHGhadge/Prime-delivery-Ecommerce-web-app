@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Protected from "./features/auth/components/Protected";
 import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
@@ -6,9 +7,17 @@ import LoginPage from "./pages/LoginPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SignUpPage from "./pages/SignUpPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchItemsByUserId } from "./features/cart/cartAPI";
 
 function App() {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchItemsByUserId(isLoggedIn.id));
+    }
+  }, [isLoggedIn]);
   return (
     <div className="APP">
       <BrowserRouter>
@@ -52,7 +61,4 @@ function App() {
     </div>
   );
 }
-
-
-
 export default App;
