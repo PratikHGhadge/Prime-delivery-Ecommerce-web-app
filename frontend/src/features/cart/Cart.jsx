@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,23 @@ import { updateCart, deleteItem } from "./cartAPI";
 function Cart() {
   const products = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
+  const [totalSum, setTotalSum] = new useState(0);
   const handleQuantityChange = (e, product) => {
     dispatch(updateCart({ id: product.id, quantity: +e.target.value }));
   };
   const handelDeleteItem = (productId) => {
     dispatch(deleteItem(productId));
   };
-  useEffect(() => {}, [products]);
+  const calculateTotalSum = (products) => {
+    let sum = 0;
+    for (let i = 0; i < products.length; i++) {
+      sum += products[i].product.price * products[i].quantity;
+    }
+    return sum;
+  };
+  useEffect(() => {
+    setTotalSum(calculateTotalSum(products));
+  }, [products]);
 
   return (
     <>
@@ -119,13 +129,11 @@ function Cart() {
                 ))}
               </ul>
             </section>
-
             {/* Order summary */}
             <section aria-labelledby="summary-heading" className="mt-10">
               <h2 id="summary-heading" className="sr-only">
                 Order summary
               </h2>
-
               <div>
                 <dl className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -133,7 +141,7 @@ function Cart() {
                       Subtotal
                     </dt>
                     <dd className="ml-4 text-base font-medium text-gray-900">
-                      $96.00
+                      {totalSum}
                     </dd>
                   </div>
                 </dl>
@@ -141,7 +149,6 @@ function Cart() {
                   Shipping and taxes will be calculated at checkout.
                 </p>
               </div>
-
               <div className="mt-10 flex text-center">
                 <Link
                   to={"/checkout"}

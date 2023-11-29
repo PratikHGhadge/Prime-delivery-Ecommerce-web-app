@@ -6,7 +6,6 @@ import {
   fetchAllBrands,
   fetchProductById,
 } from "./ProductListAPI";
-
 const initialState = {
   value: 0,
   products: [],
@@ -49,7 +48,6 @@ export const productSlice = createSlice({
       state.products = action.payload.data;
       state.totalItem = action.payload.totalCount;
     });
-
     builder.addCase(fetchAllCategories.pending, (state) => {
       state.status = "loading";
     });
@@ -60,7 +58,6 @@ export const productSlice = createSlice({
         state.filters.push(action.payload);
       }
     });
-
     builder.addCase(fetchAllBrands.pending, (state) => {
       state.status = "loading";
     });

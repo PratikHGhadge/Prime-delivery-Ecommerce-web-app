@@ -56,7 +56,6 @@ function ProductDetails() {
     e.preventDefault();
     const userId = isLoggedIn?.id;
     dispatch(addToCart({ product, quantity: 1, userId: userId }));
-    console.log("function runed successfully");
   };
 
   return (

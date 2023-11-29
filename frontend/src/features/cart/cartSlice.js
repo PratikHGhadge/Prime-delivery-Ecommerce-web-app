@@ -51,10 +51,10 @@ export const cartSlice = createSlice({
       .addCase(deleteItem.fulfilled, (state, action) => {
         state.status = "idle";
         console.log(action.payload);
+        console.log("index is ......... = " + index);
         const index = state.cartItems.findIndex(
           (item) => item.id === action.payload.ItemId
         );
-        console.log("index is ......... = " + index);
         state.cartItems.splice(index, 1);
       });
   },

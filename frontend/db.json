@@ -2561,94 +2561,71 @@
     },
     {
       "product": {
-        "id": 3,
-        "title": "Samsung Universe 9",
-        "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
-        "price": 1249,
-        "discountPercentage": 15.46,
-        "rating": 4.09,
-        "stock": 36,
-        "brand": "Samsung",
+        "id": 2,
+        "title": "iPhone X",
+        "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        "price": 899,
+        "discountPercentage": 17.94,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple",
         "category": "smartphones",
-        "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+        "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
         "images": [
-          "https://i.dummyjson.com/data/products/3/1.jpg"
+          "https://i.dummyjson.com/data/products/2/1.jpg",
+          "https://i.dummyjson.com/data/products/2/2.jpg",
+          "https://i.dummyjson.com/data/products/2/3.jpg",
+          "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
         ]
       },
-      "quantity": 1,
+      "quantity": 2,
       "userId": 4,
-      "id": 29
+      "id": 22
     },
     {
       "product": {
-        "id": 9,
-        "title": "Infinix INBOOK",
-        "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
-        "price": 1099,
-        "discountPercentage": 11.83,
-        "rating": 4.54,
-        "stock": 96,
-        "brand": "Infinix",
-        "category": "laptops",
-        "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+        "id": 5,
+        "title": "Huawei P30",
+        "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+        "price": 499,
+        "discountPercentage": 10.58,
+        "rating": 4.09,
+        "stock": 32,
+        "brand": "Huawei",
+        "category": "smartphones",
+        "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
         "images": [
-          "https://i.dummyjson.com/data/products/9/1.jpg",
-          "https://i.dummyjson.com/data/products/9/2.png",
-          "https://i.dummyjson.com/data/products/9/3.png",
-          "https://i.dummyjson.com/data/products/9/4.jpg",
-          "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          "https://i.dummyjson.com/data/products/5/1.jpg",
+          "https://i.dummyjson.com/data/products/5/2.jpg",
+          "https://i.dummyjson.com/data/products/5/3.jpg"
         ]
       },
       "quantity": 1,
       "userId": 4,
-      "id": 31
+      "id": 23
     },
     {
       "product": {
-        "id": 11,
-        "title": "perfume Oil",
-        "description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
-        "price": 13,
-        "discountPercentage": 8.4,
-        "rating": 4.26,
-        "stock": 65,
-        "brand": "Impression of Acqua Di Gio",
-        "category": "fragrances",
-        "thumbnail": "https://i.dummyjson.com/data/products/11/thumbnail.jpg",
+        "id": 2,
+        "title": "iPhone X",
+        "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        "price": 899,
+        "discountPercentage": 17.94,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple",
+        "category": "smartphones",
+        "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
         "images": [
-          "https://i.dummyjson.com/data/products/11/1.jpg",
-          "https://i.dummyjson.com/data/products/11/2.jpg",
-          "https://i.dummyjson.com/data/products/11/3.jpg",
-          "https://i.dummyjson.com/data/products/11/thumbnail.jpg"
+          "https://i.dummyjson.com/data/products/2/1.jpg",
+          "https://i.dummyjson.com/data/products/2/2.jpg",
+          "https://i.dummyjson.com/data/products/2/3.jpg",
+          "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
         ]
       },
-      "quantity": 1,
+      "quantity": 2,
       "userId": 4,
-      "id": 32
-    },
-    {
-      "product": {
-        "id": 25,
-        "title": "Gulab Powder 50 Gram",
-        "description": "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
-        "price": 70,
-        "discountPercentage": 13.58,
-        "rating": 4.87,
-        "stock": 47,
-        "brand": "Dry Rose",
-        "category": "groceries",
-        "thumbnail": "https://i.dummyjson.com/data/products/25/thumbnail.jpg",
-        "images": [
-          "https://i.dummyjson.com/data/products/25/1.png",
-          "https://i.dummyjson.com/data/products/25/2.jpg",
-          "https://i.dummyjson.com/data/products/25/3.png",
-          "https://i.dummyjson.com/data/products/25/4.jpg",
-          "https://i.dummyjson.com/data/products/25/thumbnail.jpg"
-        ]
-      },
-      "quantity": 1,
-      "userId": 4,
-      "id": 34
+      "id": 24
     }
   ]
 }
