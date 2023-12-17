@@ -77,14 +77,7 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="/*"
-            element={
-              // <Protected>
-              <PageNotFound></PageNotFound>
-              /* </Protected> */
-            }
-          />
+          <Route path="/*" element={<PageNotFound></PageNotFound>} />
         </Routes>
       </BrowserRouter>
     </div>
