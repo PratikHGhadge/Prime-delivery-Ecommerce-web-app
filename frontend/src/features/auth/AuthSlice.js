@@ -7,9 +7,7 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    // user slice action
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createUser.pending, (state) => {

@@ -2,23 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { motion } from "framer-motion";
-import * as Yup from "yup";
 import CustomErrorMsg from "./CustomErrorMsg";
 import { useDispatch } from "react-redux";
 import { checkUser } from "../authAPI";
 import { useNavigate } from "react-router-dom";
+import { LoginValidateYupSchema } from "./../../../validations/validationSchema";
 
 const initialValues = { email: "", password: "" };
-
-const validateYupSchema = Yup.object({
-  email: Yup.string().email("Enter the valid email address"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    )
-    .required("Password is Required!"),
-});
 
 function Login() {
   const dispatch = useDispatch();
@@ -52,7 +42,7 @@ function Login() {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validateYupSchema}
+              validationSchema={LoginValidateYupSchema}
             >
               <Form className="space-y-6" action="#" method="POST">
                 <div>

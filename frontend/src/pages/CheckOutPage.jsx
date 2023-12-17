@@ -3,32 +3,29 @@ import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart, deleteItem } from "../features/cart/cartAPI";
+import { useNavigate } from "react-router-dom";
+import { addressValidateYupSchema } from "../validations/validationSchema";
+import CustomErrorMsg from "../features/auth/components/CustomErrorMsg";
+import { Formik, Form, Field } from "formik";
+import { updateUser } from "../features/user/userAPI";
+import { createOrder } from "../features/order/orderAPI";
 
-const paymentMethods = [
-  { id: "credit-card", title: "Credit card" },
-  { id: "cash", title: "cash" },
-];
-
-const address = [
-  {
-    name: "Pratik",
-    street: "10th main",
-    city: "Baramati",
-    pinCode: "413209",
-    state: "Maharashtra",
-    phone: "7709063077",
-  },
-  {
-    name: "Pravin",
-    street: "10th main",
-    city: "Baramati",
-    pinCode: "413209",
-    state: "Maharashtra",
-    phone: "7709063077",
-  },
-];
+const initialValues = {
+  name: "",
+  street: "",
+  city: "",
+  pinCode: "",
+  state: "",
+  phone: "",
+};
 
 function CheckOutPage() {
+  const currentOrder = useSelector((state) => state.order.currentOrder);
+  const user = useSelector((state) => state.user.userInfo);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [payment, setPaymentMethod] = useState(null);
+  const address = useSelector((state) => state.user.userInfo.address);
+  const navigate = useNavigate();
   const products = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const [totalSum, setTotalSum] = new useState(0);
@@ -45,11 +42,34 @@ function CheckOutPage() {
     }
     return sum;
   };
+  const handelAddress = async (values) => {
+    dispatch(updateUser({ ...user, address: [...user.address, values] }));
+  };
+  const totalItem = products.reduce((total, item) => item.quantity + total, 0);
+  const handelOrder = async () => {
+    if (selectedAddress && payment) {
+      const order = {
+        products,
+        totalSum,
+        totalItem,
+        selectedAddress,
+        payment,
+        user: user.id,
+        status: "pending",
+      };
+      dispatch(createOrder(order));
+      // navigate("/order-success");
+    } else {
+      alert("Enter address and payment method : ");
+    }
+  };
   useEffect(() => {
     setTotalSum(calculateTotalSum(products));
   }, [products]);
   return (
     <div className="bg-white">
+      {!products.length && navigate("/home")}
+      {currentOrder && navigate(`/order-success/${currentOrder.id}`)}
       {/* Background color split screen for large screens */}
       <div
         className="hidden lg:block fixed top-0 left-0 w-1/2 h-full bg-white"
@@ -61,13 +81,341 @@ function CheckOutPage() {
       />
 
       <main className=" relative grid grid-cols-1 gap-x-16 max-w-7xl mx-auto lg:px-8 lg:grid-cols-2">
-        <h1 className="sr-only">Checkout</h1>
+        <section
+          aria-labelledby="payment-and-shipping-heading"
+          className="py-16 lg:max-w-lg lg:w-full lg:mx-auto lg:pt-0 lg:pb-24 lg:row-start-1 lg:col-start-1"
+        >
+          <img
+            className="mx-auto h-auto w-[160px] rounded-full"
+            src="./assets/logo.png"
+            alt="prime delivery"
+          />
+          <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handelAddress}
+              validationSchema={addressValidateYupSchema}
+            >
+              <Form method="POST">
+                <div>
+                  <h3
+                    id="contact-info-heading"
+                    className="text-lg font-medium text-gray-900"
+                  >
+                    Contact information
+                  </h3>
+
+                  <div className="mt-6">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Full Name
+                    </label>
+                    <div className="mt-1">
+                      <Field
+                        type="name"
+                        id="full-name"
+                        name="name"
+                        className="block w-full border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                      />
+                      <CustomErrorMsg name={"name"} />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-10">
+                  <h3
+                    id="shipping-heading"
+                    className="text-lg font-medium text-gray-900"
+                  >
+                    Shipping address
+                  </h3>
+
+                  <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3">
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="address"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Street
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          type="text"
+                          id="street"
+                          name="street"
+                          autoComplete="street-address"
+                          className=" block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                        />
+                        <CustomErrorMsg name={"street"} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="city"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        City
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          type="text"
+                          id="city"
+                          name="city"
+                          autoComplete="address-level2"
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                        />
+                        <CustomErrorMsg name={"city"} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="region"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        State / Province
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          type="text"
+                          id="state"
+                          name="state"
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                        />
+                        <CustomErrorMsg name={"state"} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="pincode"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Pincode
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          type="text"
+                          id="pinCode"
+                          name="pinCode"
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                        />
+                        <CustomErrorMsg name={"pinCode"} />
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="address"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Phone no
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          type="text"
+                          id="phone"
+                          name="phone"
+                          autoComplete="street-address"
+                          className=" block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                        />
+                        <CustomErrorMsg name={"phone"} />
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-0 px-0 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
+                    >
+                      Add address
+                    </button>
+                    <button
+                      type="submit"
+                      className=" border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-black"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </Form>
+            </Formik>
+          </div>
+          <form>
+            <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
+              <div className="mt-10">
+                <h3
+                  id="shipping-heading"
+                  className="text-lg font-medium text-gray-900"
+                >
+                  Chose from existing address
+                </h3>
+                <div>
+                  <ul role="list" className="divide-y divide-gray-100">
+                    {address.map((person) => (
+                      <li
+                        key={person.email}
+                        className="flex justify-between gap-x-6 py-5"
+                      >
+                        <div className="flex min-w-0 gap-x-4">
+                          <input
+                            // id={paymentMethod.id}
+                            name="address"
+                            type="radio"
+                            checked={selectedAddress === person}
+                            onChange={() => {
+                              setSelectedAddress(person);
+                            }}
+                            className="relative top-2 focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 "
+                          />
+                          <div className="min-w-0 flex-auto">
+                            <p className="text-sm font-semibold leading-6 text-gray-900">
+                              {person.name}
+                            </p>
+                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                              {person.street}
+                            </p>
+                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                              {person.phone}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                          <p className="text-sm leading-6 text-gray-900">
+                            {person.city}
+                          </p>
+                          <p className="text-sm leading-6 text-gray-900">
+                            {person.state}
+                          </p>
+                          <p className="text-sm leading-6 text-gray-900">
+                            {person.pinCode}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Payment */}
+              <div className="mt-10 border-t border-gray-200 pt-10">
+                <h2 className="text-lg font-medium text-gray-900">Payment</h2>
+
+                <fieldset className="mt-4">
+                  <legend className="sr-only">Payment type</legend>
+                  <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                    <div>
+                      <input
+                        value={0}
+                        name="payment-type"
+                        type="radio"
+                        onChange={(e) => {
+                          setPaymentMethod("card");
+                        }}
+                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                      />
+                      <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
+                        Card
+                      </label>
+                      <input
+                        value={1}
+                        name="payment-type"
+                        type="radio"
+                        onChange={() => {
+                          setPaymentMethod("cash");
+                        }}
+                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                      />
+                      <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
+                        Cash
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div className="mt-10">
+                <h3
+                  id="payment-heading"
+                  className="text-lg font-medium text-gray-900"
+                >
+                  Payment details
+                </h3>
+
+                <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-y-6 gap-x-4">
+                  <div className="col-span-3 sm:col-span-4">
+                    <label
+                      htmlFor="card-number"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Card number
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        id="card-number"
+                        name="card-number"
+                        autoComplete="cc-number"
+                        className="border p-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-span-2 sm:col-span-3">
+                    <label
+                      htmlFor="expiration-date"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Expiration date (MM/YY)
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="expiration-date"
+                        id="expiration-date"
+                        autoComplete="cc-exp"
+                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="cvc"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      CVC
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="cvc"
+                        id="cvc"
+                        autoComplete="csc"
+                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 flex justify-end pt-6 border-t border-gray-200">
+                <button
+                  type="submit"
+                  className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
+                >
+                  Pay now
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
         <section
           aria-labelledby="summary-heading"
-          className=" bg-custom-blue text-white mt-28 pt-6 pb-12 md:px-10 lg:max-w-lg lg:w-full lg:mx-auto lg:px-0 lg:pt-0 lg:pb-24 lg:bg-transparent lg:row-start-1 lg:col-start-2"
+          className=" bg-custom-blue text-white mt-16 pt-6  md:px-10 lg:max-w-lg lg:w-full lg:mx-auto lg:px-0 
+          lg:pt-0 lg:pb-24 lg:bg-transparent lg:row-start-1 lg:col-start-2"
         >
-          <div className="bg-white p-8">
-            <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
+          <div className="bg-white p-8 my-16 rounded-xl">
+            <div className="max-w-2xl mx-auto py-8 px-4 py16  sm:py- sm:px-6 lg:px-0">
               <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xl">
                 Shopping Cart
               </h1>
@@ -189,12 +537,16 @@ function CheckOutPage() {
                     </p>
                   </div>
                   <div className="mt-10 flex text-center">
-                    <Link
-                      to={"/checkout"}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handelOrder();
+                      }}
                       className="w-full bg-custom-darkblue2 hover:bg-custom-darkblue1 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white bg-custom-darkblue2-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                     >
-                      Checkout
-                    </Link>
+                      {" "}
+                      Order Now
+                    </button>
                   </div>
 
                   <div className="mt-6 text-sm text-center">
@@ -212,307 +564,6 @@ function CheckOutPage() {
               </form>
             </div>
           </div>
-        </section>
-
-        <section
-          aria-labelledby="payment-and-shipping-heading"
-          className="py-16 lg:max-w-lg lg:w-full lg:mx-auto lg:pt-0 lg:pb-24 lg:row-start-1 lg:col-start-1"
-        >
-          <h2 id="payment-and-shipping-heading" className="sr-only">
-            Payment and shipping details
-          </h2>
-          <img
-            className="mx-auto h-auto w-[160px] rounded-full"
-            src="./assets/logo.png"
-            alt="prime delivery"
-          />
-          <form>
-            <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
-              <div>
-                <h3
-                  id="contact-info-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Contact information
-                </h3>
-
-                <div className="mt-6">
-                  <label
-                    htmlFor="email-address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="email"
-                      id="email-address"
-                      name="email-address"
-                      autoComplete="email"
-                      className="block w-full border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h3
-                  id="payment-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Payment details
-                </h3>
-
-                <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-y-6 gap-x-4">
-                  <div className="col-span-3 sm:col-span-4">
-                    <label
-                      htmlFor="card-number"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Card number
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="card-number"
-                        name="card-number"
-                        autoComplete="cc-number"
-                        className="border p-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-span-2 sm:col-span-3">
-                    <label
-                      htmlFor="expiration-date"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Expiration date (MM/YY)
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="expiration-date"
-                        id="expiration-date"
-                        autoComplete="cc-exp"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="cvc"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      CVC
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="cvc"
-                        id="cvc"
-                        autoComplete="csc"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h3
-                  id="shipping-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Shipping address
-                </h3>
-
-                <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3">
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Address
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        autoComplete="street-address"
-                        className=" block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      City
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="city"
-                        name="city"
-                        autoComplete="address-level2"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="region"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      State / Province
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="region"
-                        name="region"
-                        autoComplete="address-level1"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="postal-code"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Postal code
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="postal-code"
-                        name="postal-code"
-                        autoComplete="postal-code"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-0 px-0 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
-                  >
-                    Add address
-                  </button>
-                  <button
-                    type="submit"
-                    className=" border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-black"
-                  >
-                    Reset
-                  </button>
-                </div>
-              </div>
-              <div className="mt-10">
-                <h3
-                  id="shipping-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Chose from existing address
-                </h3>
-                <div>
-                  <ul role="list" className="divide-y divide-gray-100">
-                    {address.map((person) => (
-                      <li
-                        key={person.email}
-                        className="flex justify-between gap-x-6 py-5"
-                      >
-                        <div className="flex min-w-0 gap-x-4">
-                          <input
-                            // id={paymentMethod.id}
-                            name="address"
-                            type="radio"
-                            defaultChecked
-                            className="relative top-2 focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 "
-                          />
-                          <div className="min-w-0 flex-auto">
-                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                              {person.name}
-                            </p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {person.street}
-                            </p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {person.phone}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.city}
-                          </p>
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.state}
-                          </p>
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.pinCode}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Payment */}
-              <div className="mt-10 border-t border-gray-200 pt-10">
-                <h2 className="text-lg font-medium text-gray-900">Payment</h2>
-
-                <fieldset className="mt-4">
-                  <legend className="sr-only">Payment type</legend>
-                  <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                    {paymentMethods.map((paymentMethod, paymentMethodIdx) => (
-                      <div key={paymentMethod.id} className="flex items-center">
-                        {paymentMethodIdx === 0 ? (
-                          <input
-                            id={paymentMethod.id}
-                            name="payment-type"
-                            type="radio"
-                            defaultChecked
-                            className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                          />
-                        ) : (
-                          <input
-                            id={paymentMethod.id}
-                            name="payment-type"
-                            type="radio"
-                            className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                          />
-                        )}
-
-                        <label
-                          htmlFor={paymentMethod.id}
-                          className="ml-3 block text-sm font-medium text-gray-700"
-                        >
-                          {paymentMethod.title}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
-              </div>
-
-              <div className="mt-10 flex justify-end pt-6 border-t border-gray-200">
-                <button
-                  type="submit"
-                  className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
-                >
-                  Pay now
-                </button>
-              </div>
-            </div>
-          </form>
         </section>
       </main>
     </div>

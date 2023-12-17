@@ -2,28 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { motion } from "framer-motion";
 import CustomErrorMsg from "./CustomErrorMsg";
-import * as Yup from "yup";
+import { signUpValidateYupSchema } from "./../../../validations/validationSchema";
 import { useDispatch } from "react-redux";
 import { createUser } from "../authAPI";
 import { Link, useNavigate } from "react-router-dom";
 
 const initialValues = { email: "", password: "", ConfirmPassword: "" };
-
-const validateYupSchema = Yup.object({
-  email: Yup.string().email("Enter the valid email address"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    )
-    .required("Password is Required!"),
-  ConfirmPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    )
-    .required("Password is Required!"),
-});
 
 function SignUp() {
   const navigate = useNavigate();
@@ -35,7 +19,11 @@ function SignUp() {
     console.log(values);
     try {
       await dispatch(
-        createUser({ email: values.email, password: values.password })
+        createUser({
+          email: values.email,
+          password: values.password,
+          address: [],
+        })
       );
       navigate("/home");
     } catch (error) {
@@ -61,7 +49,7 @@ function SignUp() {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validateYupSchema}
+              validationSchema={signUpValidateYupSchema}
             >
               <Form className="space-y-6" action="#" method="POST">
                 <div>
@@ -190,7 +178,7 @@ function SignUp() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    to={'#'}
+                    to={"#"}
                     className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <span className="sr-only">Sign in with Facebook</span>
@@ -214,7 +202,7 @@ function SignUp() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    to={'#'}
+                    to={"#"}
                     className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <span className="sr-only">Sign in with Twitter</span>
@@ -234,7 +222,7 @@ function SignUp() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    to={'#'}
+                    to={"#"}
                     className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <span className="sr-only">Sign in with Google</span>

@@ -3,11 +3,13 @@ import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart, deleteItem } from "./cartAPI";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const products = useSelector((state) => state.cart.cartItems);
-  const dispatch = useDispatch();
   const [totalSum, setTotalSum] = new useState(0);
+  const dispatch = useDispatch();
   const handleQuantityChange = (e, product) => {
     dispatch(updateCart({ id: product.id, quantity: +e.target.value }));
   };
@@ -24,9 +26,11 @@ function Cart() {
   useEffect(() => {
     setTotalSum(calculateTotalSum(products));
   }, [products]);
+  useEffect(() => {}, [handelDeleteItem]);
 
   return (
     <>
+      {!products.length && navigate("/home")}
       <div className="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
           <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xl">
@@ -84,12 +88,8 @@ function Cart() {
                             {product.product.price}
                           </p>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {/* {product.color} */}
-                        </p>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {/* {product.size} */}
-                        </p>
+                        <p className="mt-1 text-sm text-gray-500"></p>
+                        <p className="mt-1 text-sm text-gray-500"></p>
                       </div>
 
                       <div className="mt-4 flex-1 flex items-end justify-between">

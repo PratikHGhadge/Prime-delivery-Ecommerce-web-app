@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 

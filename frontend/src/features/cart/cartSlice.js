@@ -4,6 +4,7 @@ import {
   fetchItemsByUserId,
   updateCart,
   deleteItem,
+  resetCart,
 } from "./cartAPI";
 
 const initialState = {
@@ -51,11 +52,18 @@ export const cartSlice = createSlice({
       .addCase(deleteItem.fulfilled, (state, action) => {
         state.status = "idle";
         console.log(action.payload);
-        console.log("index is ......... = " + index);
-        const index = state.cartItems.findIndex(
-          (item) => item.id === action.payload.ItemId
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.ItemId
         );
-        state.cartItems.splice(index, 1);
+        state.cartLoaded = true;
+      })
+      .addCase(resetCart.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(resetCart.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log(action.payload);
+        state.cartItems = [];
       });
   },
 });
