@@ -102,8 +102,11 @@ function Login() {
                   </div>
 
                   <div className="text-sm">
-                    <Link className="font-medium text-custom-blue hover:text-custom-darkblue1">
-                      Forgot your password?
+                    <Link
+                      to="/forgot-password"
+                      className="font-medium text-custom-blue hover:text-custom-darkblue1"
+                    >
+                      Forgot yo ur password?
                     </Link>
                   </div>
                 </div>
@@ -122,7 +125,10 @@ function Login() {
               </Form>
             </Formik>
 
-            <Link className="font-medium text-custom-blue hover:text-custom-darkblue1">
+            <Link
+              to="/signup"
+              className="font-medium text-custom-blue hover:text-custom-darkblue1"
+            >
               <p className="mt-6 text-center text-sm text-gray-600">
                 Or Not have an account SignUp
               </p>

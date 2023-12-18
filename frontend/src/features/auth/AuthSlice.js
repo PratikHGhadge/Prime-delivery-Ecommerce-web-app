@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { checkUser, createUser } from "./authAPI";
+import { checkUser, createUser, signOutAsync } from "./authAPI";
 const initialState = {
   isLoggedIn: null,
   status: "idle",
@@ -23,6 +23,13 @@ export const authSlice = createSlice({
       .addCase(checkUser.fulfilled, (state, action) => {
         state.status = "idle";
         state.isLoggedIn = action.payload;
+      })
+      .addCase(signOutAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(signOutAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.isLoggedIn = null;
       });
   },
 });

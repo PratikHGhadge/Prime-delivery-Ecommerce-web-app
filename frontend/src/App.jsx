@@ -13,6 +13,9 @@ import { fetchItemsByUserId } from "./features/cart/cartAPI";
 import { fetchLoggedInUser } from "./features/user/userAPI";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrderPage from "./pages/UserOrderPage";
+import ProfilePage from "./pages/ProfilePage";
+import Logout from "./features/auth/components/Logout";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -69,6 +72,23 @@ function App() {
               </Protected>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <Protected>
+                <ProfilePage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <Protected>
+                <Logout />
+              </Protected>
+            }
+          />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route
             path="/order-success/:id"
             element={

@@ -2101,6 +2101,30 @@
           "pinCode": "413209",
           "state": "Maharashtra",
           "phone": "7709063077"
+        },
+        {
+          "name": "Kylan Barber",
+          "street": "Ut quis autem aut ea",
+          "city": "In sint est pariatur",
+          "pinCode": "413109",
+          "state": "Similique sed culpa",
+          "phone": "1234567895"
+        },
+        {
+          "name": "Kylan Barber",
+          "street": "Ut quis autem aut ea",
+          "city": "In sint est pariatur",
+          "pinCode": "413109",
+          "state": "Similique sed culpa",
+          "phone": "1234567895"
+        },
+        {
+          "name": "Kylan Barber",
+          "street": "Ut quis autem aut ea",
+          "city": "In sint est pariatur",
+          "pinCode": "413109",
+          "state": "Similique sed culpa",
+          "phone": "1234567895"
         }
       ],
       "id": 1
@@ -2198,32 +2222,7 @@
       "id": 6
     }
   ],
-  "cart": [
-    {
-      "product": {
-        "id": 39,
-        "title": "Women Sweaters Wool",
-        "description": "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
-        "price": 600,
-        "discountPercentage": 17.2,
-        "rating": 4.55,
-        "stock": 55,
-        "brand": "Top Sweater",
-        "category": "tops",
-        "thumbnail": "https://i.dummyjson.com/data/products/39/thumbnail.jpg",
-        "images": [
-          "https://i.dummyjson.com/data/products/39/1.jpg",
-          "https://i.dummyjson.com/data/products/39/2.jpg",
-          "https://i.dummyjson.com/data/products/39/3.jpg",
-          "https://i.dummyjson.com/data/products/39/4.jpg",
-          "https://i.dummyjson.com/data/products/39/thumbnail.jpg"
-        ]
-      },
-      "quantity": 6,
-      "userId": 1,
-      "id": 1
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "products": [
@@ -2472,6 +2471,443 @@
       "user": 1,
       "status": "pending",
       "id": 5
+    },
+    {
+      "products": [
+        {
+          "product": {
+            "id": 39,
+            "title": "Women Sweaters Wool",
+            "description": "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
+            "price": 600,
+            "discountPercentage": 17.2,
+            "rating": 4.55,
+            "stock": 55,
+            "brand": "Top Sweater",
+            "category": "tops",
+            "thumbnail": "https://i.dummyjson.com/data/products/39/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/39/1.jpg",
+              "https://i.dummyjson.com/data/products/39/2.jpg",
+              "https://i.dummyjson.com/data/products/39/3.jpg",
+              "https://i.dummyjson.com/data/products/39/4.jpg",
+              "https://i.dummyjson.com/data/products/39/thumbnail.jpg"
+            ]
+          },
+          "quantity": 5,
+          "userId": 1,
+          "id": 1
+        }
+      ],
+      "totalSum": 3000,
+      "totalItem": 5,
+      "selectedAddress": {
+        "name": "Pratik",
+        "street": "10th main",
+        "city": "Baramati",
+        "pinCode": "413209",
+        "state": "Maharashtra",
+        "phone": "7709063077"
+      },
+      "payment": "cash",
+      "user": 1,
+      "status": "pending",
+      "id": 6
+    },
+    {
+      "products": [
+        {
+          "product": {
+            "id": 1,
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 549,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/1/1.jpg",
+              "https://i.dummyjson.com/data/products/1/2.jpg",
+              "https://i.dummyjson.com/data/products/1/3.jpg",
+              "https://i.dummyjson.com/data/products/1/4.jpg",
+              "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 5,
+          "id": 4
+        }
+      ],
+      "totalSum": 549,
+      "totalItem": 1,
+      "selectedAddress": {
+        "name": "Pravin",
+        "street": "10th main",
+        "city": "Baramati",
+        "pinCode": "413209",
+        "state": "Maharashtra",
+        "phone": "7709063077"
+      },
+      "payment": "cash",
+      "user": 5,
+      "status": "pending",
+      "id": 7
+    },
+    {
+      "products": [
+        {
+          "product": {
+            "id": 2,
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": 899,
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/2/1.jpg",
+              "https://i.dummyjson.com/data/products/2/2.jpg",
+              "https://i.dummyjson.com/data/products/2/3.jpg",
+              "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+            ]
+          },
+          "quantity": 10,
+          "userId": 1,
+          "id": 1
+        },
+        {
+          "product": {
+            "id": 39,
+            "title": "Women Sweaters Wool",
+            "description": "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
+            "price": 600,
+            "discountPercentage": 17.2,
+            "rating": 4.55,
+            "stock": 55,
+            "brand": "Top Sweater",
+            "category": "tops",
+            "thumbnail": "https://i.dummyjson.com/data/products/39/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/39/1.jpg",
+              "https://i.dummyjson.com/data/products/39/2.jpg",
+              "https://i.dummyjson.com/data/products/39/3.jpg",
+              "https://i.dummyjson.com/data/products/39/4.jpg",
+              "https://i.dummyjson.com/data/products/39/thumbnail.jpg"
+            ]
+          },
+          "quantity": 10,
+          "userId": 1,
+          "id": 2
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 3
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 4
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 5
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 6
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 7
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 8
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 9
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 10
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 11
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 12
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 13
+        },
+        {
+          "product": {
+            "id": 23,
+            "title": "Orange Essence Food Flavou",
+            "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+            "price": 14,
+            "discountPercentage": 8.04,
+            "rating": 4.85,
+            "stock": 26,
+            "brand": "Baking Food Items",
+            "category": "groceries",
+            "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/23/1.jpg",
+              "https://i.dummyjson.com/data/products/23/2.jpg",
+              "https://i.dummyjson.com/data/products/23/3.jpg",
+              "https://i.dummyjson.com/data/products/23/4.jpg",
+              "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 14
+        }
+      ],
+      "totalSum": 15158,
+      "totalItem": 32,
+      "selectedAddress": {
+        "name": "Kylan Barber",
+        "street": "Ut quis autem aut ea",
+        "city": "In sint est pariatur",
+        "pinCode": "413109",
+        "state": "Similique sed culpa",
+        "phone": "1234567895"
+      },
+      "payment": "cash",
+      "user": 1,
+      "status": "pending",
+      "id": 8
     }
   ]
 }

@@ -128,12 +128,12 @@ function SignUp() {
                   </div>
 
                   <div className="text-sm">
-                    <a
-                      href="#"
+                    <Link
+                      to={"/forgot-password"}
                       className="font-medium text-custom-blue hover:text-custom-darkblue1"
                     >
                       Forgot your password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -154,10 +154,10 @@ function SignUp() {
             <p className="mt-6 text-center text-sm text-gray-600">
               Or{" "}
               <Link
-                to={"/signup"}
+                to={"/login"}
                 className="font-medium text-custom-blue hover:text-custom-darkblue1"
               >
-                Not have an account SignUp
+                have an account Login
               </Link>
             </p>
             <div className="mt-6">
