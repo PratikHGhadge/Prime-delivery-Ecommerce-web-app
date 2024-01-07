@@ -48,9 +48,7 @@
       "brand": "Samsung",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/3/1.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
     },
     {
       "id": 4,
@@ -1428,9 +1426,7 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/78/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/78/thumbnail.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/78/thumbnail.jpg"]
     },
     {
       "id": 79,
@@ -1443,9 +1439,7 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/79/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/79/1.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/79/1.jpg"]
     },
     {
       "id": 80,
@@ -1842,249 +1836,238 @@
   ],
   "brands": [
     {
-      "id": "brand",
-      "name": "Brand",
-      "options": [
-        {
-          "value": "Apple",
-          "label": "Apple",
-          "checked": false
-        },
-        {
-          "value": "Samsung",
-          "label": "Samsung",
-          "checked": false
-        },
-        {
-          "value": "OPPO",
-          "label": "OPPO",
-          "checked": false
-        },
-        {
-          "value": "Huawei",
-          "label": "Huawei",
-          "checked": false
-        },
-        {
-          "value": "Microsoft Surface",
-          "label": "Microsoft Surface",
-          "checked": false
-        },
-        {
-          "value": "Infinix",
-          "label": "Infinix",
-          "checked": false
-        },
-        {
-          "value": "HP Pavilion",
-          "label": "HP Pavilion",
-          "checked": false
-        },
-        {
-          "value": "Impression of Acqua Di Gio",
-          "label": "Impression of Acqua Di Gio",
-          "checked": false
-        },
-        {
-          "value": "Royal_Mirage",
-          "label": "Royal_Mirage",
-          "checked": false
-        },
-        {
-          "value": "Fog Scent Xpressio",
-          "label": "Fog Scent Xpressio",
-          "checked": false
-        },
-        {
-          "value": "Al Munakh",
-          "label": "Al Munakh",
-          "checked": false
-        },
-        {
-          "value": "Lord - Al-Rehab",
-          "label": "Lord - Al-Rehab",
-          "checked": false
-        },
-        {
-          "value": "L'Oreal Paris",
-          "label": "L'Oreal Paris",
-          "checked": false
-        },
-        {
-          "value": "Hemani Tea",
-          "label": "Hemani Tea",
-          "checked": false
-        },
-        {
-          "value": "ROREC White Rice",
-          "label": "ROREC White Rice",
-          "checked": false
-        },
-        {
-          "value": "Fair & Clear",
-          "label": "Fair & Clear",
-          "checked": false
-        },
-        {
-          "value": "Saaf & Khaas",
-          "label": "Saaf & Khaas",
-          "checked": false
-        },
-        {
-          "value": "Bake Parlor Big",
-          "label": "Bake Parlor Big",
-          "checked": false
-        },
-        {
-          "value": "Baking Food Items",
-          "label": "Baking Food Items",
-          "checked": false
-        },
-        {
-          "value": "Dry Rose",
-          "label": "Dry Rose",
-          "checked": false
-        },
-        {
-          "value": "Boho Decor",
-          "label": "Boho Decor",
-          "checked": false
-        },
-        {
-          "value": "Flying Wooden",
-          "label": "Flying Wooden",
-          "checked": false
-        },
-        {
-          "value": "LED Lights",
-          "label": "LED Lights",
-          "checked": false
-        },
-        {
-          "value": "luxury palace",
-          "label": "luxury palace",
-          "checked": false
-        },
-        {
-          "value": "Golden",
-          "label": "Golden",
-          "checked": false
-        }
-      ]
+      "value": "Apple",
+      "label": "Apple",
+      "checked": false
+    },
+    {
+      "value": "Samsung",
+      "label": "Samsung",
+      "checked": false
+    },
+    {
+      "value": "OPPO",
+      "label": "OPPO",
+      "checked": false
+    },
+    {
+      "value": "Huawei",
+      "label": "Huawei",
+      "checked": false
+    },
+    {
+      "value": "Microsoft Surface",
+      "label": "Microsoft Surface",
+      "checked": false
+    },
+    {
+      "value": "Infinix",
+      "label": "Infinix",
+      "checked": false
+    },
+    {
+      "value": "HP Pavilion",
+      "label": "HP Pavilion",
+      "checked": false
+    },
+    {
+      "value": "Impression of Acqua Di Gio",
+      "label": "Impression of Acqua Di Gio",
+      "checked": false
+    },
+    {
+      "value": "Royal_Mirage",
+      "label": "Royal_Mirage",
+      "checked": false
+    },
+    {
+      "value": "Fog Scent Xpressio",
+      "label": "Fog Scent Xpressio",
+      "checked": false
+    },
+    {
+      "value": "Al Munakh",
+      "label": "Al Munakh",
+      "checked": false
+    },
+    {
+      "value": "Lord - Al-Rehab",
+      "label": "Lord - Al-Rehab",
+      "checked": false
+    },
+    {
+      "value": "L'Oreal Paris",
+      "label": "L'Oreal Paris",
+      "checked": false
+    },
+    {
+      "value": "Hemani Tea",
+      "label": "Hemani Tea",
+      "checked": false
+    },
+    {
+      "value": "ROREC White Rice",
+      "label": "ROREC White Rice",
+      "checked": false
+    },
+    {
+      "value": "Fair & Clear",
+      "label": "Fair & Clear",
+      "checked": false
+    },
+    {
+      "value": "Saaf & Khaas",
+      "label": "Saaf & Khaas",
+      "checked": false
+    },
+    {
+      "value": "Bake Parlor Big",
+      "label": "Bake Parlor Big",
+      "checked": false
+    },
+    {
+      "value": "Baking Food Items",
+      "label": "Baking Food Items",
+      "checked": false
+    },
+    {
+      "value": "Dry Rose",
+      "label": "Dry Rose",
+      "checked": false
+    },
+    {
+      "value": "Boho Decor",
+      "label": "Boho Decor",
+      "checked": false
+    },
+    {
+      "value": "Flying Wooden",
+      "label": "Flying Wooden",
+      "checked": false
+    },
+    {
+      "value": "LED Lights",
+      "label": "LED Lights",
+      "checked": false
+    },
+    {
+      "value": "luxury palace",
+      "label": "luxury palace",
+      "checked": false
+    },
+    {
+      "value": "Golden",
+      "label": "Golden",
+      "checked": false
     }
   ],
   "categories": [
     {
-      "id": "category",
-      "name": "Category",
-      "options": [
-        {
-          "value": "smartphones",
-          "label": "Smartphones",
-          "checked": false
-        },
-        {
-          "value": "laptops",
-          "label": "Laptops",
-          "checked": false
-        },
-        {
-          "value": "fragrances",
-          "label": "Fragrances",
-          "checked": false
-        },
-        {
-          "value": "skincare",
-          "label": "Skincare",
-          "checked": false
-        },
-        {
-          "value": "groceries",
-          "label": "Groceries",
-          "checked": false
-        },
-        {
-          "value": "home-decoration",
-          "label": "Home Decoration",
-          "checked": false
-        },
-        {
-          "value": "furniture",
-          "label": "Furniture",
-          "checked": false
-        },
-        {
-          "value": "tops",
-          "label": "Tops",
-          "checked": false
-        },
-        {
-          "value": "womens-dresses",
-          "label": "Women's Dresses",
-          "checked": false
-        },
-        {
-          "value": "womens-shoes",
-          "label": "Women's Shoes",
-          "checked": false
-        },
-        {
-          "value": "mens-shirts",
-          "label": "Men's Shirts",
-          "checked": false
-        },
-        {
-          "value": "mens-shoes",
-          "label": "Men's Shoes",
-          "checked": false
-        },
-        {
-          "value": "mens-watches",
-          "label": "Men's Watches",
-          "checked": false
-        },
-        {
-          "value": "womens-watches",
-          "label": "Women's Watches",
-          "checked": false
-        },
-        {
-          "value": "womens-bags",
-          "label": "Women's Bags",
-          "checked": false
-        },
-        {
-          "value": "womens-jewellery",
-          "label": "Women's Jewellery",
-          "checked": false
-        },
-        {
-          "value": "sunglasses",
-          "label": "Sunglasses",
-          "checked": false
-        },
-        {
-          "value": "automotive",
-          "label": "Automotive",
-          "checked": false
-        },
-        {
-          "value": "motorcycle",
-          "label": "Motorcycle",
-          "checked": false
-        },
-        {
-          "value": "lighting",
-          "label": "Lighting",
-          "checked": false
-        }
-      ]
+      "value": "smartphones",
+      "label": "Smartphones",
+      "checked": false
+    },
+    {
+      "value": "laptops",
+      "label": "Laptops",
+      "checked": false
+    },
+    {
+      "value": "fragrances",
+      "label": "Fragrances",
+      "checked": false
+    },
+    {
+      "value": "skincare",
+      "label": "Skincare",
+      "checked": false
+    },
+    {
+      "value": "groceries",
+      "label": "Groceries",
+      "checked": false
+    },
+    {
+      "value": "home-decoration",
+      "label": "Home Decoration",
+      "checked": false
+    },
+    {
+      "value": "furniture",
+      "label": "Furniture",
+      "checked": false
+    },
+    {
+      "value": "tops",
+      "label": "Tops",
+      "checked": false
+    },
+    {
+      "value": "womens-dresses",
+      "label": "Women's Dresses",
+      "checked": false
+    },
+    {
+      "value": "womens-shoes",
+      "label": "Women's Shoes",
+      "checked": false
+    },
+    {
+      "value": "mens-shirts",
+      "label": "Men's Shirts",
+      "checked": false
+    },
+    {
+      "value": "mens-shoes",
+      "label": "Men's Shoes",
+      "checked": false
+    },
+    {
+      "value": "mens-watches",
+      "label": "Men's Watches",
+      "checked": false
+    },
+    {
+      "value": "womens-watches",
+      "label": "Women's Watches",
+      "checked": false
+    },
+    {
+      "value": "womens-bags",
+      "label": "Women's Bags",
+      "checked": false
+    },
+    {
+      "value": "womens-jewellery",
+      "label": "Women's Jewellery",
+      "checked": false
+    },
+    {
+      "value": "sunglasses",
+      "label": "Sunglasses",
+      "checked": false
+    },
+    {
+      "value": "automotive",
+      "label": "Automotive",
+      "checked": false
+    },
+    {
+      "value": "motorcycle",
+      "label": "Motorcycle",
+      "checked": false
+    },
+    {
+      "value": "lighting",
+      "label": "Lighting",
+      "checked": false
     }
   ],
   "users": [
     {
       "email": "pratikhg.2001@gmail.com",
       "password": "asdlfkoinA4@s",
+      "role": "user",
       "address": [
         {
           "name": "Pratik",
@@ -2132,6 +2115,7 @@
     {
       "email": "ksdsdhg.2001@gmail.com",
       "password": "asddlfkoinA4@s",
+      "role": "user",
       "address": [
         {
           "name": "Pratik",
@@ -2155,6 +2139,7 @@
     {
       "email": "pravingh.20@gmail.com",
       "password": "pratik@Pratik3",
+      "role": "user",
       "address": [
         {
           "name": "Pratik",
@@ -2178,6 +2163,7 @@
     {
       "email": "dyfitumip@mailinator.com",
       "password": "Pa$$w0rd!",
+      "role": "admin",
       "address": [
         {
           "name": "Pratik",
@@ -2201,6 +2187,7 @@
     {
       "email": "bikujyfa@mailinator.com",
       "password": "Pa$$w0rd!",
+      "role": "admin",
       "address": [
         {
           "name": "Pratik",
@@ -2222,7 +2209,103 @@
       "id": 6
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "product": {
+        "id": 2,
+        "title": "iPhone X",
+        "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        "price": 899,
+        "discountPercentage": 17.94,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple",
+        "category": "smartphones",
+        "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "images": [
+          "https://i.dummyjson.com/data/products/2/1.jpg",
+          "https://i.dummyjson.com/data/products/2/2.jpg",
+          "https://i.dummyjson.com/data/products/2/3.jpg",
+          "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+        ]
+      },
+      "quantity": 1,
+      "userId": 5,
+      "id": 1
+    },
+    {
+      "product": {
+        "id": 12,
+        "title": "Brown Perfume",
+        "description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
+        "price": 40,
+        "discountPercentage": 15.66,
+        "rating": 4,
+        "stock": 52,
+        "brand": "Royal_Mirage",
+        "category": "fragrances",
+        "thumbnail": "https://i.dummyjson.com/data/products/12/thumbnail.jpg",
+        "images": [
+          "https://i.dummyjson.com/data/products/12/1.jpg",
+          "https://i.dummyjson.com/data/products/12/2.jpg",
+          "https://i.dummyjson.com/data/products/12/3.png",
+          "https://i.dummyjson.com/data/products/12/4.jpg",
+          "https://i.dummyjson.com/data/products/12/thumbnail.jpg"
+        ]
+      },
+      "quantity": 1,
+      "userId": 5,
+      "id": 2
+    },
+    {
+      "product": {
+        "id": 39,
+        "title": "Women Sweaters Wool",
+        "description": "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
+        "price": 600,
+        "discountPercentage": 17.2,
+        "rating": 4.55,
+        "stock": 55,
+        "brand": "Top Sweater",
+        "category": "tops",
+        "thumbnail": "https://i.dummyjson.com/data/products/39/thumbnail.jpg",
+        "images": [
+          "https://i.dummyjson.com/data/products/39/1.jpg",
+          "https://i.dummyjson.com/data/products/39/2.jpg",
+          "https://i.dummyjson.com/data/products/39/3.jpg",
+          "https://i.dummyjson.com/data/products/39/4.jpg",
+          "https://i.dummyjson.com/data/products/39/thumbnail.jpg"
+        ]
+      },
+      "quantity": 1,
+      "userId": 5,
+      "id": 3
+    },
+    {
+      "product": {
+        "id": 97,
+        "title": "Metal Ceramic Flower",
+        "description": "Metal Ceramic Flower Chandelier Home Lighting American Vintage Hanging Lighting Pendant Lamp",
+        "price": 35,
+        "discountPercentage": 10.94,
+        "rating": 4.93,
+        "stock": 146,
+        "brand": "Ifei Home",
+        "category": "lighting",
+        "thumbnail": "https://i.dummyjson.com/data/products/97/thumbnail.jpg",
+        "images": [
+          "https://i.dummyjson.com/data/products/97/1.jpg",
+          "https://i.dummyjson.com/data/products/97/2.jpg",
+          "https://i.dummyjson.com/data/products/97/3.jpg",
+          "https://i.dummyjson.com/data/products/97/4.webp",
+          "https://i.dummyjson.com/data/products/97/thumbnail.jpg"
+        ]
+      },
+      "quantity": 4,
+      "userId": 1,
+      "id": 4
+    }
+  ],
   "orders": [
     {
       "products": [
@@ -2385,9 +2468,7 @@
             "brand": "Samsung",
             "category": "smartphones",
             "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-            "images": [
-              "https://i.dummyjson.com/data/products/3/1.jpg"
-            ]
+            "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
           },
           "quantity": 1,
           "userId": 1,
@@ -2908,6 +2989,134 @@
       "user": 1,
       "status": "pending",
       "id": 8
+    },
+    {
+      "products": [
+        {
+          "product": {
+            "id": 2,
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": 899,
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/2/1.jpg",
+              "https://i.dummyjson.com/data/products/2/2.jpg",
+              "https://i.dummyjson.com/data/products/2/3.jpg",
+              "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+            ]
+          },
+          "quantity": 4,
+          "userId": 1,
+          "id": 24
+        },
+        {
+          "product": {
+            "id": 2,
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": 899,
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/2/1.jpg",
+              "https://i.dummyjson.com/data/products/2/2.jpg",
+              "https://i.dummyjson.com/data/products/2/3.jpg",
+              "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 25
+        }
+      ],
+      "totalSum": 4495,
+      "totalItem": 5,
+      "selectedAddress": {
+        "name": "Pratik",
+        "street": "10th main",
+        "city": "Baramati",
+        "pinCode": "413209",
+        "state": "Maharashtra",
+        "phone": "7709063077"
+      },
+      "payment": "card",
+      "user": 1,
+      "status": "pending",
+      "id": 9
+    },
+    {
+      "products": [
+        {
+          "product": {
+            "id": 2,
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": 899,
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/2/1.jpg",
+              "https://i.dummyjson.com/data/products/2/2.jpg",
+              "https://i.dummyjson.com/data/products/2/3.jpg",
+              "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+            ]
+          },
+          "quantity": 4,
+          "userId": 1,
+          "id": 24
+        },
+        {
+          "product": {
+            "id": 2,
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": 899,
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "images": [
+              "https://i.dummyjson.com/data/products/2/1.jpg",
+              "https://i.dummyjson.com/data/products/2/2.jpg",
+              "https://i.dummyjson.com/data/products/2/3.jpg",
+              "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+            ]
+          },
+          "quantity": 1,
+          "userId": 1,
+          "id": 25
+        }
+      ],
+      "totalSum": 4495,
+      "totalItem": 5,
+      "selectedAddress": {
+        "name": "Pratik",
+        "street": "10th main",
+        "city": "Baramati",
+        "pinCode": "413209",
+        "state": "Maharashtra",
+        "phone": "7709063077"
+      },
+      "payment": "card",
+      "user": 1,
+      "status": "pending",
+      "id": 10
     }
   ]
 }

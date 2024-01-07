@@ -1,41 +1,42 @@
 import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { sortOptions } from "./filtersData";
+import { sortOptions } from "./../../product/components/filtersData";
 import {
   ChevronDownIcon,
   FunnelIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
   fetchProductsByFilterAndPage,
   fetchAllCategories,
   fetchAllBrands,
-} from "../ProductListAPI";
+} from "../../product/ProductListAPI";
 import { useDispatch, useSelector } from "react-redux";
-import Pagination from "./Pagination";
-import Mobilefilter from "./Mobilefilter";
-import { sortProducts } from "../ProductSlice";
+import Pagination from "../../product/components/Pagination";
+import Mobilefilter from "../../product/components/Mobilefilter";
+import { sortProducts } from "../../product/ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
-import DesktopFilters from "./DesktopFilters";
+import DesktopFilters from "../../product/components/DesktopFilters";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductList() {
+export default function AdminProductList() {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { products, totalItem, brands, categories } = useSelector(
     (state) => state.products
   );
-  const filters = [
-    { id: "brand", name: "Brand", options: brands },
-    { id: "category", name: "Category", options: categories },
-  ];
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const dispatch = useDispatch();
   const [filter, setFilter] = useState({});
   const [page, setPage] = useState(1);
+  const handleButtonClick = () => {
+    navigate("/product-form");
+  };
 
   useEffect(() => {
     dispatch(
@@ -189,61 +190,68 @@ export default function ProductList() {
                 {/* Product grid */}
                 <div className="lg:col-span-3">
                   <div className="mx-auto max-w-2xl px-4 py-4  sm:px-6  lg:max-w-7xl lg:px-8">
-                    <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                      Customers also purchased
-                    </h2>
-
+                    <button
+                      type="submit"
+                      className="bg-green-500 hover:bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white focus:ring-offset-gray-50 "
+                      onClick={handleButtonClick}
+                    >
+                      Add Products
+                    </button>
                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2  lg:grid-cols-3 xl:gap-x-8">
                       {products.map((product) => (
-                        <Link to={`/product-detail/${product.id}`}>
-                          <div
-                            key={product.id}
-                            className="group relative border shadow-xl p-2 "
-                          >
-                            <div className="relative  aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                              <img
-                                src={product.thumbnail}
-                                alt={product.title}
-                                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                              />
+                        <div
+                          key={product.id}
+                          className="group relative border shadow-xl p-2 "
+                        >
+                          <div className="relative  aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                            <img
+                              src={product.thumbnail}
+                              alt={product.title}
+                              className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                            />
+                          </div>
+                          <span className="absolute top-0 right-0 bg-custom-red text-white px-2 py-1 rounded-bl-lg z-40">
+                            {product.discountPercentage}% OFF
+                          </span>
+                          <div className="mt-4 flex justify-between">
+                            <div>
+                              <h3 className="text-sm text-gray-700">
+                                <Link to={product.thumbnail}>
+                                  <span
+                                    aria-hidden="true"
+                                    className="absolute inset-0"
+                                  />
+                                  {product.title}
+                                </Link>
+                              </h3>
+                              <p className="flex  items-center  mt-1 text-sm text-gray-900">
+                                <div className="w-[11px] h-[11px] mr-1">
+                                  <StarIcon />
+                                </div>
+                                {product.rating}
+                              </p>
                             </div>
-                            <span className="absolute top-0 right-0 bg-custom-red text-white px-2 py-1 rounded-bl-lg z-40">
-                              {product.discountPercentage}% OFF
-                            </span>
-                            <div className="mt-4 flex justify-between">
-                              <div>
-                                <h3 className="text-sm text-gray-700">
-                                  <Link to={product.thumbnail}>
-                                    <span
-                                      aria-hidden="true"
-                                      className="absolute inset-0"
-                                    />
-                                    {product.title}
-                                  </Link>
-                                </h3>
-                                <p className="flex  items-center  mt-1 text-sm text-gray-900">
-                                  <div className="w-[11px] h-[11px] mr-1">
-                                    <StarIcon />
-                                  </div>
-                                  {product.rating}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="line-through text-sm font-medium text-gray-400">
-                                  ₹{product.price}
-                                </p>
-                                <p className="text-sm font-medium text-gray-900">
-                                  ₹
-                                  {Math.round(
-                                    product.price -
-                                      (product.price / 100) *
-                                        product.discountPercentage
-                                  )}
-                                </p>
-                              </div>
+                            <div>
+                              <p className="line-through text-sm font-medium text-gray-400">
+                                ₹{product.price}
+                              </p>
+                              <p className="text-sm font-medium text-gray-900">
+                                ₹
+                                {Math.round(
+                                  product.price -
+                                    (product.price / 100) *
+                                      product.discountPercentage
+                                )}
+                              </p>
                             </div>
                           </div>
-                        </Link>
+                          <button
+                            type="submit"
+                            className="bg-green-500 hover:bg-green-600 border border-transparent rounded-md shadow-sm py-1 px-2 mt-2 w-full text-sm font-medium text-white focus:ring-offset-gray-50 "
+                          >
+                            Edit Products
+                          </button>
+                        </div>
                       ))}
                     </div>
                   </div>

@@ -11,7 +11,8 @@ const initialState = {
   products: [],
   status: "idle",
   totalItem: 100,
-  filters: [],
+  brands: [],
+  categories: [],
   selectedProduct: null,
 };
 
@@ -53,20 +54,22 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
       state.status = "idle";
-      const exists = state.filters.some((obj) => obj.id === action.payload.id);
-      if (!exists) {
-        state.filters.push(action.payload);
-      }
+      state.categories = action.payload;
+      // const exists = state.filters.some((obj) => obj.id === action.payload.id);
+      // if (!exists) {
+      //   state.filters.push(action.payload);
+      // }
     });
     builder.addCase(fetchAllBrands.pending, (state) => {
       state.status = "loading";
     });
     builder.addCase(fetchAllBrands.fulfilled, (state, action) => {
       state.status = "idle";
-      const exists = state.filters.some((obj) => obj.id === action.payload.id);
-      if (!exists) {
-        state.filters.push(action.payload);
-      }
+      state.brands = action.payload;
+      // const exists = state.filters.some((obj) => obj.id === action.payload.id);
+      // if (!exists) {
+      //   state.filters.push(action.payload);
+      // }
     });
     builder.addCase(fetchProductById.pending, (state) => {
       state.status = "loading";

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 
-function DesktopFilters({ handelFilter, filters }) {
+function DesktopFilters({ handelFilter, brands, categories }) {
+  const filters = [
+    { id: "brand", name: "Brand", options: brands },
+    { id: "category", name: "Category", options: categories },
+  ];
   return (
     <div>
       {/* Filters */}

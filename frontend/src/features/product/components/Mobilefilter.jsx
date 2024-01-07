@@ -8,8 +8,13 @@ function Mobilefilter({
   mobileFiltersOpen,
   setMobileFiltersOpen,
   handelFilter,
-  filters,
+  brands,
+  categories,
 }) {
+  const filters = [
+    { id: "brand", name: "Brand", options: brands },
+    { id: "category", name: "Category", options: categories },
+  ];
   return (
     <div>
       <Transition.Root show={mobileFiltersOpen} as={Fragment}>

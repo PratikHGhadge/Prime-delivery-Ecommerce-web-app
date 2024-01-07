@@ -44,12 +44,7 @@ const fetchProduct = async (req, res) => {
 
     const totalProducts = await Product.countDocuments(conditions);
 
-    return res.status(200).send({
-      products,
-      totalProducts,
-      currentPage: page,
-      totalPages: Math.ceil(totalProducts / limit),
-    });
+    return res.status(200).send(products);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -69,7 +64,7 @@ const fetchProductById = async (req, res) => {
 
     return res.status(200).send({
       success: true,
-      product,
+      data: product,
     });
   } catch (error) {
     console.log(error);
@@ -81,8 +76,27 @@ const fetchProductById = async (req, res) => {
   }
 };
 
+const updateProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    if (!updatedProduct) {
+      return res.status(404).send("Product not found");
+    }
+
+    res.status(200).send({ success: true, updatedProduct });
+  } catch (error) {
+    res.status(500).send("Error updating the product: " + error.message);
+  }
+};
+
 module.exports = {
   createProduct,
   fetchProduct,
   fetchProductById,
+  updateProductById,
 };

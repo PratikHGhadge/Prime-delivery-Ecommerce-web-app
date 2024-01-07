@@ -3,6 +3,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const colors = require("colors");
 const server = express();
+const cors = require("cors");
 dotenv.config();
 
 // mongodb connection
@@ -12,6 +13,7 @@ connectDB()
 
 // middlewares
 server.use(express.json());
+server.use(cors({ exposedHeaders: ["X-total-Count"] }));
 
 // Routes
 // Test Routes
@@ -27,5 +29,5 @@ server.use("/cart", require("./Routes/cart"));
 
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
-  console.log("app is listening on port no 3000");
+  console.log(`app is listening on port no ${PORT}`);
 });

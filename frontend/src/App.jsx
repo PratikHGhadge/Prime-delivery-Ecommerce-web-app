@@ -16,6 +16,10 @@ import UserOrderPage from "./pages/UserOrderPage";
 import ProfilePage from "./pages/ProfilePage";
 import Logout from "./features/auth/components/Logout";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
+import AdminHome from "./pages/AdminHome";
+import AdminProductDetailPage from "./pages/AdminProductDetail";
+import AdminProductForm from "./features/admin/AdminProductForm";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -36,6 +40,22 @@ function App() {
               <Protected>
                 <Home />
               </Protected>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedAdmin>
+                <AdminHome />
+              </ProtectedAdmin>
+            }
+          />
+          <Route
+            path="/product-form"
+            element={
+              <ProtectedAdmin>
+                <AdminProductForm />
+              </ProtectedAdmin>
             }
           />
           <Route path="/login" element={<LoginPage />} />
@@ -62,6 +82,14 @@ function App() {
               <Protected>
                 <ProductDetailPage />
               </Protected>
+            }
+          />
+          <Route
+            path="/admin/product-detail/:id"
+            element={
+              <ProtectedAdmin>
+                <AdminProductDetailPage />
+              </ProtectedAdmin>
             }
           />
           <Route

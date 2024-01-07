@@ -3,12 +3,14 @@ const {
   createProduct,
   fetchProduct,
   fetchProductById,
+  updateProductById,
 } = require("../controllers/ProductController");
 
 // router object
 const router = express.Router();
 // routes
 router.post("/create-product", createProduct);
-router.get("/fetch-products", fetchProduct);
-router.get("/product-detail", fetchProductById);
+router.get("/", fetchProduct);
+router.get("/:id", fetchProductById);
+router.patch("/update-product/:id", updateProductById);
 module.exports = router;

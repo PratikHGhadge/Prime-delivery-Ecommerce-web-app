@@ -8,7 +8,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
-
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -18,6 +17,7 @@ const user = {
 const navigation = [
   { name: "My Orders", href: "/orders", current: true },
   { name: "Team", href: "#", current: false },
+  { name: "admin Home", href: "/admin", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "/profile" },
@@ -31,6 +31,11 @@ function classNames(...classes) {
 
 function Navbar({ children }) {
   const noOfItem = useSelector((state) => state.cart.cartItems.length);
+  const userRole = useSelector((state) => state.auth.isLoggedIn.role);
+  const filteredNavigation = navigation.filter((item) => {
+    // Only include the "admin Home" item if userRole is 'admin'
+    return item.name !== "admin Home" || userRole === "admin";
+  });
   return (
     <>
       <div className="min-h-full">
@@ -51,7 +56,7 @@ function Navbar({ children }) {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
+                        {filteredNavigation.map((item) => (
                           <Link
                             key={item.name}
                             to={item.href}
@@ -153,10 +158,10 @@ function Navbar({ children }) {
 
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                  {navigation.map((item) => (
+                  {filteredNavigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
-                      as="a"
+                      // as="link"
                       href={item.href}
                       className={classNames(
                         item.current

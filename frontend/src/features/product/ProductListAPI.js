@@ -39,13 +39,13 @@ const fetchAllCategories = createAsyncThunk(
   "categories/fetchAllCategories",
   async () => {
     const response = await API.get("/categories");
-    return response?.data[0];
+    return response.data;
   }
 );
 
 const fetchAllBrands = createAsyncThunk("brands/fetchAllBrands", async () => {
   const response = await API.get("/brands");
-  return response?.data[0];
+  return response.data;
 });
 
 const fetchProductById = createAsyncThunk(

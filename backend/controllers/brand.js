@@ -3,10 +3,7 @@ const fetchBrands = async (req, res) => {
   try {
     // fetch brands record
     const brands = await Brand.find({});
-    return res.status(200).send({
-      success: true,
-      brands,
-    });
+    return res.status(200).send(brands);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
