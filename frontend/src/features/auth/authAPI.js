@@ -2,15 +2,37 @@ import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createUser = createAsyncThunk("users/createUser", async (user) => {
-  console.log(user);
-  const response = await API.post("/users", user);
+  const response = await API.post("/auth/signup", user);
   return response.data;
 });
-export const checkUser = createAsyncThunk("users/checkUser", async (user) => {
-  console.log(user);
-  const response = await API.get(`/users?email=${user.email}`);
-  return response.data[0];
-});
+
+// google authentication
+export const createUserWithGoogle = createAsyncThunk(
+  "users/createUserWithGoogle",
+  async () => {
+    const response = await API.get("/auth/login/sucess", {
+      withCredentials: true,
+    });
+    console.log(response);
+    return response;
+  }
+);
+
+export const checkUser = createAsyncThunk(
+  "users/checkUser",
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await API.post("/auth/login", user);
+      return response.data;
+    } catch (error) {
+      // Use rejectWithValue to pass a custom payload for the rejected action
+      return rejectWithValue({
+        message: "Error during user check",
+        errorDetails: error.response.data, // or any other relevant error information
+      });
+    }
+  }
+);
 
 export const signOutAsync = createAsyncThunk(
   "users/signOutAsync",

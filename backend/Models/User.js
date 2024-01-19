@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: Buffer, required: false },
   role: { type: String, required: true, default: "user" },
   addresses: { type: [mongoose.Schema.Mixed] },
   name: { type: String },
-  orders: { type: [Schema.Types.Mixed] },
+  orders: { type: [mongoose.Schema.Mixed] },
+  salt: Buffer,
 });
 
 // Define a virtual property 'id' that returns the '_id'
@@ -23,4 +24,4 @@ UserSchema.set("toJSON", {
   },
 });
 
-exports.User = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);

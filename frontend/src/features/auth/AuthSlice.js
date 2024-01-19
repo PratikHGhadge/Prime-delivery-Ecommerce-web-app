@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { checkUser, createUser, signOutAsync } from "./authAPI";
 const initialState = {
-  isLoggedIn: null,
+  loggedInUserToken: null,
   status: "idle",
 };
 export const authSlice = createSlice({
@@ -15,21 +15,25 @@ export const authSlice = createSlice({
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.status = "idle";
-        state.isLoggedIn = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(checkUser.pending, (state) => {
         state.status = "loading";
       })
       .addCase(checkUser.fulfilled, (state, action) => {
         state.status = "idle";
-        state.isLoggedIn = action.payload;
+        state.loggedInUserToken = action.payload;
+      })
+      .addCase(checkUser.rejected, (state, action) => {
+        state.status = "idle";
+        state.loggedInUserToken = action.payload.message;
       })
       .addCase(signOutAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.isLoggedIn = null;
+        state.loggedInUserToken = null;
       });
   },
 });

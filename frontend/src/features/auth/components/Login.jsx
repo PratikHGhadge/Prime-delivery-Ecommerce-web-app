@@ -24,6 +24,10 @@ function Login() {
     }
   };
 
+  const handleLogin = () => {
+    window.open("http://localhost:8080/auth/google", "_self");
+  };
+
   return (
     <>
       <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-md">
@@ -106,7 +110,7 @@ function Login() {
                       to="/forgot-password"
                       className="font-medium text-custom-blue hover:text-custom-darkblue1"
                     >
-                      Forgot yo ur password?
+                      Forgot your password?
                     </Link>
                   </div>
                 </div>
@@ -189,7 +193,10 @@ function Login() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <button
+                    onClick={handleLogin}
+                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  >
                     <span className="sr-only">Sign in with Google</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +206,7 @@ function Login() {
                     >
                       <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
                     </svg>
-                  </Link>
+                  </button>
                 </motion.div>
               </div>
             </div>
