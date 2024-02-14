@@ -21,7 +21,7 @@ function DesktopFilters({ handelFilter, brands, categories }) {
           >
             {({ open }) => (
               <>
-                <h3 className="-my-3 flow-root">
+                <h3 className="-my-3 flow-">
                   <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                     <span className="font-medium text-gray-900">
                       {section.name}
@@ -36,10 +36,13 @@ function DesktopFilters({ handelFilter, brands, categories }) {
                   </Disclosure.Button>
                 </h3>
 
-                <Disclosure.Panel className="pt-6">
-                  <div className="space-y-4">
+                <Disclosure.Panel className="pt-1">
+                  <div className="space-y-2 flex  flex-wrap ">
                     {section.options.map((option, optionIdx) => (
-                      <div key={option.value} className="flex items-center">
+                      <div
+                        key={option.value}
+                        className=" flex flex-auto  text-md ml-2 px-2 py-1 rounded-md text-sm leading-5 font-medium text-gray-800  hover:bg-green-300 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700"
+                      >
                         <input
                           id={`filter-${section.id}-${optionIdx}`}
                           name={`${section.id}[]`}

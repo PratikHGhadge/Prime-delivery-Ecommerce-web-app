@@ -1,30 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { productValidateYupSchema } from "../../validations/validationSchema";
 import CustomErrorMsg from "../auth/components/CustomErrorMsg";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { createProduct, editProduct } from "../product/ProductListAPI";
 
-function AdminProductForm() {
+function AdminProductForm({ initialValues, method }) {
   const dispatch = useDispatch();
   const { brands, categories } = useSelector((state) => state.products);
-  const initialValues = {
-    title: "",
-    description: "",
-    price: 0,
-    discountPercentage: 0,
-    stock: 0,
-    thumbnail: "",
-    brand: "",
-    category: "",
+  const [brand, setSelectedBrand] = useState("");
+  const [category, setSelectedCategory] = useState("");
+
+  const selectBrand = (event) => {
+    setSelectedBrand(event.target.value);
   };
+  const selectCategory = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
   const handelAddProduct = (values) => {
-    console.log("hello");
-    console.log(JSON.stringify(values));
-    // add products
-    dispatch();
+    const product = { ...values };
+    product.images = [
+      product.image1,
+      product.image2,
+      product.image3,
+      product.thumbnail,
+    ];
+    product.rating = 0;
+    delete product["image1"];
+    delete product["image2"];
+    delete product["image3"];
+    if (method === "POST") {
+      dispatch(createProduct(product));
+    } else if (method === "PATCH") {
+      editProduct(product);
+    }
     // Add products
   };
+  useEffect(() => {}, []);
   return (
     <div>
       <Navbar>
@@ -40,7 +54,7 @@ function AdminProductForm() {
                   onSubmit={handelAddProduct}
                   validationSchema={productValidateYupSchema}
                 >
-                  <Form method="POST">
+                  <Form method={method}>
                     <div>
                       <h3
                         id="contact-info-heading"
@@ -48,7 +62,6 @@ function AdminProductForm() {
                       >
                         Product information{" "}
                       </h3>
-
                       <div className="mt-6">
                         <label
                           htmlFor="title"
@@ -58,7 +71,7 @@ function AdminProductForm() {
                         </label>
                         <div className="mt-1">
                           <Field
-                            type="name"
+                            type="text"
                             id="title"
                             name="title"
                             className="block w-full border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
@@ -147,11 +160,11 @@ function AdminProductForm() {
                             Brand
                           </label>
                           <div className="mt-1">
-                            <select
-                              type="text"
+                            <Field
+                              as="select"
                               id="brand"
                               name="brand"
-                              className="block w-full border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                              className="block w-full  border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
                             >
                               <option>--Choose brand--</option>
                               {brands.map((brand) => (
@@ -159,7 +172,7 @@ function AdminProductForm() {
                                   {brand.label}
                                 </option>
                               ))}
-                            </select>
+                            </Field>
                             <CustomErrorMsg name={"brand"} />
                           </div>
                         </div>
@@ -171,8 +184,8 @@ function AdminProductForm() {
                             Category
                           </label>
                           <div className="mt-1">
-                            <select
-                              type="text"
+                            <Field
+                              as="select"
                               id="category"
                               name="category"
                               className="block w-full  border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
@@ -183,7 +196,7 @@ function AdminProductForm() {
                                   {category.label}
                                 </option>
                               ))}
-                            </select>
+                            </Field>
                             <CustomErrorMsg name={"category"} />
                           </div>
                         </div>

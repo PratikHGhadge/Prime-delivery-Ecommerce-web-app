@@ -6,14 +6,14 @@ const { sanitizeUser } = require("../services/common");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
+const { cookieExtractor } = require("../services/common");
 
 // Passport strategy
 const initializePassport = (passport) => {
   // JWT OPTIONS
   var opts = {};
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+  opts.jwtFromRequest = cookieExtractor;
   opts.secretOrKey = process.env.SECRET_KEY;
-
   passport.use(
     new GoogleStrategy(
       {
@@ -43,7 +43,6 @@ const initializePassport = (passport) => {
       }
     )
   );
-
   // local strategy
   passport.use(
     new LocalStrategy({ usernameField: "email" }, async function (
@@ -59,7 +58,7 @@ const initializePassport = (passport) => {
         }
         crypto.pbkdf2(
           password,
-          user.salt,
+          user?.salt,
           310000,
           32,
           "sha256",
@@ -80,24 +79,22 @@ const initializePassport = (passport) => {
       }
     })
   );
-
   // jwt strategy
   passport.use(
     new JwtStrategy(opts, async function (jwt_payload, done) {
-      console.log(jwt_payload);
       try {
-        const user = await User.findOne({ id: jwt_payload.sub });
+        const user = await User.findById(jwt_payload.id);
         if (user) {
           return done(null, user);
         } else {
+          console.log("alsdkfj;lksd");
           return done(null, false);
         }
       } catch (error) {
-        return done(err, false);
+        return done(error, false);
       }
     })
   );
-
   // this creates session variable req.user on being called from callbacks
   passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
@@ -111,5 +108,4 @@ const initializePassport = (passport) => {
     });
   });
 };
-
 module.exports = { initializePassport };

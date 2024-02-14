@@ -5,10 +5,10 @@ const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts", // Change the action type to distinguish from the next action
   async () => {
     const response = await API.get("/products");
-    const totalCount = response.headers.get("X-Total-Count");
+    // const totalCount = response.headers.get("X-Total-Count");
     return {
-      data: response.data,
-      totalCount: totalCount,
+      data: response.data.data,
+      totalCount: response.data.totalCount,
     };
   }
 );
@@ -27,10 +27,10 @@ const fetchProductsByFilterAndPage = createAsyncThunk(
     queryString = queryString.slice(0, -1);
     queryString += `&_page=${page}&_limit=${limit}`;
     const response = await API.get(`/products?${queryString}`);
-    const totalCount = response.headers.get("X-Total-Count");
+    // const totalCount = response.headers.get("X-Total-Count");
     return {
       data: response.data,
-      totalCount: totalCount,
+      totalCount: response.totalCount,
     };
   }
 );
@@ -56,10 +56,28 @@ const fetchProductById = createAsyncThunk(
   }
 );
 
+const createProduct = createAsyncThunk(
+  "products/createProduct",
+  async (product) => {
+    const response = await API.post(`/products/`, product);
+    return response.data;
+  }
+);
+const editProduct = createAsyncThunk(
+  "products/editProduct",
+  async (product) => {
+    console.log(product);
+    const response = await API.patch(`/products/`, product);
+    return response.data;
+  }
+);
+
 export {
   fetchAllProducts,
   fetchProductsByFilterAndPage,
   fetchAllCategories,
   fetchAllBrands,
   fetchProductById,
+  createProduct,
+  editProduct,
 };

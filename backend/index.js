@@ -1,34 +1,37 @@
+const colors = require("colors");
 const dotenv = require("dotenv");
 const express = require("express");
 const connectDB = require("./config/db");
-const colors = require("colors");
 const server = express();
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const { initializePassport } = require("./Middlewares/passport");
-const path = require("path");
 const cors = require("cors");
-const User = require("./Models/User");
+
 const isAuth = require("./Middlewares/middlewares");
 dotenv.config();
 
+server.use(
+  cors({
+    exposedHeaders: ["X-Total-Count"],
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
 // mongodb connection
 connectDB()
   .then(() => {})
   .catch(() => {});
 // middlewares
 server.use(express.json());
-server.use(
-  cors({
-    exposedHeaders: ["X-Total-Count"],
-  })
-);
+server.use(cookieParser());
+
 server.use(
   session({
     secret: process.env.SECRET_KEY,
     resave: false,
-    saveUninitialized: false,
-    // cookie: { secure: false },
+    saveUninitialized: false, // cookie: { secure: false },
   })
 );
 
@@ -51,7 +54,12 @@ server.use("/brands", isAuth(), require("./Routes/brands"));
 // Cart Routes
 server.use("/cart", isAuth(), require("./Routes/cart"));
 // User Routes
-server.use("/user", isAuth(), require("./Routes/user"));
+server.use("/users", isAuth(), require("./Routes/user"));
+// order Routes
+server.use("/orders", isAuth(), require("./Routes/orders"));
+// payment Routes
+server.use("/payment", require("./Routes/paymentRoutes"));
+
 // Cart Routes
 server.use("/auth", require("./Routes/auth"));
 const PORT = process.env.PORT || 8000;

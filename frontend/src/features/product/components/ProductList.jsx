@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "./Pagination";
 import Mobilefilter from "./Mobilefilter";
 import { sortProducts } from "../ProductSlice";
-import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
 import DesktopFilters from "./DesktopFilters";
 
 function classNames(...classes) {
@@ -105,7 +105,7 @@ export default function ProductList() {
 
           <main className="mx-auto max-w-7xl px-4  sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 ">
                 All Products
               </h1>
 
@@ -179,7 +179,7 @@ export default function ProductList() {
                 Products
               </h2>
 
-              <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-x-8 gap-y-10 ">
                 <DesktopFilters
                   handelFilter={handelFilter}
                   brands={brands}
@@ -187,70 +187,60 @@ export default function ProductList() {
                 />
 
                 {/* Product grid */}
-                <div className="lg:col-span-3">
-                  <div className="mx-auto max-w-2xl px-4 py-4  sm:px-6  lg:max-w-7xl lg:px-8">
-                    <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                      Customers also purchased
-                    </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {products.map((product) => (
+                    <Link to={`/product-detail/${product.id}`}>
+                      <div
+                        className="container mx-auto py-8 relative"
+                        key={product.id}
+                      >
+                        <div className="">
+                          {/* Sample sale items */}
 
-                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2  lg:grid-cols-3 xl:gap-x-8">
-                      {products.map((product) => (
-                        <Link to={`/product-detail/${product.id}`}>
-                          <div
-                            key={product.id}
-                            className="group relative border shadow-xl p-2 "
-                          >
-                            <div className="relative  aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                              <img
-                                src={product.thumbnail}
-                                alt={product.title}
-                                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                              />
-                            </div>
+                          <div className="bg-white p-4 shadow-md rounded-lg">
                             <span className="absolute top-0 right-0 bg-custom-red text-white px-2 py-1 rounded-bl-lg z-40">
                               {product.discountPercentage}% OFF
                             </span>
-                            <div className="mt-4 flex justify-between">
-                              <div>
-                                <h3 className="text-sm text-gray-700">
-                                  <Link to={product.thumbnail}>
-                                    <span
-                                      aria-hidden="true"
-                                      className="absolute inset-0"
-                                    />
-                                    {product.title}
-                                  </Link>
-                                </h3>
-                                <p className="flex  items-center  mt-1 text-sm text-gray-900">
-                                  <div className="w-[11px] h-[11px] mr-1">
-                                    <StarIcon />
-                                  </div>
-                                  {product.rating}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="line-through text-sm font-medium text-gray-400">
-                                  ₹{product.price}
-                                </p>
-                                <p className="text-sm font-medium text-gray-900">
-                                  ₹
-                                  {Math.round(
-                                    product.price -
-                                      (product.price / 100) *
-                                        product.discountPercentage
-                                  )}
-                                </p>
-                              </div>
+
+                            <img
+                              src={product.thumbnail}
+                              alt={product.thumbnail}
+                              className="w-full h-48 object-cover mb-4 rounded-md"
+                            />
+                            <h2 className="text-lg font-semibold mb-2">
+                              {product.title}
+                            </h2>
+                            <div className="flex justify-between">
+                              <p className="text-gray-600 mb-4">
+                                ${discountedPrice(product) + "   "}
+                                <span className="text-sm text-gray-400 line-through">
+                                  ${product.price}
+                                </span>
+                              </p>
+                              <p className="flex  items-center mb-4 text-sm text-gray-900">
+                                <div className="w-[11px] h-[11px] mr-1">
+                                  <StarIcon />
+                                </div>
+                                {product.rating}
+                              </p>
                             </div>
+
+                            <button
+                              // onClick={handelAddToCart}
+                              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-r bg-red-400"
+                            >
+                              View product detail
+                            </button>
                           </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </section>
           </main>
+
           {/* Pagination */}
           <Pagination
             page={page}

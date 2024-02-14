@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import { motion } from "framer-motion";
 import CustomErrorMsg from "./CustomErrorMsg";
 import { useDispatch } from "react-redux";
-import { checkUser } from "../authAPI";
+import { loginUser } from "../authAPI";
 import { useNavigate } from "react-router-dom";
 import { LoginValidateYupSchema } from "./../../../validations/validationSchema";
 
@@ -13,11 +13,13 @@ const initialValues = { email: "", password: "" };
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const onSubmit = async (values) => {
     try {
       await dispatch(
-        checkUser({ email: values.email, password: values.password })
+        loginUser({ email: values.email, password: values.password })
       );
+
       navigate("/home");
     } catch (error) {
       console.error(error);
@@ -30,9 +32,9 @@ function Login() {
 
   return (
     <>
-      <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white shadow sm:rounded-lg ">
-          <div className="min-h-auto py-10 bg-gray-50 flex flex-col justify-center sm:px-6">
+      <div className="pt-20 h-[100vh] sm:mx-auto sm:w-full sm:max-w-md ">
+        <div className="bg-white shadow rounded-3xl">
+          <div className="min-h-auto py-10 bg-gray-50 rounded-3xl flex flex-col justify-center sm:px-6 ">
             <div className="sm:mx-auto sm:w-full sm:max-w-md ">
               <img
                 className="mx-auto h-auto w-[160px] rounded-full"

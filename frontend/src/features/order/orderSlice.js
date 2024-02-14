@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrder } from "./orderAPI";
+import { createOrder, fetchAllOrders, updateOrderStatus } from "./orderAPI";
 
 const initialState = {
   orders: [],
@@ -25,6 +25,25 @@ export const orderSlice = createSlice({
         state.status = "idle";
         state.orders.push(action.payload);
         state.currentOrder = action.payload;
+      })
+      .addCase(fetchAllOrders.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllOrders.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.orders = action.payload.data;
+        console.log(action.payload.totalCount);
+        state.totalOrders = action.payload.totalCount;
+      })
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.status = "idle";
+        const orderId = action.payload.data.id;
+        console.log(action.payload.data.id);
+        state.orders[state.orders.findIndex((e) => e.id == orderId)] =
+          action.payload.data;
       });
   },
 });

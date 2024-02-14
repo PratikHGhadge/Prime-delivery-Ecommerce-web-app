@@ -3,15 +3,14 @@ import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const addToCart = createAsyncThunk("cart/addToCart", async (item) => {
-  console.log(item);
   const response = await API.post("/cart", item);
-  return response.data;
+  return response.data.response;
 });
 
 export const fetchItemsByUserId = createAsyncThunk(
   "cart/fetchItemsByUserId",
-  async (userId) => {
-    const response = await API.get(`/cart?userId=${userId}`);
+  async () => {
+    const response = await API.get(`/cart`);
     return response.data;
   }
 );
@@ -34,10 +33,9 @@ export const deleteItem = createAsyncThunk(
 
 export const resetCart = createAsyncThunk(
   "cart/resetCart",
-  async (userId, { dispatch }) => {
-    const response = await dispatch(fetchItemsByUserId(userId));
-    console.log(response.payload);
-    const items = response.payload;
+  async ({ dispatch }) => {
+    const response = await dispatch(fetchItemsByUserId());
+    const items = response.payload.cartItems;
     for (let item of items) {
       await dispatch(deleteItem(item.id));
     }

@@ -17,7 +17,14 @@ const createUser = async (req, res) => {
         const user = new User({ ...req.body, password: hashedPassword, salt });
         const doc = await user.save();
         const token = jwt.sign(sanitizeUser(doc), process.env.SECRET_KEY);
-        return res.status(201).send({ id: doc.id, role: doc.role, token });
+        return res
+          .cookie("jwt", token, {
+            expires: new Date(Date.now() + 3600000),
+            httpOnly: true,
+            // sameSite: "None",
+          })
+          .status(201)
+          .send({ id: doc.id, role: doc.role, token });
       }
     );
   } catch (error) {
@@ -29,9 +36,17 @@ const createUser = async (req, res) => {
     });
   }
 };
+
 const loginUser = async (req, res) => {
   try {
-    res.status(200).send({ status: "success", token: req.user });
+    res
+      .cookie("jwt", req.user, {
+        expires: new Date(Date.now() + 3600000),
+        httpOnly: true,
+        // sameSite: "None",
+      })
+      .status(200)
+      .send({ status: "success", token: req.user });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -45,7 +60,8 @@ const loginUser = async (req, res) => {
 const checkUser = async (req, res) => {
   try {
     if (req.user) {
-      return res.status(200).send({ status: "success", user: req.user });
+      console.log(req.user);
+      return res.status(200).send({ status: "success", token: req.user });
     }
   } catch (error) {
     console.log(error);

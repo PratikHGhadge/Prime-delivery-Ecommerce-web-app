@@ -7,7 +7,7 @@ import { updateUser } from "../userAPI";
 
 function UserProfile() {
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const addresses = useSelector((state) => state.user.userInfo.address);
+  const addresses = useSelector((state) => state.user.userInfo.addresses);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userInfo);
   const handelEditAddress = (index) => {
@@ -35,7 +35,7 @@ function UserProfile() {
       </h1>
       <div className="bg-gray-200 my-2 border-gray-300 border-2 p-8 rounded-md  mx-auto">
         <h1 className="text-3xl  text-gray-900 sm:text-4xl">Name : New Name</h1>
-        <h3 className=" text-gray-900 ">email : pratikhg.2001@gmail.com</h3>
+        <h3 className=" text-gray-900 ">email : {user.email}</h3>
 
         <div className="mt-6">
           <div className="bg-white rounded-md p-8  mx-auto lg:max-w-none">

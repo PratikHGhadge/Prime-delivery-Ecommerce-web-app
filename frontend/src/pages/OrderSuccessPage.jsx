@@ -9,10 +9,9 @@ function OrderSuccessPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const user = useSelector((state) => state.auth.isLoggedIn);
   useEffect(() => {
-    console.log(user.id);
-    dispatch(resetCart(user.id, { dispatch }));
+    console.log("hellllllllllllllllllllo");
+    dispatch(resetCart({ dispatch }));
     dispatch(resetOrder());
   }, [dispatch]);
   return (

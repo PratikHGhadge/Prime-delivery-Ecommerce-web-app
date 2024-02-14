@@ -19,19 +19,26 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetail";
-import AdminProductForm from "./features/admin/AdminProductForm";
+import AdminProductFormPage from "./pages/AdminProductFormPage";
+import AdminEditProductForm from "./pages/AdminEditProductFormPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+import { checkUser } from "./features/auth/authAPI";
+import SalePage from "./pages/SalePage";
 
 function App() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { loggedInUserToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(fetchItemsByUserId(isLoggedIn.id));
-      dispatch(fetchLoggedInUser(isLoggedIn.id));
+    if (loggedInUserToken) {
+      dispatch(fetchItemsByUserId());
+      dispatch(fetchLoggedInUser());
     }
-  }, [isLoggedIn]);
+  }, [loggedInUserToken]);
+  useEffect(() => {
+    dispatch(checkUser());
+  }, []);
   return (
-    <div className="APP">
+    <div className="APP bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
       <BrowserRouter>
         <Routes>
           <Route
@@ -39,6 +46,14 @@ function App() {
             element={
               <Protected>
                 <Home />
+              </Protected>
+            }
+          />
+          <Route
+            path="/home/sale"
+            element={
+              <Protected>
+                <SalePage></SalePage>
               </Protected>
             }
           />
@@ -54,7 +69,23 @@ function App() {
             path="/product-form"
             element={
               <ProtectedAdmin>
-                <AdminProductForm />
+                <AdminProductFormPage />
+              </ProtectedAdmin>
+            }
+          />
+          <Route
+            path="/product-edit-form/:id"
+            element={
+              <ProtectedAdmin>
+                <AdminEditProductForm />
+              </ProtectedAdmin>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedAdmin>
+                <AdminOrdersPage />
               </ProtectedAdmin>
             }
           />

@@ -24,7 +24,6 @@ const createCategory = async (req, res) => {
       });
     }
     // createCategory
-    console.log(" createCategory ");
     const category = new Category(req.body);
     await category.save();
     return res.status(201).send({

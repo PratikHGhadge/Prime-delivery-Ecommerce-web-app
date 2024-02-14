@@ -3,19 +3,19 @@ const Product = require("../Models/Product");
 const createProduct = async (req, res) => {
   try {
     // save product record
-    console.log("create product ");
     const product = new Product(req.body);
-    await product.save();
+    const response = await product.save();
     return res.status(201).send({
+      response,
       success: true,
-      message: "new record created successfully",
+      message: "new product record created successfully",
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
       message: "error in while creating product",
-      error,
+      error: error.message,
     });
   }
 };
@@ -24,11 +24,9 @@ const fetchProduct = async (req, res) => {
   try {
     // fetch product record
     let conditions = {};
-    console.log(req.query.category);
     if (req.query.category) {
       conditions.category = { $in: req.query.category };
     }
-    console.log(req.query.brand);
     if (req.query.brand) {
       conditions.brand = { $in: req.query.brand };
     }
@@ -41,10 +39,12 @@ const fetchProduct = async (req, res) => {
       .skip(skip)
       .limit(limit)
       .exec();
+    const productsLength = await Product.find({});
+    const totalCount = productsLength.length;
 
-    const totalProducts = await Product.countDocuments(conditions);
+    // const totalProducts = await Product.countDocuments(conditions);
 
-    return res.status(200).send(products);
+    return res.status(200).send({ data: products, totalCount: totalCount });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -59,7 +59,6 @@ const fetchProductById = async (req, res) => {
   try {
     // fetch product record
     const { id } = req.params;
-    console.log(id);
     const product = await Product.findById(id);
 
     return res.status(200).send({

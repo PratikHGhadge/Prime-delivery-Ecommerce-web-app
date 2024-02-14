@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart, deleteItem } from "../features/cart/cartAPI";
 import { useNavigate } from "react-router-dom";
-
 import { updateUser } from "../features/user/userAPI";
 import { createOrder } from "../features/order/orderAPI";
 import AddAddress from "../features/user/components/AddAddress";
+import { discountedPrice } from "../app/constants";
+
 const initialValues = {
   name: "",
   street: "",
@@ -16,12 +17,13 @@ const initialValues = {
   state: "",
   phone: "",
 };
+
 function CheckOutPage() {
   const currentOrder = useSelector((state) => state.order.currentOrder);
   const user = useSelector((state) => state.user.userInfo);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [payment, setPaymentMethod] = useState(null);
-  const address = useSelector((state) => state.user.userInfo.address);
+  const addresses = useSelector((state) => state.user.userInfo.addresses);
   const navigate = useNavigate();
   const products = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
@@ -35,12 +37,12 @@ function CheckOutPage() {
   const calculateTotalSum = (products) => {
     let sum = 0;
     for (let i = 0; i < products.length; i++) {
-      sum += products[i].product.price * products[i].quantity;
+      sum += discountedPrice(products[i].product) * products[i].quantity;
     }
     return sum;
   };
   const handelAddress = async (values) => {
-    dispatch(updateUser({ ...user, address: [...user.address, values] }));
+    dispatch(updateUser({ ...user, addresses: [...user.addresses, values] }));
   };
   const totalItem = products.reduce((total, item) => item.quantity + total, 0);
   const handelOrder = async () => {
@@ -104,7 +106,7 @@ function CheckOutPage() {
                 </h3>
                 <div>
                   <ul role="list" className="divide-y divide-gray-100">
-                    {address?.map((person) => (
+                    {addresses?.map((person) => (
                       <li
                         key={person.email}
                         className="flex justify-between gap-x-6 py-5"
@@ -320,7 +322,7 @@ function CheckOutPage() {
                                 </div>
                               </h4>
                               <p className="ml-4 text-sm font-medium text-gray-900">
-                                {product.product.price}
+                                {discountedPrice(product.product)}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">

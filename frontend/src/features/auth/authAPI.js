@@ -18,8 +18,21 @@ export const createUserWithGoogle = createAsyncThunk(
   }
 );
 
-export const checkUser = createAsyncThunk(
-  "users/checkUser",
+export const checkUser = createAsyncThunk("users/checkUser", async () => {
+  try {
+    const response = await API.get("/auth/check");
+    return response.data;
+  } catch (error) {
+    // Use rejectWithValue to pass a custom payload for the rejected action
+    return rejectWithValue({
+      message: "Error during user check",
+      errorDetails: error.response.data, // or any other relevant error information
+    });
+  }
+});
+
+export const loginUser = createAsyncThunk(
+  "users/loginUser",
   async (user, { rejectWithValue }) => {
     try {
       const response = await API.post("/auth/login", user);
@@ -27,7 +40,7 @@ export const checkUser = createAsyncThunk(
     } catch (error) {
       // Use rejectWithValue to pass a custom payload for the rejected action
       return rejectWithValue({
-        message: "Error during user check",
+        message: "Error during user logging user",
         errorDetails: error.response.data, // or any other relevant error information
       });
     }

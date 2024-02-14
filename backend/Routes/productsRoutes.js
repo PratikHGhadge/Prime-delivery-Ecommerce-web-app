@@ -9,7 +9,7 @@ const {
 // router object
 const router = express.Router();
 // routes
-router.post("/create-product", createProduct);
+router.post("/", createProduct);
 router.get("/", fetchProduct);
 router.get("/:id", fetchProductById);
 router.patch("/update-product/:id", updateProductById);

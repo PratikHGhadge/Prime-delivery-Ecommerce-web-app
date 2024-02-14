@@ -33,9 +33,9 @@ function SignUp() {
 
   return (
     <>
-      <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white shadow sm:rounded-lg ">
-          <div className="min-h-auto py-10 bg-gray-50 flex flex-col justify-center sm:px-6 ">
+      <div className="pt-20 h-[100vh] sm:mx-auto sm:w-full sm:max-w-md ">
+        <div className="bg-white shadow rounded-3xl">
+          <div className="min-h-auto py-10 bg-gray-50 rounded-3xl flex flex-col justify-center sm:px-6 ">
             <div className="sm:mx-auto sm:w-full sm:max-w-md ">
               <img
                 className="mx-auto h-auto w-[160px] rounded-full"

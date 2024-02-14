@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../product/components/Pagination";
 import Mobilefilter from "../../product/components/Mobilefilter";
 import { sortProducts } from "../../product/ProductSlice";
-import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
 import DesktopFilters from "../../product/components/DesktopFilters";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +36,10 @@ export default function AdminProductList() {
   const [page, setPage] = useState(1);
   const handleButtonClick = () => {
     navigate("/product-form");
+  };
+
+  const handleEditButtonClick = (id) => {
+    navigate(`/product-edit-form/${id}`);
   };
 
   useEffect(() => {
@@ -199,6 +203,10 @@ export default function AdminProductList() {
                     </button>
                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2  lg:grid-cols-3 xl:gap-x-8">
                       {products.map((product) => (
+                        // <Link
+                        //   to={`/admin/product-detail/${product.id}`}
+                        //   className=" "
+                        // >
                         <div
                           key={product.id}
                           className="group relative border shadow-xl p-2 "
@@ -216,13 +224,9 @@ export default function AdminProductList() {
                           <div className="mt-4 flex justify-between">
                             <div>
                               <h3 className="text-sm text-gray-700">
-                                <Link to={product.thumbnail}>
-                                  <span
-                                    aria-hidden="true"
-                                    className="absolute inset-0"
-                                  />
-                                  {product.title}
-                                </Link>
+                                <span aria-hidden="true" className=" inset-0" />
+                                {product.title}
+                                {/* </Link> */}
                               </h3>
                               <p className="flex  items-center  mt-1 text-sm text-gray-900">
                                 <div className="w-[11px] h-[11px] mr-1">
@@ -236,22 +240,23 @@ export default function AdminProductList() {
                                 ₹{product.price}
                               </p>
                               <p className="text-sm font-medium text-gray-900">
-                                ₹
-                                {Math.round(
-                                  product.price -
-                                    (product.price / 100) *
-                                      product.discountPercentage
-                                )}
+                                ₹{discountedPrice(product)}
                               </p>
                             </div>
                           </div>
-                          <button
-                            type="submit"
-                            className="bg-green-500 hover:bg-green-600 border border-transparent rounded-md shadow-sm py-1 px-2 mt-2 w-full text-sm font-medium text-white focus:ring-offset-gray-50 "
-                          >
-                            Edit Products
-                          </button>
+                          <div>
+                            <button
+                              type="submit"
+                              onClick={(e) => {
+                                handleEditButtonClick(product.id);
+                              }}
+                              className="bg-green-500 z-50 hover:bg-green-600 border border-transparent rounded-md shadow-sm py-1 px-2 mt-2 w-full text-sm font-medium text-white focus:ring-offset-gray-50 "
+                            >
+                              Edit Products
+                            </button>
+                          </div>
                         </div>
+                        // </Link>
                       ))}
                     </div>
                   </div>

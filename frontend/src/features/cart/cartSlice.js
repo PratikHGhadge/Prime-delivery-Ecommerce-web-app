@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
       })
       .addCase(fetchItemsByUserId.fulfilled, (state, action) => {
         state.status = "idle";
-        state.cartItems = action.payload;
+        state.cartItems = action.payload.cartItems;
         state.cartLoaded = true;
       })
       .addCase(fetchItemsByUserId.rejected, (state, action) => {
@@ -42,16 +42,16 @@ export const cartSlice = createSlice({
         state.status = "loading";
       })
       .addCase(updateCart.fulfilled, (state, action) => {
-        const cartItemsId = action.payload.id;
+        const cartItemsId = action.payload.data.id;
+        console.log(action.payload.data.id);
         state.cartItems[state.cartItems.findIndex((e) => e.id == cartItemsId)] =
-          action.payload;
+          action.payload.data;
       })
       .addCase(deleteItem.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log(action.payload);
         state.cartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.ItemId
         );
@@ -62,7 +62,6 @@ export const cartSlice = createSlice({
       })
       .addCase(resetCart.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log(action.payload);
         state.cartItems = [];
       });
   },

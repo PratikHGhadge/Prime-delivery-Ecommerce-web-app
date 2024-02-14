@@ -2,11 +2,7 @@ import React from "react";
 import Login from "../features/auth/components/Login";
 
 function LoginPage() {
-  return (
-    <div className="">
-      <Login />
-    </div>
-  );
+  return <Login />;
 }
 
 export default LoginPage;

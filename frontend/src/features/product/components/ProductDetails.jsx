@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../ProductListAPI";
 import { useParams } from "react-router-dom";
 import { addToCart } from "../../cart/cartAPI";
+import { discountedPrice } from "../../../app/constants";
 
 const highlights = [
   "Hand cut and sewn locally",
@@ -40,7 +41,6 @@ function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector((state) => state.products.selectedProduct);
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const { id } = useParams();
 
   useEffect(() => {
@@ -54,8 +54,7 @@ function ProductDetails() {
 
   const handelAddToCart = (e) => {
     e.preventDefault();
-    const userId = isLoggedIn?.id;
-    dispatch(addToCart({ product, quantity: 1, userId: userId }));
+    dispatch(addToCart({ product, quantity: 1 }));
   };
 
   return (
@@ -145,7 +144,7 @@ function ProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {product.price}
+                {discountedPrice(product)}
               </p>
 
               {/* Reviews */}
@@ -302,7 +301,7 @@ function ProductDetails() {
 
                 <button
                   onClick={handelAddToCart}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-custom-blue px-8 py-3 text-base font-medium text-white hover:bg-custom-darkblue2 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:ring-offset-2"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white bg-red-400"
                 >
                   Add to Cart
                 </button>

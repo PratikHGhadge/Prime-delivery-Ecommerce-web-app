@@ -3,33 +3,34 @@ const User = require("../Models/User");
 const fetchUserById = async (req, res) => {
   try {
     // fetch product record
-    const { id } = req.params;
-    console.log(id);
-    const user = await User.findById(id, "name email id").exec();
+    const id = req.user;
+    console.log(req.user);
+    const user = await User.findById(id, "name email id role addresses").exec();
     return res.status(200).send(user);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
-      message: "error in while fetching product by id",
-      error,
+      message: "error in while fetching product user by id",
+      error: error.message,
     });
   }
 };
 
 const updateUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.user.id;
     const updatedData = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(id, updatedData, {
       new: true,
     });
-    if (!updateUser) {
+    const user = await User.findById(id, "name email id role addresses").exec();
+    if (!updatedUser) {
       return res.status(404).send("User not found");
     }
 
-    res.status(200).send(updateUser);
+    res.status(200).send(user);
   } catch (error) {
     res.status(500).send("Error while updating the user: " + error.message);
   }

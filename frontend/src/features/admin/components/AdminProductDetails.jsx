@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../product/ProductListAPI";
 import { useParams } from "react-router-dom";
 import { addToCart } from "../../cart/cartAPI";
+import { discountedPrice } from "../../../app/constants";
 
 const highlights = [
   "Hand cut and sewn locally",
@@ -43,7 +44,6 @@ function AdminProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector((state) => state.products.selectedProduct);
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const { id } = useParams();
 
   useEffect(() => {
@@ -57,8 +57,7 @@ function AdminProductDetails() {
 
   const handelAddToCart = (e) => {
     e.preventDefault();
-    const userId = isLoggedIn?.id;
-    dispatch(addToCart({ product, quantity: 1, userId: userId }));
+    dispatch(addToCart({ product, quantity: 1 }));
   };
 
   return (
@@ -148,7 +147,7 @@ function AdminProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {product.price}
+                {discountedPrice(product.price)}
               </p>
 
               {/* Reviews */}
