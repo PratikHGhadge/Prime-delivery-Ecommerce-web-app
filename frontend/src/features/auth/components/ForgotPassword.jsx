@@ -5,12 +5,12 @@ import CustomErrorMsg from "./CustomErrorMsg";
 import { LoginValidateYupSchema } from "../../../validations/validationSchema";
 
 const initialValues = { email: "" };
+const handelForgotPassword = () => {
+  alert("this feature is not available currently");
+};
 
 function ForgotPassword() {
-  const onSubmit = async (values) => {
-    console.log(values);
-    console.log("hello");
-  };
+  const onSubmit = async (values) => {};
 
   return (
     <>
@@ -23,7 +23,7 @@ function ForgotPassword() {
                 src="./assets/logo.png"
                 alt="prime delivery"
               />
-              <h2 className="mb-6 text-center text-3xl font-extrabold text-custom-blue">
+              <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-700">
                 Send your email address
               </h2>
             </div>
@@ -59,7 +59,8 @@ function ForgotPassword() {
                 >
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-custom-blue hover:bg-custom-darkblue1 "
+                    onClick={handelForgotPassword}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 hover:bg-custom-darkblue1 "
                   >
                     send email
                   </button>

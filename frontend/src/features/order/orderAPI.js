@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -35,5 +36,41 @@ export const updateOrderStatus = createAsyncThunk(
   async (order) => {
     const response = await API.patch(`/orders/${order.id}`, order);
     return response.data;
+  }
+);
+
+export const razorpayCheckoutHandler = createAsyncThunk(
+  "products/razorpayCheckoutHandler",
+  async (amount) => {
+    const response = await API.post("/payment/checkout", { amount: amount });
+    console.log(response.data);
+    const order = response.data.data;
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_API_ID,
+      amount: order.amount,
+      currency: "INR",
+      name: "Pratik Ghdge",
+      description: "Test Transaction",
+      image: "",
+      order_id: order.id,
+      callback_url: `${
+        import.meta.env.VITE_BASE_URL
+      }/payment/payment-verification`,
+      prefill: {
+        name: "Pratik Ghadge",
+        email: "gaurav.kumar@example.com",
+        contact: "9000090000",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#363636",
+      },
+    };
+    console.log(options);
+    const razor = new window.Razorpay(options);
+    razor.open();
+    return order;
   }
 );

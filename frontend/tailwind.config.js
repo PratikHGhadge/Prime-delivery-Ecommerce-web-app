@@ -9,8 +9,8 @@ export default {
         "custom-darkblue1": "#2f9fd6",
         "custom-darkblue2": "#1a6985",
         "custom-darkblue3": "#347288",
-        "custom-darkblue4": "#66b6d2",
-        H1Color: "#363636",
+        "custom-darkred4": "#ff7643",
+        H1Color: "#ffbb6b",
       },
       gridTemplateRows: {
         "[auto,auto,1fr]": "auto auto 1fr",

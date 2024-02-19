@@ -4,7 +4,6 @@ const fetchUserById = async (req, res) => {
   try {
     // fetch product record
     const id = req.user;
-    console.log(req.user);
     const user = await User.findById(id, "name email id role addresses").exec();
     return res.status(200).send(user);
   } catch (error) {

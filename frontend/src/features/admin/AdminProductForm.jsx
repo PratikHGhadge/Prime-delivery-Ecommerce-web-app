@@ -5,6 +5,7 @@ import CustomErrorMsg from "../auth/components/CustomErrorMsg";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct, editProduct } from "../product/ProductListAPI";
+import { useParams } from "react-router-dom";
 
 function AdminProductForm({ initialValues, method }) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function AdminProductForm({ initialValues, method }) {
   const selectCategory = (event) => {
     setSelectedCategory(event.target.value);
   };
+  const { id } = useParams();
 
   const handelAddProduct = (values) => {
     const product = { ...values };
@@ -34,7 +36,7 @@ function AdminProductForm({ initialValues, method }) {
     if (method === "POST") {
       dispatch(createProduct(product));
     } else if (method === "PATCH") {
-      editProduct(product);
+      dispatch(editProduct(product, id));
     }
     // Add products
   };
@@ -43,9 +45,9 @@ function AdminProductForm({ initialValues, method }) {
     <div>
       <Navbar>
         <div className=" border-black ">
-          <div className="bg-gray-200 my-2 border-gray-300 border-2 p-8 rounded-md  mx-auto">
-            <h1 className="text-3xl  text-gray-900 sm:text-4xl">
-              Add Products
+          <div className=" my-2 border-gray-300 border-2 p-8 rounded-md  mx-auto">
+            <h1 className=" text-center text-8xl text-white font-bold font-serif bg-gradient-to-br from-teal-400 via-green-400 to-lime-400 rounded-lg py-2 sm:text-4xl">
+              Add New Product
             </h1>
             <div className="mt-6">
               <div className="bg-white rounded-md p-8  mx-auto lg:max-w-none">
@@ -274,9 +276,9 @@ function AdminProductForm({ initialValues, method }) {
                     </div>
                     <button
                       type="submit"
-                      className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm mt-4 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500 py-2 px-4"
+                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 font-semi-bold bg-gradient-to-br from-teal-400 via-green-500 to-lime-500 "
                     >
-                      Add Product
+                      Add New Product
                     </button>
                   </Form>
                 </Formik>

@@ -18,7 +18,6 @@ const fetchBrands = async (req, res) => {
 const createBrand = async (req, res) => {
   try {
     // createBrand
-    console.log(" createBrand ");
     const brand = new Brand(req.body);
     await brand.save();
     return res.status(201).send({

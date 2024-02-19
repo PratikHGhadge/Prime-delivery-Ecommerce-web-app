@@ -7,7 +7,6 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
 const { cookieExtractor } = require("../services/common");
-
 // Passport strategy
 const initializePassport = (passport) => {
   // JWT OPTIONS
@@ -43,6 +42,7 @@ const initializePassport = (passport) => {
       }
     )
   );
+
   // local strategy
   passport.use(
     new LocalStrategy({ usernameField: "email" }, async function (
@@ -54,31 +54,33 @@ const initializePassport = (passport) => {
         // save new user record
         const user = await User.findOne({ email: email });
         if (!user) {
-          done(null, false, { message: "no such user email" });
-        }
-        crypto.pbkdf2(
-          password,
-          user?.salt,
-          310000,
-          32,
-          "sha256",
-          async function (err, hashedPassword) {
-            if (crypto.timingSafeEqual(user.password, hashedPassword)) {
-              const token = jwt.sign(
-                sanitizeUser(user),
-                process.env.SECRET_KEY
-              );
-              done(null, token);
-            } else {
-              done(null, false, { message: "Invalid credentials" });
+          done(null, false, { message: "no such user exists" });
+        } else {
+          crypto.pbkdf2(
+            password,
+            user?.salt,
+            310000,
+            32,
+            "sha256",
+            async function (err, hashedPassword) {
+              if (crypto.timingSafeEqual(user.password, hashedPassword)) {
+                const token = jwt.sign(
+                  sanitizeUser(user),
+                  process.env.SECRET_KEY
+                );
+                done(null, token);
+              } else {
+                done(null, false, { message: "Invalid credentials" });
+              }
             }
-          }
-        );
+          );
+        }
       } catch (error) {
         done(error);
       }
     })
   );
+
   // jwt strategy
   passport.use(
     new JwtStrategy(opts, async function (jwt_payload, done) {
@@ -87,7 +89,6 @@ const initializePassport = (passport) => {
         if (user) {
           return done(null, user);
         } else {
-          console.log("alsdkfj;lksd");
           return done(null, false);
         }
       } catch (error) {
@@ -95,6 +96,7 @@ const initializePassport = (passport) => {
       }
     })
   );
+
   // this creates session variable req.user on being called from callbacks
   passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
@@ -108,4 +110,5 @@ const initializePassport = (passport) => {
     });
   });
 };
+
 module.exports = { initializePassport };

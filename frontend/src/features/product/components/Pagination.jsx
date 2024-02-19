@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Pagination({ page, setPage, totalItem, handlePage }) {
   return (
     <div>
-      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 pb-4 sm:px-6">
+      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 pb-4 sm:px-6 rounded-lg">
         <div className="flex flex-1 justify-between sm:hidden">
           <Link
             to={"#"}
@@ -58,9 +58,9 @@ function Pagination({ page, setPage, totalItem, handlePage }) {
                   aria-current="page"
                   className={`relative cursor-pointer z-10 inline-flex items-center ${
                     index + 1 === page
-                      ? "bg-custom-darkblue4 text-white"
+                      ? "bg-custom-darkred4 text-white"
                       : "text-gray-400"
-                  } px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                  } px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 `}
                 >
                   {index + 1}
                 </div>

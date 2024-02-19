@@ -38,7 +38,6 @@ const fetchAllOrders = async (req, res) => {
 const createOrder = async (req, res) => {
   try {
     // createOrder
-    console.log(req.body);
     const order = new Order(req.body);
     await order.save();
     return res.status(201).send({
@@ -46,7 +45,6 @@ const createOrder = async (req, res) => {
       message: "new order created successfully",
     });
   } catch (error) {
-    // console.log(error);
     return res.status(500).send({
       success: false,
       message: "error in while creating order",
@@ -58,7 +56,6 @@ const createOrder = async (req, res) => {
 const updateOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const updatedData = req.body;
 
     const updatedOrder = await Order.findByIdAndUpdate(id, updatedData, {

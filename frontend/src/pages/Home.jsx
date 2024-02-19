@@ -10,12 +10,14 @@ const Home = () => {
   useEffect(() => {
     if (userRole === "admin") {
       navigate("/admin");
+    } else if (userRole === "user") {
+      navigate("/home");
     }
   }, [userRole]);
   return (
     <div>
       <Navbar>
-        <ProductList></ProductList>
+        <ProductList />
       </Navbar>
     </div>
   );

@@ -141,15 +141,9 @@ function AddAddress({ handelAddress, initialValues }) {
               </div>
               <button
                 type="submit"
-                className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-0 px-0 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
+                className="w-full bg-red-400 border border-transparent rounded-md shadow-sm py-2 px-2 text-base font-medium text-white bg-custom-darkblue2-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 "
               >
                 Add address
-              </button>
-              <button
-                type="submit"
-                className=" border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-black"
-              >
-                Reset
               </button>
             </div>
           </div>

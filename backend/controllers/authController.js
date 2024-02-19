@@ -60,8 +60,7 @@ const loginUser = async (req, res) => {
 const checkUser = async (req, res) => {
   try {
     if (req.user) {
-      console.log(req.user);
-      return res.status(200).send({ status: "success", token: req.user });
+      return res.status(200).send({ status: "success", token: req.cookies });
     }
   } catch (error) {
     console.log(error);
@@ -73,8 +72,17 @@ const checkUser = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  res
+    .cookie("jwt", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .sendStatus(200);
+};
 module.exports = {
   createUser,
   loginUser,
   checkUser,
+  logout,
 };

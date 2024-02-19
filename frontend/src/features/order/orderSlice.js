@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrder, fetchAllOrders, updateOrderStatus } from "./orderAPI";
+import {
+  createOrder,
+  fetchAllOrders,
+  updateOrderStatus,
+  razorpayCheckoutHandler,
+} from "./orderAPI";
 
 const initialState = {
   orders: [],
   status: "idle",
   currentOrder: null,
   totalOrders: 0,
+  payment: null,
 };
 
 export const orderSlice = createSlice({
@@ -32,7 +38,7 @@ export const orderSlice = createSlice({
       .addCase(fetchAllOrders.fulfilled, (state, action) => {
         state.status = "idle";
         state.orders = action.payload.data;
-        console.log(action.payload.totalCount);
+
         state.totalOrders = action.payload.totalCount;
       })
       .addCase(updateOrderStatus.pending, (state) => {
@@ -41,9 +47,16 @@ export const orderSlice = createSlice({
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
         state.status = "idle";
         const orderId = action.payload.data.id;
-        console.log(action.payload.data.id);
+
         state.orders[state.orders.findIndex((e) => e.id == orderId)] =
           action.payload.data;
+      })
+      .addCase(razorpayCheckoutHandler.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(razorpayCheckoutHandler.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.payment = action.payload.data;
       });
   },
 });

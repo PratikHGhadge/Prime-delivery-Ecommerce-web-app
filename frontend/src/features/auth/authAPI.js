@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -13,7 +14,6 @@ export const createUserWithGoogle = createAsyncThunk(
     const response = await API.get("/auth/login/sucess", {
       withCredentials: true,
     });
-    console.log(response);
     return response;
   }
 );
@@ -21,7 +21,8 @@ export const createUserWithGoogle = createAsyncThunk(
 export const checkUser = createAsyncThunk("users/checkUser", async () => {
   try {
     const response = await API.get("/auth/check");
-    return response.data;
+    // save the user in redux state
+    return response.data.token;
   } catch (error) {
     // Use rejectWithValue to pass a custom payload for the rejected action
     return rejectWithValue({
@@ -39,9 +40,10 @@ export const loginUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Use rejectWithValue to pass a custom payload for the rejected action
+      alert("User is Unauthorized");
       return rejectWithValue({
         message: "Error during user logging user",
-        errorDetails: error.response.data, // or any other relevant error information
+        errorDetails: error.response.data,
       });
     }
   }
@@ -50,7 +52,11 @@ export const loginUser = createAsyncThunk(
 export const signOutAsync = createAsyncThunk(
   "users/signOutAsync",
   async (user) => {
-    // TO Do : on server we will remove user session
-    return { success: true };
+    try {
+      // TO Do : on server we will remove user session
+      const response = await API.get("/auth/logout");
+      // Navigate("/login");
+      return { success: true };
+    } catch (error) {}
   }
 );

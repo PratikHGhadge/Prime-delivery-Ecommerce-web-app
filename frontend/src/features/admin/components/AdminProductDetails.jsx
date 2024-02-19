@@ -47,7 +47,6 @@ function AdminProductDetails() {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(id);
     dispatch(fetchProductById(id));
   }, [id]);
 

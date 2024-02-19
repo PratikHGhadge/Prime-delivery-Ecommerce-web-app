@@ -14,7 +14,6 @@ import { fetchLoggedInUser } from "./features/user/userAPI";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrderPage from "./pages/UserOrderPage";
 import ProfilePage from "./pages/ProfilePage";
-import Logout from "./features/auth/components/Logout";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
@@ -24,21 +23,27 @@ import AdminEditProductForm from "./pages/AdminEditProductFormPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import { checkUser } from "./features/auth/authAPI";
 import SalePage from "./pages/SalePage";
+import LogoutPage from "./pages/LogoutPage";
+import MobilesPage from "./pages/MobilesPage";
 
 function App() {
-  const { loggedInUserToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.loggedInUserToken);
+
   useEffect(() => {
-    if (loggedInUserToken) {
+    if (token) {
       dispatch(fetchItemsByUserId());
       dispatch(fetchLoggedInUser());
     }
-  }, [loggedInUserToken]);
+    if (token) {
+      dispatch(checkUser());
+    }
+  }, [token]);
   useEffect(() => {
     dispatch(checkUser());
   }, []);
   return (
-    <div className="APP bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
+    <div className="APP  bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
       <BrowserRouter>
         <Routes>
           <Route
@@ -50,10 +55,18 @@ function App() {
             }
           />
           <Route
-            path="/home/sale"
+            path="/sale"
             element={
               <Protected>
                 <SalePage></SalePage>
+              </Protected>
+            }
+          />
+          <Route
+            path="/mobiles"
+            element={
+              <Protected>
+                <MobilesPage></MobilesPage>
               </Protected>
             }
           />
@@ -90,6 +103,14 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/logout"
+            element={
+              <Protected>
+                <LogoutPage />
+              </Protected>
+            }
+          />
           <Route path="/signup" element={<SignUpPage />} />
           <Route
             path="/cart"
@@ -139,21 +160,21 @@ function App() {
               </Protected>
             }
           />
-          <Route
+          {/* <Route
             path="/logout"
             element={
               <Protected>
                 <Logout />
               </Protected>
             }
-          />
+          /> */}
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route
             path="/order-success/:id"
             element={
-              <Protected>
-                <OrderSuccessPage />
-              </Protected>
+              // <Protected>
+              <OrderSuccessPage />
+              // </Protected>
             }
           />
           <Route path="/*" element={<PageNotFound></PageNotFound>} />

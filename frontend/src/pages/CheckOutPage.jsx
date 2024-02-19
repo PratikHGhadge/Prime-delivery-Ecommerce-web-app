@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCart, deleteItem } from "../features/cart/cartAPI";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../features/user/userAPI";
-import { createOrder } from "../features/order/orderAPI";
+import {
+  createOrder,
+  razorpayCheckoutHandler,
+} from "../features/order/orderAPI";
 import AddAddress from "../features/user/components/AddAddress";
 import { discountedPrice } from "../app/constants";
 
@@ -44,6 +47,10 @@ function CheckOutPage() {
   const handelAddress = async (values) => {
     dispatch(updateUser({ ...user, addresses: [...user.addresses, values] }));
   };
+  const handelOnlinePayment = async (amount, e) => {
+    e.preventDefault();
+    dispatch(razorpayCheckoutHandler(amount));
+  };
   const totalItem = products.reduce((total, item) => item.quantity + total, 0);
   const handelOrder = async () => {
     if (selectedAddress && payment) {
@@ -66,206 +73,146 @@ function CheckOutPage() {
     setTotalSum(calculateTotalSum(products));
   }, [products]);
   return (
-    <div className="bg-white">
+    <div className="bg-white   bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
       {!products.length && navigate("/home")}
       {currentOrder && navigate(`/order-success/${currentOrder.id}`)}
       {/* Background color split screen for large screens */}
       <div
-        className="hidden lg:block fixed top-0 left-0 w-1/2 h-full bg-white"
+        className="hidden lg:block fixed top-0 left-0 w-1/2 h-full  "
         aria-hidden="true"
       />
       <div
-        className="hidden lg:block fixed top-0 right-0 w-1/2 h-full bg-custom-darkblue1"
+        className="hidden lg:block fixed top-0 right-0 w-1/2 h-full"
         aria-hidden="true"
       />
 
       <main className=" relative grid grid-cols-1 gap-x-16 max-w-7xl mx-auto lg:px-8 lg:grid-cols-2">
-        <section
-          aria-labelledby="payment-and-shipping-heading"
-          className="py-16 lg:max-w-lg lg:w-full lg:mx-auto lg:pt-0 lg:pb-24 lg:row-start-1 lg:col-start-1"
-        >
-          <img
-            className="mx-auto h-auto w-[160px] rounded-full"
-            src="./assets/logo.png"
-            alt="prime delivery"
-          />
-          <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
-            <AddAddress
-              handelAddress={handelAddress}
-              initialValues={initialValues}
+        <div className="my-14 rounded-lg">
+          <section
+            aria-labelledby="payment-and-shipping-heading"
+            className="px-14 bg-white rounded-lg lg:max-w-lg lg:w-full lg:mx-auto lg:pt-0 lg:pb-24 lg:row-start-1 lg:col-start-1"
+          >
+            <img
+              className="mx-auto h-auto w-[160px] rounded-full"
+              src="./assets/logo.png"
+              alt="prime delivery"
             />
-          </div>
-          <form>
-            <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
-              <div className="mt-10">
-                <h3
-                  id="shipping-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Chose from existing address
-                </h3>
-                <div>
-                  <ul role="list" className="divide-y divide-gray-100">
-                    {addresses?.map((person) => (
-                      <li
-                        key={person.email}
-                        className="flex justify-between gap-x-6 py-5"
-                      >
-                        <div className="flex min-w-0 gap-x-4">
-                          <input
-                            // id={paymentMethod.id}
-                            name="address"
-                            type="radio"
-                            checked={selectedAddress === person}
-                            onChange={() => {
-                              setSelectedAddress(person);
-                            }}
-                            className="relative top-2 focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 "
-                          />
-                          <div className="min-w-0 flex-auto">
-                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                              {person.name}
+            <div className=" lg:max-w-none lg:px-0">
+              <AddAddress
+                handelAddress={handelAddress}
+                initialValues={initialValues}
+              />
+            </div>
+            <form>
+              <div className="max-w-2xl mx-auto px-4 lg:max-w-none lg:px-0">
+                <div className="mt-10">
+                  <h3
+                    id="shipping-heading"
+                    className="text-lg font-medium text-gray-900"
+                  >
+                    Chose from existing address
+                  </h3>
+                  <div>
+                    <ul role="list" className="divide-y divide-gray-100">
+                      {addresses?.map((person) => (
+                        <li
+                          key={person.email}
+                          className="flex justify-between gap-x-6 py-5"
+                        >
+                          <div className="flex min-w-0 gap-x-4">
+                            <input
+                              // id={paymentMethod.id}
+                              name="address"
+                              type="radio"
+                              checked={selectedAddress === person}
+                              onChange={() => {
+                                setSelectedAddress(person);
+                              }}
+                              className="relative top-2 focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 "
+                            />
+                            <div className="min-w-0 flex-auto">
+                              <p className="text-sm font-semibold leading-6 text-gray-900">
+                                {person.name}
+                              </p>
+                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {person.street}
+                              </p>
+                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {person.phone}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            <p className="text-sm leading-6 text-gray-900">
+                              {person.city}
                             </p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {person.street}
+                            <p className="text-sm leading-6 text-gray-900">
+                              {person.state}
                             </p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {person.phone}
+                            <p className="text-sm leading-6 text-gray-900">
+                              {person.pinCode}
                             </p>
                           </div>
-                        </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.city}
-                          </p>
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.state}
-                          </p>
-                          <p className="text-sm leading-6 text-gray-900">
-                            {person.pinCode}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Payment */}
-              <div className="mt-10 border-t border-gray-200 pt-10">
-                <h2 className="text-lg font-medium text-gray-900">Payment</h2>
-
-                <fieldset className="mt-4">
-                  <legend className="sr-only">Payment type</legend>
-                  <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                    <div>
-                      <input
-                        value={0}
-                        name="payment-type"
-                        type="radio"
-                        onChange={(e) => {
-                          setPaymentMethod("card");
-                        }}
-                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                      />
-                      <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
-                        Card
-                      </label>
-                      <input
-                        value={1}
-                        name="payment-type"
-                        type="radio"
-                        onChange={() => {
-                          setPaymentMethod("cash");
-                        }}
-                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                      />
-                      <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
-                        Cash
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-              <div className="mt-10">
-                <h3
-                  id="payment-heading"
-                  className="text-lg font-medium text-gray-900"
-                >
-                  Payment details
-                </h3>
-
-                <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-y-6 gap-x-4">
-                  <div className="col-span-3 sm:col-span-4">
-                    <label
-                      htmlFor="card-number"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Card number
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        id="card-number"
-                        name="card-number"
-                        autoComplete="cc-number"
-                        className="border p-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-span-2 sm:col-span-3">
-                    <label
-                      htmlFor="expiration-date"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Expiration date (MM/YY)
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="expiration-date"
-                        id="expiration-date"
-                        autoComplete="cc-exp"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="cvc"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      CVC
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="cvc"
-                        id="cvc"
-                        autoComplete="csc"
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-custom-darkblue3sm:text-sm border p-1"
-                      />
-                    </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-10 flex justify-end pt-6 border-t border-gray-200">
-                <button
-                  type="submit"
-                  className="bg-custom-darkblue2 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-custom-darkblue1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
-                >
-                  Pay now
-                </button>
+                {/* Payment */}
+                <div className="mt-10 border-t border-gray-200 pt-10">
+                  <h2 className="text-lg font-medium text-gray-900">Payment</h2>
+
+                  <fieldset className="mt-4">
+                    <legend className="sr-only">Payment type</legend>
+                    <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                      <div>
+                        <input
+                          value={0}
+                          name="payment-type"
+                          type="radio"
+                          onChange={(e) => {
+                            setPaymentMethod("card");
+                          }}
+                          className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                        />
+                        <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
+                          Card
+                        </label>
+                        <input
+                          value={1}
+                          name="payment-type"
+                          type="radio"
+                          onChange={() => {
+                            setPaymentMethod("cash");
+                          }}
+                          className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                        />
+                        <label className="text-sm font-semibold leading-6 text-gray-900 mx-2">
+                          Cash
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div className="flex justify-end  border-gray-200">
+                  {payment === "card" && (
+                    <button
+                      type="submit"
+                      onClick={(e) => handelOnlinePayment(totalSum, e)}
+                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-r bg-red-400"
+                    >
+                      Pay now with Razorpay
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </form>
-        </section>
+            </form>
+          </section>
+        </div>
         <section
           aria-labelledby="summary-heading"
-          className=" bg-custom-blue text-white mt-16 pt-6  md:px-10 lg:max-w-lg lg:w-full lg:mx-auto lg:px-0 
+          className="  text-white mt-16 pt-6  md:px-10 lg:max-w-lg lg:w-full lg:mx-auto lg:px-0 
           lg:pt-0 lg:pb-24 lg:bg-transparent lg:row-start-1 lg:col-start-2"
         >
           <div className="bg-white p-8 my-16 rounded-xl">
@@ -304,17 +251,21 @@ function CheckOutPage() {
                                 >
                                   {product.product.title}
                                 </a>
-                                <div className="flex justify-center items-center mb-4 mt-4">
+                                <div className="flex text-black justify-center items-center mb-4 mt-4">
                                   <span className="mr-2">Quantity:</span>
                                   <select
-                                    className="block w-16 px-2 py-1 mt-1 text-sm leading-tight bg-white border border-gray-400 rounded appearance-none focus:outline-none focus:bg-white"
-                                    value={product.product.quantity}
+                                    className="block w-16 px-2 py-1 mt-1 text-sm leading-tight  border border-gray-400 rounded appearance-none focus:outline-none focus:bg-white"
+                                    value={product?.quantity}
                                     onChange={(e) => {
                                       handleQuantityChange(e, product);
                                     }}
                                   >
                                     {[...Array(10).keys()].map((num) => (
-                                      <option key={num} value={num + 1}>
+                                      <option
+                                        className="text-black bg-black"
+                                        key={num}
+                                        value={num + 1}
+                                      >
                                         {num + 1}
                                       </option>
                                     ))}
@@ -356,7 +307,7 @@ function CheckOutPage() {
                             <div className="ml-4">
                               <button
                                 type="button"
-                                className="text-sm font-medium text-custom-blue hover:text-blue-500"
+                                className="text-black font-medium hover:text-red-500"
                                 onClick={(e) => {
                                   handelDeleteItem(product.id);
                                 }}
@@ -396,7 +347,7 @@ function CheckOutPage() {
                       onClick={() => {
                         handelOrder();
                       }}
-                      className="w-full bg-custom-darkblue2 hover:bg-custom-darkblue1 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white bg-custom-darkblue2-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                      className="w-full bg-red-400 border border-transparent rounded-md shadow-sm py-2 px-2 text-base font-medium text-white bg-custom-darkblue2-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 "
                     >
                       {" "}
                       Order Now
@@ -408,7 +359,7 @@ function CheckOutPage() {
                       or{" "}
                       <Link
                         to={"/home"}
-                        className="text-custom-blue font-medium hover:text-blue-500"
+                        className="text-black font-medium hover:text-red-500"
                       >
                         Continue Shopping<span aria-hidden="true"> &rarr;</span>
                       </Link>

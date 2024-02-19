@@ -1,14 +1,26 @@
 import React, { useEffect } from "react";
 import Navbar from "../features/navbar/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { discountedPrice } from "../app/constants";
+import { ITEMS_PER_PAGE, discountedPrice } from "../app/constants";
 import { StarIcon } from "@heroicons/react/20/solid";
+import { fetchProductsByFilterAndPage } from "../features/product/ProductListAPI";
 
-const Sale = () => {
+const MobilesPage = () => {
+  const dispatch = useDispatch();
   const { products, totalItem, brands, categories } = useSelector(
     (state) => state.products
   );
+  useEffect(() => {
+    const newFilter = { category: ["smartphones"] };
+    dispatch(
+      fetchProductsByFilterAndPage({
+        filter: newFilter,
+        page: 1,
+        limit: ITEMS_PER_PAGE,
+      })
+    );
+  }, []);
   return (
     <div>
       <Navbar>
@@ -69,4 +81,4 @@ const Sale = () => {
   );
 };
 
-export default Sale;
+export default MobilesPage;

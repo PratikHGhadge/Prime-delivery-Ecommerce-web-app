@@ -91,8 +91,8 @@ export default function ProductList() {
   }, []);
 
   return (
-    <div className="bg-white pt-0">
-      <div className="bg-white shadow-xl">
+    <div className="bg-white pt-0 rounded-lg">
+      <div className="bg-white shadow-xl rounded-lg">
         <div>
           {/* Mobile filter dialog */}
           <Mobilefilter

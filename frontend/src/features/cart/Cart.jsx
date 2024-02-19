@@ -116,7 +116,7 @@ function Cart() {
                       <div className="ml-4">
                         <button
                           type="button"
-                          className="text-sm font-medium text-custom-blue hover:text-blue-500"
+                          className="text-sm font-medium hover:text-red-500"
                           onClick={(e) => {
                             handelDeleteItem(product.id);
                           }}
@@ -164,7 +164,7 @@ function Cart() {
                 or{" "}
                 <Link
                   to={"/home"}
-                  className="text-custom-blue font-medium hover:text-blue-500"
+                  className="text-black font-medium hover:text-red-500"
                 >
                   Continue Shopping<span aria-hidden="true"> &rarr;</span>
                 </Link>

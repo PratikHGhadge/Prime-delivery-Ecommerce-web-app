@@ -1,12 +1,11 @@
 const { Cart } = require("../Models/Cart");
-const mongoose = require("mongoose");
 
 const addToCart = async (req, res) => {
   try {
     const cartItem = new Cart({
-      product: req.body.product.id, // Assuming req.body.product.id is the ID of the product
+      product: req.body.product.id,
       quantity: req.body.quantity,
-      user: req.user, // Assuming req.user contains the user ID
+      user: req.user,
     });
     const savedCartItem = await cartItem.save();
 

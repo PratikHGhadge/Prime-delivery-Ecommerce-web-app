@@ -24,7 +24,6 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log("hello" + action.payload);
         state.loggedInUserToken = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -37,7 +36,7 @@ export const authSlice = createSlice({
       })
       .addCase(checkUser.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUserToken = action.payload.token;
+        state.loggedInUserToken = action.payload.jwt;
         state.userChecked = true;
       })
       .addCase(checkUser.rejected, (state, action) => {

@@ -43,7 +43,6 @@ export const cartSlice = createSlice({
       })
       .addCase(updateCart.fulfilled, (state, action) => {
         const cartItemsId = action.payload.data.id;
-        console.log(action.payload.data.id);
         state.cartItems[state.cartItems.findIndex((e) => e.id == cartItemsId)] =
           action.payload.data;
       })

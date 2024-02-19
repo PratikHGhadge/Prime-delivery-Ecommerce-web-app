@@ -26,6 +26,7 @@ connectDB()
 // middlewares
 server.use(express.json());
 server.use(cookieParser());
+server.use(express.urlencoded({ extended: true }));
 
 server.use(
   session({

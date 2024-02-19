@@ -5,7 +5,7 @@ function Protected({ children }) {
   const user = useSelector((state) => state.auth.loggedInUserToken);
   // const isUserAuthenticated = auth != null && auth.loggedInUserToken;
   if (!user) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/login"} replace={true} />;
   }
   return children;
 }

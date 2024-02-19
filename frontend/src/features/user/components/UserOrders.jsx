@@ -16,7 +16,7 @@ function UserOrders() {
       {orders.map((order, index) => (
         <div className="border-black ">
           {/* {console.log(order)} */}
-          <div className="bg-gray-200 my-2 rounded-lg  p-8  mx-auto">
+          <div className="bg-white my-2 rounded-lg  p-8  mx-auto">
             <h1 className="text-3xl font-extrabold text tracking-tight text-gray-900 sm:text-4xl">
               Order # {index + 1}
             </h1>
@@ -26,7 +26,7 @@ function UserOrders() {
               <section aria-labelledby="cart-heading ">
                 <ul
                   role="list"
-                  className="border-t border-b border-gray-200 divide-y divide-gray-200 bg-white p-4 shadow-inner rounded-lg px-8"
+                  className="border-t border-b border-gray-200 divide-y divide-gray-200 bg-gray-50 p-4 shadow-inner rounded-lg px-8"
                 >
                   {order.products[0].map((product) => (
                     <li key={product.product.id} className="flex py-6">

@@ -1,39 +1,105 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { useLocation } from "react-router-dom";
 import {
   Bars3Icon,
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+import { fetchProductsByFilterAndPage } from "../../features/product/ProductListAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { ITEMS_PER_PAGE } from "../../app/constants";
+
 const navigation1 = [
-  { name: "Admin", href: "/admin", current: true },
-  { name: "Orders", href: "/admin/orders", current: true },
+  { name: "Admin", href: "/admin", current: false },
+  { name: "Orders", href: "/admin/orders", current: false },
 ];
 
 const navigation2 = [{ name: "My Orders", href: "/orders", current: false }];
 const userNavigation = [
   { name: "Your Profile", href: "/profile" },
-  { name: "Settings", href: "#" },
   { name: "Sign out", href: "/logout" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const islocation = (path) => {
+  const bool =
+    "/admin" === path ||
+    "/orders" === path ||
+    "/admin/orders" === path ||
+    "/home" === path ||
+    "/mobiles" === path ||
+    "/sale" === path;
+  if (bool) {
+    return "outline-none text-white bg-gray-700";
+  }
+  return "";
+};
 
+const focus = "focus:outline-none focus:text-white focus:bg-gray-700";
 function Navbar({ children }) {
   const noOfItem = useSelector((state) => state.cart.cartItems.length);
   const userRole = useSelector((state) => state.user.userInfo?.role);
+  const { brands, categories } = useSelector((state) => state.products);
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [categoriesArray, setCategoryArray] = useState([]);
+  const [brandsArray, setBrandsArray] = useState([]);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const filter = { brand: [], category: [inputValue] };
+    dispatch(
+      fetchProductsByFilterAndPage({
+        filter,
+        page: 1,
+        limit: ITEMS_PER_PAGE,
+      })
+    );
+  }, [dispatch, inputValue]);
+  useEffect(() => {
+    const filter = { brand: [inputValue], category: [] };
+    dispatch(
+      fetchProductsByFilterAndPage({
+        filter,
+        page: 1,
+        limit: ITEMS_PER_PAGE,
+      })
+    );
+  }, [dispatch, inputValue]);
+
+  useEffect(() => {
+    var brand = brands.map((item) => item.value);
+    var categorie = categories.map((item) => item.value);
+    setBrandsArray(brand);
+    setCategoryArray(categorie);
+  }, [brands, categories]);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    // Filter categories and brands based on input value
+    const filteredCategories = categoriesArray.filter((category) =>
+      category.toLowerCase().includes(value.toLowerCase())
+    );
+    const filteredBrands = brandsArray.filter((brand) =>
+      brand.toLowerCase().includes(value.toLowerCase())
+    );
+    // Combine filtered categories and brands into suggestions
+    const combinedSuggestions = [...filteredCategories, ...filteredBrands];
+    setSuggestions(combinedSuggestions);
+  };
+
+  const handleSuggestionClick = (value) => {
+    setInputValue(value);
+    setSuggestions([]);
+  };
+
+  const location = useLocation();
+  useEffect(() => {}, [location]);
   return (
     <>
       <div className="min-h-full">
@@ -67,9 +133,10 @@ function Navbar({ children }) {
                                         <Link
                                           key={item.name}
                                           to={item.href}
-                                          className={
-                                            "ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
-                                          }
+                                          className={`${
+                                            location.pathname === item.href &&
+                                            islocation(location.pathname)
+                                          } ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                                           aria-current={
                                             item.current ? "page" : undefined
                                           }
@@ -82,7 +149,10 @@ function Navbar({ children }) {
                                         <Link
                                           key={item.name}
                                           to={item.href}
-                                          className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
+                                          className={`${
+                                            location.pathname === item.href &&
+                                            islocation(location.pathname)
+                                          } ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                                           aria-current={
                                             item.current ? "page" : undefined
                                           }
@@ -92,34 +162,38 @@ function Navbar({ children }) {
                                       ))}
                                   </div>
                                 </div>
+                                {userRole === "user" && (
+                                  <Link
+                                    to={"/home"}
+                                    className={`${
+                                      location.pathname === "/home" &&
+                                      "outline-none text-white bg-gray-700"
+                                    } ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
+                                  >
+                                    {" "}
+                                    Home{" "}
+                                  </Link>
+                                )}
                                 <Link
-                                  to={"/home"}
-                                  className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
-                                >
-                                  {" "}
-                                  Home{" "}
-                                </Link>
-                                <Link
-                                  to={"sale"}
-                                  className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
+                                  to={"/sale"}
+                                  className={`${
+                                    location.pathname === "/sale" &&
+                                    "outline-none text-white bg-gray-700"
+                                  } ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                                 >
                                   {" "}
                                   Sale{" "}
                                 </Link>
-                                <a
-                                  href="#"
-                                  className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
+                                <Link
+                                  to={"/mobiles"}
+                                  className={`${
+                                    location.pathname === "/mobiles" &&
+                                    "outline-none text-white bg-gray-700"
+                                  } ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                                 >
                                   {" "}
-                                  Recipe{" "}
-                                </a>
-                                <a
-                                  href="#"
-                                  className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
-                                >
-                                  {" "}
-                                  Promo{" "}
-                                </a>
+                                  Mobiles{" "}
+                                </Link>
                               </div>
                             </div>
                           </div>
@@ -128,16 +202,8 @@ function Navbar({ children }) {
                               <label htmlFor="search" className="sr-only">
                                 Search{" "}
                               </label>
-                              <form
-                                methode="get"
-                                action="#"
-                                className="relative z-50"
-                              >
-                                <button
-                                  type="submit"
-                                  id="searchsubmit"
-                                  className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                >
+                              <div className="relative z-50">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                   <svg
                                     className="h-5 w-5 text-gray-400"
                                     fill="currentColor"
@@ -149,15 +215,32 @@ function Navbar({ children }) {
                                       clipRule="evenodd"
                                     />
                                   </svg>
-                                </button>
+                                </div>
                                 <input
                                   type="text"
-                                  name="s"
-                                  id="s"
+                                  // value={inputValue}
+                                  onChange={(e) => handleInputChange(e)}
                                   className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-yellow-200 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out"
                                   placeholder="Search"
                                 />
-                              </form>
+                                <ul
+                                  className={`${
+                                    suggestions.length >= 1 && "bg-white"
+                                  } absolute z-auto mt-2 w-full  shadow-lg rounded-md py-1`}
+                                >
+                                  {suggestions.map((suggestion, index) => (
+                                    <li
+                                      key={index}
+                                      onClick={() =>
+                                        handleSuggestionClick(suggestion)
+                                      }
+                                      className="px-3 py-2 cursor-pointer hover:bg-gray-100"
+                                    >
+                                      {suggestion}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -192,7 +275,7 @@ function Navbar({ children }) {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={"/assets/userpng.png"}
                               alt=""
                             />
                           </Menu.Button>
@@ -229,7 +312,7 @@ function Navbar({ children }) {
                   </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  bg-custom-darkblue4 p-2 text-white hover:bg-custom-darkblue4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Disclosure.Button className="relative ml-1 p-4 inline-flex items-center justify-center rounded-md  bg-custom-darkred4  text-white hover:bg-custom-darkblue4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -249,49 +332,84 @@ function Navbar({ children }) {
               </div>
 
               <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <div className="space-y-1  pb-3 pt-2 mx-2 flex flex-col">
                   {userRole === "admin" &&
                     navigation1.map((item) => (
-                      <Disclosure.Button
+                      <Link
                         key={item.name}
                         // as="link"
-                        href={item.href}
-                        className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
+                        to={item.href}
+                        className={`${
+                          location.pathname === item.href &&
+                          islocation(location.pathname)
+                        }  px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </Disclosure.Button>
+                      </Link>
                     ))}
                   {userRole === "user" &&
                     navigation2.map((item) => (
-                      <Disclosure.Button
+                      <Link
                         key={item.name}
                         // as="link"
-                        href={item.href}
-                        className="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-white focus:bg-gray-700 "
+                        to={item.href}
+                        className={`${
+                          location.pathname === item.href &&
+                          islocation(location.pathname)
+                        } px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </Disclosure.Button>
+                      </Link>
                     ))}
+                  {userRole === "user" && (
+                    <Link
+                      to={"/home"}
+                      className={`${
+                        location.pathname === "/home" &&
+                        "outline-none text-white bg-gray-700"
+                      }  px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
+                    >
+                      {" "}
+                      Home{" "}
+                    </Link>
+                  )}
+                  <Link
+                    to={"/sale"}
+                    className={`${
+                      location.pathname === "/sale" &&
+                      "outline-none text-white bg-gray-700"
+                    }  px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
+                  >
+                    {" "}
+                    Sale{" "}
+                  </Link>
+                  <Link
+                    to={"/mobiles"}
+                    className={`${
+                      location.pathname === "/mobiles" &&
+                      "outline-none text-white bg-gray-700"
+                    }  px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
+                  >
+                    {" "}
+                    Mobiles{" "}
+                  </Link>
+                  {userNavigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={`${
+                        location.pathname === item.href &&
+                        islocation(location.pathname)
+                      }  px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white transition duration-150 ease-in-out cursor-pointer `}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
                   <div className="flex items-center px-5">
-                    <div className="flex-shrink-0">
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">
-                        {user.name}
-                      </div>
-                      <div className="text-sm font-medium leading-none text-gray-400">
-                        {user.email}
-                      </div>
-                    </div>
                     <Link
                       to={"/Cart"}
                       className="relative ml-auto flex-shrink-0 rounded-full p-1 text-white hover:text-white "
@@ -299,26 +417,16 @@ function Navbar({ children }) {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View cart</span>
                       <span className="inline-flex relative -bottom-3 left-[7px]  items-center rounded-md bg-red-50 px-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 hover:bg-pink-200">
-                        7
+                        {noOfItem}
                       </span>
                       <ShoppingCartIcon
                         className="h-6 w-6"
                         aria-hidden="true"
+                        color="black"
                       />
                     </Link>
                   </div>
-                  <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-custom-darkblue4 hover:text-white"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
-                  </div>
+                  <div className="mt-3 space-y-1 px-2"></div>
                 </div>
               </Disclosure.Panel>
             </>
@@ -326,7 +434,7 @@ function Navbar({ children }) {
         </Disclosure>
 
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 rounded-lg  min-h-screen">
             {children}
           </div>
         </main>

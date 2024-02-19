@@ -12,9 +12,7 @@ function AdminOrders() {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     dispatch(fetchAllOrders(pagination));
   }, [dispatch, page]);
-  const handelShow = function () {
-    console.log("handel Show");
-  };
+  const handelShow = function () {};
 
   const handlePage = (newPage) => {
     const pagination = { _page: newPage, _limit: ITEMS_PER_PAGE };
