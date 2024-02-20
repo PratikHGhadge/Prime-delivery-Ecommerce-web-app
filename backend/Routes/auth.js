@@ -6,6 +6,9 @@ const {
   logout,
 } = require("../controllers/authController");
 const passport = require("passport");
+const User = require("../Models/User");
+const jwt = require("jsonwebtoken");
+const { sanitizeUser } = require("../services/common");
 // router object
 const router = express.Router();
 // routes
@@ -19,11 +22,25 @@ router.get(
   passport.authenticate("google", { scope: ["profile", "email"] }, loginUser)
 );
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_BASE_URL + "/home",
-    failureRedirect: process.env.CLIENT_BASE_URL + "/login",
-  })
-);
+router.get("/google/callback", function (req, res, next) {
+  passport.authenticate("google", async (err, user, info, status) => {
+    if (err) {
+      res.redirect(process.env.CLIENT_BASE_URL + "/login");
+      return;
+    }
+
+    console.log("Google Callback Info : ", user);
+    // find user in database using email address
+    const newUser = await User.findOne({ email: user.email });
+    // generate jwt token
+    const token = jwt.sign(sanitizeUser(newUser), process.env.SECRET_KEY);
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 3600000),
+    });
+    // store the token into cookies and send the response
+    res.redirect(process.env.CLIENT_BASE_URL + "/home");
+  })(req, res, next);
+});
 module.exports = router;

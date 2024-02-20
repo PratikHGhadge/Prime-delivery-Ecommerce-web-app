@@ -40,6 +40,22 @@ const islocation = (path) => {
   return "";
 };
 
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]); 
+
+  return debouncedValue;
+}
+
 const focus = "focus:outline-none focus:text-white focus:bg-gray-700";
 function Navbar({ children }) {
   const noOfItem = useSelector((state) => state.cart.cartItems.length);
@@ -51,8 +67,11 @@ function Navbar({ children }) {
   const [brandsArray, setBrandsArray] = useState([]);
   const dispatch = useDispatch();
 
+  const searchText = useDebounce(inputValue, 500)
+
   useEffect(() => {
-    const filter = { brand: [], category: [inputValue] };
+    if (!searchText) return 
+    const filter = { title: [searchText] };
     dispatch(
       fetchProductsByFilterAndPage({
         filter,
@@ -60,17 +79,8 @@ function Navbar({ children }) {
         limit: ITEMS_PER_PAGE,
       })
     );
-  }, [dispatch, inputValue]);
-  useEffect(() => {
-    const filter = { brand: [inputValue], category: [] };
-    dispatch(
-      fetchProductsByFilterAndPage({
-        filter,
-        page: 1,
-        limit: ITEMS_PER_PAGE,
-      })
-    );
-  }, [dispatch, inputValue]);
+  }, [searchText]);
+
 
   useEffect(() => {
     var brand = brands.map((item) => item.value);
@@ -80,22 +90,8 @@ function Navbar({ children }) {
   }, [brands, categories]);
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    // Filter categories and brands based on input value
-    const filteredCategories = categoriesArray.filter((category) =>
-      category.toLowerCase().includes(value.toLowerCase())
-    );
-    const filteredBrands = brandsArray.filter((brand) =>
-      brand.toLowerCase().includes(value.toLowerCase())
-    );
-    // Combine filtered categories and brands into suggestions
-    const combinedSuggestions = [...filteredCategories, ...filteredBrands];
-    setSuggestions(combinedSuggestions);
-  };
-
-  const handleSuggestionClick = (value) => {
-    setInputValue(value);
-    setSuggestions([]);
+    const value = e.target.value
+    setInputValue(value)
   };
 
   const location = useLocation();
@@ -228,7 +224,7 @@ function Navbar({ children }) {
                                     suggestions.length >= 1 && "bg-white"
                                   } absolute z-auto mt-2 w-full  shadow-lg rounded-md py-1`}
                                 >
-                                  {suggestions.map((suggestion, index) => (
+                                  {/* {suggestions.map((suggestion, index) => (
                                     <li
                                       key={index}
                                       onClick={() =>
@@ -238,7 +234,7 @@ function Navbar({ children }) {
                                     >
                                       {suggestion}
                                     </li>
-                                  ))}
+                                  ))} */}
                                 </ul>
                               </div>
                             </div>
