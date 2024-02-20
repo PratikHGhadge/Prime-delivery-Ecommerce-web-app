@@ -31,6 +31,13 @@ const fetchProduct = async (req, res) => {
       conditions.brand = { $in: req.query.brand };
     }
 
+    if (req.query.title) {
+      conditions.title = {
+        $regex: `${req.query.title}`,
+        $options: "i",
+      };
+    }
+
     const page = parseInt(req.query._page) || 1;
     const limit = parseInt(req.query._limit) || 10;
     const skip = (page - 1) * limit;

@@ -24,5 +24,8 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "razorpay": "^2.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
