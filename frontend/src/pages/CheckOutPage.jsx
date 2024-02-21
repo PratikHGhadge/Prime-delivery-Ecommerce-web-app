@@ -22,15 +22,15 @@ const initialValues = {
 };
 
 function CheckOutPage() {
+  const products = useSelector((state) => state.cart.cartItems);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [totalSum, setTotalSum] = new useState(0);
+  const [payment, setPaymentMethod] = useState(null);
   const currentOrder = useSelector((state) => state.order.currentOrder);
   const user = useSelector((state) => state.user.userInfo);
-  const [selectedAddress, setSelectedAddress] = useState(null);
-  const [payment, setPaymentMethod] = useState(null);
   const addresses = useSelector((state) => state.user.userInfo.addresses);
   const navigate = useNavigate();
-  const products = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-  const [totalSum, setTotalSum] = new useState(0);
   const handleQuantityChange = (e, product) => {
     dispatch(updateCart({ id: product.id, quantity: +e.target.value }));
   };
@@ -114,9 +114,9 @@ function CheckOutPage() {
                   </h3>
                   <div>
                     <ul role="list" className="divide-y divide-gray-100">
-                      {addresses?.map((person) => (
+                      {addresses?.map((person, index) => (
                         <li
-                          key={person.email}
+                          key={index}
                           className="flex justify-between gap-x-6 py-5"
                         >
                           <div className="flex min-w-0 gap-x-4">
@@ -231,8 +231,8 @@ function CheckOutPage() {
                     role="list"
                     className="border-t border-b border-gray-200 divide-y divide-gray-200"
                   >
-                    {products.map((product) => (
-                      <li key={product.product.id} className="flex py-6">
+                    {products.map((product, index) => (
+                      <li key={index} className="flex py-6">
                         <div className="flex-shrink-0">
                           <img
                             src={product.product.thumbnail}

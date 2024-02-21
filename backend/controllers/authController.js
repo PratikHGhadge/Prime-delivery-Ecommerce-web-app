@@ -36,7 +36,6 @@ const createUser = async (req, res) => {
     });
   }
 };
-
 const loginUser = async (req, res) => {
   try {
     res
@@ -56,7 +55,6 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
 const checkUser = async (req, res) => {
   try {
     if (req.user) {
@@ -71,7 +69,6 @@ const checkUser = async (req, res) => {
     });
   }
 };
-
 const logout = async (req, res) => {
   res
     .cookie("jwt", null, {

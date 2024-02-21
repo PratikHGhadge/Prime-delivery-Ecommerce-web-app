@@ -53,6 +53,7 @@ const initializePassport = (passport) => {
       try {
         // save new user record
         const user = await User.findOne({ email: email });
+
         if (!user) {
           done(null, false, { message: "no such user exists" });
         } else {

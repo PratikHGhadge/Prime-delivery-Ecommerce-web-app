@@ -64,8 +64,8 @@ function AdminOrders() {
                   </div>
                 </td>
                 <td className="py-3 px-6 text-left">
-                  {order.products[0].map((product) => (
-                    <div className="flex item-center">
+                  {order.products[0].map((product, index) => (
+                    <div className="flex item-center" key={index}>
                       <div className="mr-2">
                         <img
                           className="h-6 w-6 hover:scale-125 rounded-full"

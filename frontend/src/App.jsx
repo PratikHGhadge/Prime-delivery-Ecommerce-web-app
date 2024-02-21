@@ -172,9 +172,9 @@ function App() {
           <Route
             path="/order-success/:id"
             element={
-              // <Protected>
-              <OrderSuccessPage />
-              // </Protected>
+              <Protected>
+                <OrderSuccessPage />
+              </Protected>
             }
           />
           <Route path="/*" element={<PageNotFound></PageNotFound>} />

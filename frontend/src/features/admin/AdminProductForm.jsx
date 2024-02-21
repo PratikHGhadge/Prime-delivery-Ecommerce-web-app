@@ -169,8 +169,8 @@ function AdminProductForm({ initialValues, method }) {
                               className="block w-full  border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
                             >
                               <option>--Choose brand--</option>
-                              {brands.map((brand) => (
-                                <option value={brand.value}>
+                              {brands.map((brand, index) => (
+                                <option value={brand.value} key={index}>
                                   {brand.label}
                                 </option>
                               ))}
@@ -193,8 +193,8 @@ function AdminProductForm({ initialValues, method }) {
                               className="block w-full  border-gray-300 rounded-md border p-1 shadow-sm focus:ring-black focus:border-black sm:text-sm"
                             >
                               <option>--Choose category--</option>
-                              {categories.map((category) => (
-                                <option value={category.value}>
+                              {categories.map((category, index) => (
+                                <option key={index} value={category.value}>
                                   {category.label}
                                 </option>
                               ))}

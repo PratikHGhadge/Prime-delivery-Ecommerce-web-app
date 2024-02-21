@@ -48,8 +48,8 @@ function Cart() {
               role="list"
               className="border-t border-b bg-white px-6 rounded-lg border-gray-200 divide-y divide-gray-200"
             >
-              {products.map((product) => (
-                <li key={product?.product.id} className="flex py-6">
+              {products.map((product, index) => (
+                <li key={index} className="flex py-6">
                   <div className="flex-shrink-0">
                     <img
                       src={product?.product.thumbnail}

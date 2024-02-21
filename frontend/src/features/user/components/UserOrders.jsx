@@ -14,7 +14,7 @@ function UserOrders() {
     <div>
       {/* {console.log(orders)} */}
       {orders.map((order, index) => (
-        <div className="border-black ">
+        <div className="border-black " key={index}>
           {/* {console.log(order)} */}
           <div className="bg-white my-2 rounded-lg  p-8  mx-auto">
             <h1 className="text-3xl font-extrabold text tracking-tight text-gray-900 sm:text-4xl">

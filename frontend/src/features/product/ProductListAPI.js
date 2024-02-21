@@ -16,7 +16,6 @@ const fetchAllProducts = createAsyncThunk(
 const fetchProductsByFilterAndPage = createAsyncThunk(
   "products/fetchProductsByFilter",
   async ({ filter, page, limit }) => {
-    console.log(filter);
     let queryString = "";
     for (let key in filter) {
       // Handle arrays by converting them to query string
@@ -64,6 +63,7 @@ const createProduct = createAsyncThunk(
     return response.data;
   }
 );
+
 const editProduct = createAsyncThunk(
   "products/editProduct",
   async (product, id) => {

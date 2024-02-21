@@ -1,24 +1,12 @@
-import { Fragment, useEffect, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { sortOptions } from "./../../product/components/filtersData";
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/20/solid";
-import { Link, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   fetchProductsByFilterAndPage,
   fetchAllCategories,
   fetchAllBrands,
 } from "../../product/ProductListAPI";
 import { useDispatch, useSelector } from "react-redux";
-import Pagination from "../../product/components/Pagination";
-import Mobilefilter from "../../product/components/Mobilefilter";
 import { sortProducts } from "../../product/ProductSlice";
-import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
-import DesktopFilters from "../../product/components/DesktopFilters";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 import { useNavigate } from "react-router-dom";
 import ProductList from "../../product/components/ProductList";
 
@@ -27,12 +15,8 @@ function classNames(...classes) {
 }
 
 export default function AdminProductList() {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, totalItem, brands, categories } = useSelector(
-    (state) => state.products
-  );
   const [filter, setFilter] = useState({});
   const [page, setPage] = useState(1);
   const handleButtonClick = () => {

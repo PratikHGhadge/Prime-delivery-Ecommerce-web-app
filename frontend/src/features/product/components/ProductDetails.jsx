@@ -17,11 +17,6 @@ const highlights = [
 const details = [
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque non at itaque similique laudantium sed provident, neque delectus quas aut ipsum labore ab consequuntur doloribus eum nisi? Aliquam modi hic temporibus, vel corrupti aliquid corporis labore nihil, molestiae doloribus facere.",
 ];
-const colors = [
-  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-];
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 function classNames(...classes) {

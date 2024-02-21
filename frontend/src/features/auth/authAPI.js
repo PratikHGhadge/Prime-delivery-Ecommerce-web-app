@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import API from "../../services/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -40,7 +39,7 @@ export const loginUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Use rejectWithValue to pass a custom payload for the rejected action
-      alert("User is Unauthorized");
+      alert("Unauthorized user");
       return rejectWithValue({
         message: "Error during user logging user",
         errorDetails: error.response.data,

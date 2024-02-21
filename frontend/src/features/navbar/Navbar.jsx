@@ -51,26 +51,21 @@ function useDebounce(value, delay) {
     return () => {
       clearTimeout(handler);
     };
-  }, [value, delay]); 
+  }, [value, delay]);
 
   return debouncedValue;
 }
 
-const focus = "focus:outline-none focus:text-white focus:bg-gray-700";
 function Navbar({ children }) {
   const noOfItem = useSelector((state) => state.cart.cartItems.length);
   const userRole = useSelector((state) => state.user.userInfo?.role);
-  const { brands, categories } = useSelector((state) => state.products);
   const [inputValue, setInputValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [categoriesArray, setCategoryArray] = useState([]);
-  const [brandsArray, setBrandsArray] = useState([]);
   const dispatch = useDispatch();
 
-  const searchText = useDebounce(inputValue, 500)
+  const searchText = useDebounce(inputValue, 500);
 
   useEffect(() => {
-    if (!searchText) return 
+    if (!searchText) return;
     const filter = { title: [searchText] };
     dispatch(
       fetchProductsByFilterAndPage({
@@ -81,17 +76,9 @@ function Navbar({ children }) {
     );
   }, [searchText]);
 
-
-  useEffect(() => {
-    var brand = brands.map((item) => item.value);
-    var categorie = categories.map((item) => item.value);
-    setBrandsArray(brand);
-    setCategoryArray(categorie);
-  }, [brands, categories]);
-
   const handleInputChange = (e) => {
-    const value = e.target.value
-    setInputValue(value)
+    const value = e.target.value;
+    setInputValue(value);
   };
 
   const location = useLocation();
@@ -108,7 +95,7 @@ function Navbar({ children }) {
                     <div className="flex-shrink-0">
                       <Link to={"/home"}>
                         <img
-                          className=" hidden md:block  w-[300px] "
+                          className=" hidden md:block  w-[300px] h-[10vh] "
                           src="./assets/logo2.png"
                           alt="prime delivery"
                         />
@@ -125,9 +112,9 @@ function Navbar({ children }) {
                                 <div className="hidden md:block">
                                   <div className=" flex items-baseline space-x-4">
                                     {userRole === "admin" &&
-                                      navigation1.map((item) => (
+                                      navigation1.map((item, index) => (
                                         <Link
-                                          key={item.name}
+                                          key={index}
                                           to={item.href}
                                           className={`${
                                             location.pathname === item.href &&
@@ -141,9 +128,9 @@ function Navbar({ children }) {
                                         </Link>
                                       ))}
                                     {userRole === "user" &&
-                                      navigation2.map((item) => (
+                                      navigation2.map((item, index) => (
                                         <Link
-                                          key={item.name}
+                                          key={index}
                                           to={item.href}
                                           className={`${
                                             location.pathname === item.href &&
@@ -219,23 +206,6 @@ function Navbar({ children }) {
                                   className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-yellow-200 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out"
                                   placeholder="Search"
                                 />
-                                <ul
-                                  className={`${
-                                    suggestions.length >= 1 && "bg-white"
-                                  } absolute z-auto mt-2 w-full  shadow-lg rounded-md py-1`}
-                                >
-                                  {/* {suggestions.map((suggestion, index) => (
-                                    <li
-                                      key={index}
-                                      onClick={() =>
-                                        handleSuggestionClick(suggestion)
-                                      }
-                                      className="px-3 py-2 cursor-pointer hover:bg-gray-100"
-                                    >
-                                      {suggestion}
-                                    </li>
-                                  ))} */}
-                                </ul>
                               </div>
                             </div>
                           </div>
@@ -286,8 +256,8 @@ function Navbar({ children }) {
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
+                            {userNavigation.map((item, index) => (
+                              <Menu.Item key={index}>
                                 {({ active }) => (
                                   <Link
                                     to={item.href}
@@ -330,9 +300,9 @@ function Navbar({ children }) {
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1  pb-3 pt-2 mx-2 flex flex-col">
                   {userRole === "admin" &&
-                    navigation1.map((item) => (
+                    navigation1.map((item, index) => (
                       <Link
-                        key={item.name}
+                        key={index}
                         // as="link"
                         to={item.href}
                         className={`${
@@ -345,9 +315,9 @@ function Navbar({ children }) {
                       </Link>
                     ))}
                   {userRole === "user" &&
-                    navigation2.map((item) => (
+                    navigation2.map((item, index) => (
                       <Link
-                        key={item.name}
+                        key={index}
                         // as="link"
                         to={item.href}
                         className={`${
@@ -391,9 +361,9 @@ function Navbar({ children }) {
                     {" "}
                     Mobiles{" "}
                   </Link>
-                  {userNavigation.map((item) => (
+                  {userNavigation.map((item, index) => (
                     <Link
-                      key={item.name}
+                      key={index}
                       to={item.href}
                       className={`${
                         location.pathname === item.href &&

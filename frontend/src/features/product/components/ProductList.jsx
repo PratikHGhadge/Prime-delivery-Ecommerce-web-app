@@ -32,6 +32,7 @@ export default function ProductList() {
     { id: "brand", name: "Brand", options: brands },
     { id: "category", name: "Category", options: categories },
   ];
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({});
@@ -132,7 +133,7 @@ export default function ProductList() {
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
-                        {sortOptions.map((option) => (
+                        {sortOptions.map((option, index) => (
                           <Menu.Item key={option.name}>
                             {({ active }) => (
                               <button
@@ -189,11 +190,8 @@ export default function ProductList() {
                 {/* Product grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {products.map((product) => (
-                    <Link to={`/product-detail/${product.id}`}>
-                      <div
-                        className="container mx-auto py-8 relative"
-                        key={product.id}
-                      >
+                    <Link to={`/product-detail/${product.id}`} key={product.id}>
+                      <div className="container mx-auto py-8 relative">
                         <div className="">
                           {/* Sample sale items */}
 
@@ -217,12 +215,12 @@ export default function ProductList() {
                                   ${product.price}
                                 </span>
                               </p>
-                              <p className="flex  items-center mb-4 text-sm text-gray-900">
+                              <div className="flex  items-center mb-4 text-sm text-gray-900">
                                 <div className="w-[11px] h-[11px] mr-1">
                                   <StarIcon />
                                 </div>
                                 {product.rating}
-                              </p>
+                              </div>
                             </div>
 
                             <button

@@ -6,7 +6,6 @@ export const createOrder = createAsyncThunk(
   "order/createOrder",
   async (order) => {
     try {
-      console.log(order);
       const response = await API.post("/orders", order);
       for (let i = 0; i < order.products.length; i++) {}
       return response.data;
@@ -43,7 +42,6 @@ export const razorpayCheckoutHandler = createAsyncThunk(
   "products/razorpayCheckoutHandler",
   async (amount) => {
     const response = await API.post("/payment/checkout", { amount: amount });
-    console.log(response.data);
     const order = response.data.data;
     const options = {
       key: import.meta.env.VITE_RAZORPAY_API_ID,
@@ -68,7 +66,6 @@ export const razorpayCheckoutHandler = createAsyncThunk(
         color: "#363636",
       },
     };
-    console.log(options);
     const razor = new window.Razorpay(options);
     razor.open();
     return order;
