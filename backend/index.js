@@ -16,7 +16,7 @@ server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_BASE_URL,
   })
 );
 // mongodb connection
