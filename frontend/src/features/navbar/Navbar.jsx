@@ -276,7 +276,7 @@ function Navbar({ children }) {
                       </Menu>
                     </div>
                   </div>
-                  <div className="-mr-2 flex md:hidden">
+                  <div className="-mr-2 flex lg:hidden">
                     {/* Mobile menu button */}
                     <Disclosure.Button className="relative ml-1 p-4 inline-flex items-center justify-center rounded-md  bg-custom-darkred4  text-white hover:bg-custom-darkblue4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
@@ -297,7 +297,7 @@ function Navbar({ children }) {
                 </div>
               </div>
 
-              <Disclosure.Panel className="md:hidden">
+              <Disclosure.Panel className="lg:hidden">
                 <div className="space-y-1  pb-3 pt-2 mx-2 flex flex-col">
                   {userRole === "admin" &&
                     navigation1.map((item, index) => (
