@@ -36,7 +36,7 @@ function Login() {
   };
 
   const handleLogin = async () => {
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open("https://prime-delivery-ecommerce-web-app.onrender.com/auth/google", "_self");
   };
 
   return (
