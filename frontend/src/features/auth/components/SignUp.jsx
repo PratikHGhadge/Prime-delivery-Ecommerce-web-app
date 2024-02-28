@@ -33,7 +33,7 @@ function SignUp() {
     }
   };
   const handleSignUp = async () => {
-    window.open("https://prime-delivery-ecommerce-web-app.onrender.com/auth/google", "_self");
+    window.open(import.meta.env.GOOGLE_CALLBACK_URL, "_self");
   };
 
   return (
