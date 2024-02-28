@@ -47,13 +47,13 @@ export const razorpayCheckoutHandler = createAsyncThunk(
       key: import.meta.env.VITE_RAZORPAY_API_ID,
       amount: order.amount,
       currency: "INR",
-      name: "Pratik Ghdge",
+      name: "Pratik Ghadge",
       description: "Test Transaction",
       image: "",
       order_id: order.id,
       callback_url: `${
         import.meta.env.VITE_BASE_URL
-      }/payment/payment-verification`,
+      }payment/payment-verification`,
       prefill: {
         name: "Pratik Ghadge",
         email: "gaurav.kumar@example.com",
