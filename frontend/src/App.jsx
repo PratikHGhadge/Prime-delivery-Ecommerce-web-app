@@ -111,7 +111,7 @@ function App() {
               </Protected>
             }
           />
-          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/" element={<SignUpPage />} />
           <Route
             path="/cart"
             element={
