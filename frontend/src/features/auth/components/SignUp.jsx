@@ -33,7 +33,7 @@ function SignUp() {
     }
   };
   const handleSignUp = async () => {
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open(import.meta.env.VITE_GOOGLE_CALLBACK_URL, "_self");
   };
 
   return (

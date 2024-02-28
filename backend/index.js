@@ -19,6 +19,12 @@ server.use(
     origin: process.env.CLIENT_BASE_URL,
   })
 );
+
+
+
+
+
+
 // mongodb connection
 connectDB()
   .then(() => {})
