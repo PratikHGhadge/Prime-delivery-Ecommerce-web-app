@@ -33,7 +33,7 @@ function SignUp() {
     }
   };
   const handleSignUp = async () => {
-    window.open(import.meta.env.GOOGLE_CALLBACK_URL, "_self");
+    window.open(import.meta.env.VITE_GOOGLE_CALLBACK_URL, "_self");
   };
 
   return (
