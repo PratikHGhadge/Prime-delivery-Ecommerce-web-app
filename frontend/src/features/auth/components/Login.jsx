@@ -126,7 +126,7 @@ function Login() {
             </Formik>
 
             <Link
-              to="/signup"
+              to="/"
               className="font-medium text-custom-blue hover:text-custom-darkblue1"
             >
               <p className="mt-6 text-center text-sm text-gray-600">
