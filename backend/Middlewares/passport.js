@@ -18,7 +18,7 @@ const initializePassport = (passport) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "process.env.CLIENT_BASE_URL",
+        callbackURL: "https://prime-delivery-ecommerce-web-app.onrender.com",
       },
       async (accessToken, refreshToken, profile, cb) => {
         try {
