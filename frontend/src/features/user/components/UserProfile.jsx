@@ -32,7 +32,7 @@ function UserProfile() {
       </h1>
       <div className="bg-gray-50 my-2 border-gray-300 border-2 p-8 rounded-md  mx-auto">
         <h1 className="text-3xl font-bold  text-gray-900 sm:text-4xl">
-          Name : {addresses[0].name}
+          Name : {addresses[0]?.name}
           {/* console.log(addresses) */}
         </h1>
         <h3 className=" text-gray-900 ">email : {user.email}</h3>
