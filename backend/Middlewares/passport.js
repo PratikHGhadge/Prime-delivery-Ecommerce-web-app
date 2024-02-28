@@ -18,7 +18,7 @@ const initializePassport = (passport) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "https://prime-delivery-ecommerce-web-app.onrender.com",
+        callbackURL: "https://prime-delivery-ecommerce-web-app.onrender.com/auth/google/callback",
       },
       async (accessToken, refreshToken, profile, cb) => {
         try {
