@@ -34,11 +34,11 @@ router.get("/google/callback", function (req, res, next) {
     const newUser = await User.findOne({ email: user.email })
     // generate jwt token
     const token = jwt.sign(sanitizeUser(newUser), process.env.SECRET_KEY)
-
+    console.log(token)
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: "None",
       expires: new Date(Date.now() + 3600000),
     })
     // store the token into cookies and send the response
