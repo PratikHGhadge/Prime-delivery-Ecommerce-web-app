@@ -1,18 +1,18 @@
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("../Models/User");
-const crypto = require("crypto");
-const { sanitizeUser } = require("../services/common");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const jwt = require("jsonwebtoken");
-const { cookieExtractor } = require("../services/common");
+const GoogleStrategy = require("passport-google-oauth20").Strategy
+const LocalStrategy = require("passport-local").Strategy
+const User = require("../Models/User")
+const crypto = require("crypto")
+const { sanitizeUser } = require("../services/common")
+const JwtStrategy = require("passport-jwt").Strategy
+const ExtractJwt = require("passport-jwt").ExtractJwt
+const jwt = require("jsonwebtoken")
+const { cookieExtractor } = require("../services/common")
 // Passport strategy
 const initializePassport = (passport) => {
   // JWT OPTIONS
-  var opts = {};
-  opts.jwtFromRequest = cookieExtractor;
-  opts.secretOrKey = process.env.SECRET_KEY;
+  var opts = {}
+  opts.jwtFromRequest = cookieExtractor
+  opts.secretOrKey = process.env.SECRET_KEY
   passport.use(
     new GoogleStrategy(
       {
@@ -23,9 +23,9 @@ const initializePassport = (passport) => {
       async (accessToken, refreshToken, profile, cb) => {
         try {
           // Check if user already exists in your database
-          let user = await User.findOne({ email: profile.emails[0].value });
+          let user = await User.findOne({ email: profile.emails[0].value })
           if (user) {
-            return cb(null, user);
+            return cb(null, user)
           }
           // If user does not exist, create a new user
           user = new User({
@@ -33,15 +33,15 @@ const initializePassport = (passport) => {
             email: profile.emails[0].value,
             name: profile.displayName,
             // Add any other relevant user information from the Google profile
-          });
-          await user.save();
-          return cb(null, user);
+          })
+          await user.save()
+          return cb(null, user)
         } catch (error) {
-          return cb(error, null);
+          return cb(error, null)
         }
       }
     )
-  );
+  )
 
   // local strategy
   passport.use(
@@ -52,10 +52,10 @@ const initializePassport = (passport) => {
     ) {
       try {
         // save new user record
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: email })
 
         if (!user) {
-          done(null, false, { message: "no such user exists" });
+          done(null, false, { message: "no such user exists" })
         } else {
           crypto.pbkdf2(
             password,
@@ -68,48 +68,48 @@ const initializePassport = (passport) => {
                 const token = jwt.sign(
                   sanitizeUser(user),
                   process.env.SECRET_KEY
-                );
-                done(null, token);
+                )
+                done(null, token)
               } else {
-                done(null, false, { message: "Invalid credentials" });
+                done(null, false, { message: "Invalid credentials" })
               }
             }
-          );
+          )
         }
       } catch (error) {
-        done(error);
+        done(error)
       }
     })
-  );
+  )
 
   // jwt strategy
   passport.use(
     new JwtStrategy(opts, async function (jwt_payload, done) {
       try {
-        const user = await User.findById(jwt_payload.id);
+        const user = await User.findById(jwt_payload.id)
         if (user) {
-          return done(null, user);
+          return done(null, user)
         } else {
-          return done(null, false);
+          return done(null, false)
         }
       } catch (error) {
-        return done(error, false);
+        return done(error, false)
       }
     })
-  );
+  )
 
   // this creates session variable req.user on being called from callbacks
   passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
-      return cb(null, sanitizeUser(user));
-    });
-  });
+      return cb(null, sanitizeUser(user))
+    })
+  })
   // this creates session variable req.user when called from
   passport.deserializeUser(function (user, cb) {
     process.nextTick(function () {
-      return cb(null, user);
-    });
-  });
-};
+      return cb(null, user)
+    })
+  })
+}
 
-module.exports = { initializePassport };
+module.exports = { initializePassport }
