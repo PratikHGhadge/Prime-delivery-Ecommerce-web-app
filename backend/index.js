@@ -16,7 +16,11 @@ server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
     credentials: true,
-    origin: "*",
+    origin: [
+      "http://localhost:5173",
+      "https://eclectic-florentine-199961.netlify.app",
+      "https://prime-delivery-ecommerce-web-app.vercel.app",
+    ],
   })
 )
 
