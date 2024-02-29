@@ -12,7 +12,7 @@ const MobilesPage = () => {
     (state) => state.products
   );
   useEffect(() => {
-    const newFilter = { category: ["smartphones"] };
+    const newFilter = { category: ["Electronics"] };
     dispatch(
       fetchProductsByFilterAndPage({
         filter: newFilter,
