@@ -38,7 +38,7 @@ router.get("/google/callback", function (req, res, next) {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "None",
+      // sameSite: "None",
       expires: new Date(Date.now() + 3600000),
     })
     // store the token into cookies and send the response
