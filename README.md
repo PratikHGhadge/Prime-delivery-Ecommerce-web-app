@@ -21,7 +21,7 @@ Welcome to our E-commerce project repository! This project is a comprehensive e-
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/your-username/your-repo.git```
 
 2. Install dependencies:
 ```bash
@@ -31,7 +31,7 @@ npm install
 3. Start the development server
 ```bash
 npm run dev
-GitHub Repository
+GitHub Repository```
 
 App Demo
 🌐 App Demo [https://eclectic-florentine-199961.netlify.app/]
