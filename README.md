@@ -39,18 +39,26 @@ App Demo
 
 
 ## screenshots
-![Screenshot from 2024-03-02 16-01-41](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/727038a9-eab5-461f-97fb-b2563670bca0)
-![Screenshot from 2024-03-02 16-02-31](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/f6ffda05-c265-463d-9979-d6e896b08e6d)
-![Screenshot from 2024-03-02 16-02-57](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/![Screenshot from 2024-03-02 16-03-10](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/b3d8555f-fe84-4076-a9c4-9c54238f4064)
-42baaf17-b74d-438b-bf8f-0d7dc4458bd3)
-![Screenshot from 2024-03-02 16-03-17](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/c5c07aa7-c867-4de1-ba87-6f0bb32ca1ae)
-![Screenshot from 2024-03-02 16-03-25](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/c40140e5-9b49-4f4a-ad6e-c7b237c7ab67)
-![Screenshot from 2024-03-02 16-03-32](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/d4d21fa2-418c-441![Screenshot from 2024-03-02 16-03-45](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/45dcf1e3-ee64-41e2-876e-9c0303aaf8d7)
-7-ae6c-de23bd6fe6a6)
-![Screenshot from 2024-03-02 16-03-51](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/206c8a41-10b2-441d-b0d5-2ed6f4f95cb3)
-![Screenshot from 2024-03-02 16-04-12](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/aac46e93-76b6-449f-965c-787a52cb40a0)
-![Screenshot from 2024-03-02 16-05-02](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/a029966c-fdc9-4c11-b04a-70444aeb13a4)
+![Screenshot from 2024-03-02 16-01-41](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/c773c1c7-3b06-4ef1-8545-a7839f4a64df)
 
+![Screenshot from 2024-03-02 16-02-31](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/d06e101e-9d72-44e7-aa0c-13bf20ac2275)
 
+![Screenshot from 2024-03-02 16-02-57](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/14e81fd8-6c19-4244-9b28-e014d162917d)
+
+![Screenshot from 2024-03-02 16-03-10](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/54246f81-9226-4df0-8be1-732f73091b83)
+
+![Screenshot from 2024-03-02 16-03-17](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/5a79ea4a-3317-4d78-a70e-b862095b563a)
+
+![Screenshot from 2024-03-02 16-03-25](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/67eef4f4-6e4d-4db6-8ff3-9a0bfdece5c0)
+
+![Screenshot from 2024-03-02 16-03-32](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/efdb43ee-f6de-4286-99f0-da757bf32841)
+
+![Screenshot from 2024-03-02 16-03-45](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/9d0e506e-b4f7-4a52-a1f8-d67de73f3f1d)
+
+![Screenshot from 2024-03-02 16-03-51](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/46566aa2-b044-4a43-a655-3b93274cc622)
+
+![Screenshot from 2024-03-02 16-04-12](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/7090c01a-65d7-4496-9a30-cc1f6f9df6c0)
+
+![Screenshot from 2024-03-02 16-05-02](https://github.com/PratikHGhadge/Prime-delivery-Ecommerce-web-app/assets/93422248/a2ad3d0e-9bdc-4cc1-9d1c-ae6311323aa2)
 
 Feel free to explore the codebase and contribute to the project. Happy coding! 🚀🛒
