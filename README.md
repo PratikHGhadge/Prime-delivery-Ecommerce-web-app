@@ -16,21 +16,6 @@ Welcome to our E-commerce project repository! This project is a comprehensive e-
 - Product lists, details, cart, checkout, sorting, filtering, and pagination
 - Secure payment processing with Razorpay integration
 
-## Installation
-
-1. Clone the repository:
-
-git clone https://github.com/your-username/your-repo.git
-
-2. Install dependencies:
-
-cd your-repo
-npm install
-
-3. Start the development server
-
-npm run dev
-GitHub Repository
 
 App Demo
 🌐 App Demo [https://eclectic-florentine-199961.netlify.app/]
